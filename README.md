@@ -1,4 +1,4 @@
-# j-xadrez
+# J-Xadrez
 Xadrez em java
 ## Features:
 - Tela de login
