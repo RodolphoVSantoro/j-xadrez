@@ -9,7 +9,7 @@ public abstract class LeitorImagem {
         try {
             return ImageIO.read(new java.io.File(path));
         } catch (java.io.IOException e) {
-            System.out.println("Erro ao ler imagem: " + path);
+            System.err.println("Erro ao ler imagem: " + path);
             throw new RuntimeException(e);
         }
     }

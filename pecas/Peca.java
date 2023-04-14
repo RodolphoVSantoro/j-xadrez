@@ -2,6 +2,7 @@ package pecas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import gui.Sprite;
@@ -13,19 +14,33 @@ import tabuleiro.Tabuleiro;
 public abstract class Peca {
     private Cor cor;
     private IdPeca id;
-    private Posicao posicao;
+    private Posicao posicaoTabuleiro;
     private boolean capturada;
     private Tabuleiro tabuleiro;
     private Sprite sprite;
 
-    public Peca(Posicao posicao, Cor cor, IdPeca id, Tabuleiro tabuleiro) {
-        this.cor = cor;
-        this.id = id;
-        this.posicao = posicao;
+    public Peca(Posicao posicaoTabuleiro, Cor cor, IdPeca id, Tabuleiro tabuleiro) {
         this.capturada = false;
         this.tabuleiro = tabuleiro;
+
+        this.id = id;
+        this.cor = cor;
         Image image = Config.IMAGENS_PECAS.get(this.cor).get(this.id);
-        this.sprite = new Sprite(image, posicao);
+
+        this.sprite = new Sprite(image, posicaoTabuleiro);
+        this.setPosicaoTabuleiro(posicaoTabuleiro);
+    }
+
+    // deve ser chamada por tentaMover
+    private void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
+        this.posicaoTabuleiro = posicaoTabuleiro;
+        int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
+        int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
+        this.sprite.move(spriteX, spriteY);
+    }
+
+    public Posicao getPosicaoTabuleiro() {
+        return new Posicao(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y);
     }
 
     protected abstract boolean podeMover(Posicao posicao);
@@ -51,7 +66,7 @@ public abstract class Peca {
         return movimentosPossiveis;
     }
 
-    public void desenha(Graphics graphics) {
-        this.sprite.desenha(graphics);
+    public void desenha(Graphics graphics, ImageObserver observer) {
+        this.sprite.desenha(graphics, observer);
     }
 }

@@ -14,7 +14,7 @@ public abstract class SpritesXadrez {
     private static HashMap<IdPeca, Image> inicializaSpritesBrancos() {
         HashMap<IdPeca, Image> IMAGENS_PECAS_BRANCAS = new HashMap<IdPeca, Image>();
 
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, IdPeca.PEAO, "peao_branco.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, IdPeca.PEAO, "peao_preto.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, IdPeca.TORRE, "torre_branca.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, IdPeca.CAVALO, "cavalo_branco.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, IdPeca.BISPO, "bispo_branco.png");
@@ -27,7 +27,7 @@ public abstract class SpritesXadrez {
     private static HashMap<IdPeca, Image> inicializaSpritesPretos() {
         HashMap<IdPeca, Image> IMAGENS_PECAS_PRETAS = new HashMap<IdPeca, Image>();
 
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, IdPeca.PEAO, "peao_preto.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, IdPeca.PEAO, "peao_branco.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, IdPeca.TORRE, "torre_preta.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, IdPeca.CAVALO, "cavalo_preto.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, IdPeca.BISPO, "bispo_preto.png");

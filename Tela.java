@@ -9,9 +9,9 @@ import javax.swing.WindowConstants;
 import java.util.ArrayList;
 
 import pecas.Peca;
+import pecas.SetupPecas;
 import utils.Config;
 import utils.Cor;
-import tabuleiro.SetupPecas;
 import tabuleiro.Tabuleiro;
 
 class Tela extends JFrame {
@@ -28,7 +28,9 @@ class Tela extends JFrame {
                 // set color to black
                 graphics.setColor(Color.black);
                 // draw a square
-                tabuleiro.desenha(graphics);
+                tabuleiro.desenha(graphics, this);
+                pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
+                pecasPretas.forEach(peca -> peca.desenha(graphics, this));
             }
         };
 
@@ -43,8 +45,8 @@ class Tela extends JFrame {
     // Main Method
     public static void main(String args[]) {
         Tabuleiro tabuleiro = new Tabuleiro();
-        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
-        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
+        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO, tabuleiro);
+        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO, tabuleiro);
         Tela tela = new Tela(tabuleiro, pecasBrancas, pecasPretas);
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
