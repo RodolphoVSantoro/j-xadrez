@@ -18,7 +18,7 @@ class Tela extends JFrame {
 
     // constructor
     Tela(Tabuleiro tabuleiro, ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
-        super("xadrez");
+        super(Config.TITULO);
 
         // create a empty canvas
         Canvas canvas = new Canvas() {
