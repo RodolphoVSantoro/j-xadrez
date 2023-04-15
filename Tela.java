@@ -7,11 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import config.Config;
+import config.SetupPecas;
 
 import java.util.ArrayList;
 
 import pecas.Peca;
-import pecas.SetupPecas;
 import utils.Cor;
 import tabuleiro.Tabuleiro;
 

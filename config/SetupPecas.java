@@ -1,9 +1,16 @@
-package pecas;
+package config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import config.Config;
+import pecas.Bispo;
+import pecas.Cavalo;
+import pecas.Dama;
+import pecas.Peao;
+import pecas.Peca;
+import pecas.Rei;
+import pecas.TipoPeca;
+import pecas.Torre;
 import tabuleiro.Tabuleiro;
 import utils.Cor;
 import utils.Posicao;
