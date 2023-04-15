@@ -45,9 +45,9 @@ class Tela extends JFrame {
 
     // Main Method
     public static void main(String args[]) {
-        Tabuleiro tabuleiro = new Tabuleiro();
-        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO, tabuleiro);
-        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO, tabuleiro);
+        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
+        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
+        Tabuleiro tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
         Tela tela = new Tela(tabuleiro, pecasBrancas, pecasPretas);
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }

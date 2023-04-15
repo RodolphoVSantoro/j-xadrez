@@ -19,9 +19,9 @@ public abstract class Peca {
     private Tabuleiro tabuleiro;
     private Sprite sprite;
 
-    public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca id, Tabuleiro tabuleiro) {
+    public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca id) {
         this.capturada = false;
-        this.tabuleiro = tabuleiro;
+        this.tabuleiro = null;
 
         this.id = id;
         this.cor = cor;
@@ -29,6 +29,10 @@ public abstract class Peca {
 
         this.sprite = new Sprite(image, posicaoTabuleiro);
         this.setPosicaoTabuleiro(posicaoTabuleiro);
+    }
+
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
     }
 
     // deve ser chamada por tentaMover
