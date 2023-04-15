@@ -1,10 +1,9 @@
 package tabuleiro;
 
-import utils.Config;
-
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
+import config.Config;
 import gui.Sprite;
 
 public class Tabuleiro {

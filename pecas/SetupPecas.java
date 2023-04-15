@@ -3,8 +3,8 @@ package pecas;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import config.Config;
 import tabuleiro.Tabuleiro;
-import utils.Config;
 import utils.Cor;
 import utils.Posicao;
 

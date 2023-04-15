@@ -1,9 +1,13 @@
-package utils;
+package config;
 
 import java.awt.Image;
 import java.util.HashMap;
 
 import pecas.TipoPeca;
+import utils.Cor;
+import utils.LeitorImagem;
+import utils.Posicao;
+import utils.SpritesXadrez;
 
 public abstract class Config {
     public static final int LARGURA_TELA = 1000;

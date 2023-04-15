@@ -6,11 +6,12 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import config.Config;
+
 import java.util.ArrayList;
 
 import pecas.Peca;
 import pecas.SetupPecas;
-import utils.Config;
 import utils.Cor;
 import tabuleiro.Tabuleiro;
 

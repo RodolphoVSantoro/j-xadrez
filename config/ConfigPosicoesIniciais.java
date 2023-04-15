@@ -1,8 +1,10 @@
-package utils;
+package config;
 
 import java.util.HashMap;
 
 import pecas.TipoPeca;
+import utils.Cor;
+import utils.Posicao;
 
 public final class ConfigPosicoesIniciais {
     public static HashMap<Cor, HashMap<TipoPeca, Posicao[]>> inicializa() {

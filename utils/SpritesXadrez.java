@@ -3,6 +3,7 @@ package utils;
 import java.awt.Image;
 import java.util.HashMap;
 
+import config.Config;
 import pecas.TipoPeca;
 
 public abstract class SpritesXadrez {

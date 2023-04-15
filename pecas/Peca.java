@@ -5,10 +5,10 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
+import config.Config;
 import gui.Sprite;
 import utils.Cor;
 import utils.Posicao;
-import utils.Config;
 import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
