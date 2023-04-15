@@ -23,8 +23,8 @@ public final class SetupPecas {
         for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.PEAO)) {
             pecas.add(new Peao(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.RAINHA)) {
-            pecas.add(new Rainha(posicao, cor, tabuleiro));
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.DAMA)) {
+            pecas.add(new Dama(posicao, cor, tabuleiro));
         }
         for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.REI)) {
             pecas.add(new Rei(posicao, cor, tabuleiro));

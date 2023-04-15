@@ -5,10 +5,10 @@ import utils.Cor;
 
 import tabuleiro.Tabuleiro;
 
-public class Rainha extends Peca {
+public class Dama extends Peca {
 
-    public Rainha(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
-        super(posicao, cor, TipoPeca.RAINHA, tabuleiro);
+    public Dama(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
+        super(posicao, cor, TipoPeca.DAMA, tabuleiro);
     }
 
     @Override

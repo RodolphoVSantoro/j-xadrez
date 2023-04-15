@@ -1,5 +1,5 @@
 package pecas;
 
 public enum TipoPeca {
-    PEAO, TORRE, CAVALO, BISPO, RAINHA, REI;
+    PEAO, TORRE, CAVALO, BISPO, DAMA, REI;
 }

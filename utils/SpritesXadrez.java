@@ -18,7 +18,7 @@ public abstract class SpritesXadrez {
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.TORRE, "torre_branca.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.CAVALO, "cavalo_branco.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.BISPO, "bispo_branco.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.RAINHA, "rainha_branca.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.DAMA, "dama_branca.png");
         tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.REI, "rei_branco.png");
 
         return IMAGENS_PECAS_BRANCAS;
@@ -31,7 +31,7 @@ public abstract class SpritesXadrez {
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.TORRE, "torre_preta.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.CAVALO, "cavalo_preto.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.BISPO, "bispo_preto.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.RAINHA, "rainha_preta.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.DAMA, "dama_preta.png");
         tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.REI, "rei_preto.png");
 
         return IMAGENS_PECAS_PRETAS;
