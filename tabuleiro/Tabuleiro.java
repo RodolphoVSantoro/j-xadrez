@@ -9,9 +9,9 @@ import gui.Sprite;
 import pecas.Peca;
 
 public class Tabuleiro {
-    Sprite sprite;
-    ArrayList<Peca> pecasBrancas;
-    ArrayList<Peca> pecasPretas;
+    private Sprite sprite;
+    private ArrayList<Peca> pecasBrancas;
+    private ArrayList<Peca> pecasPretas;
 
     public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
         this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);

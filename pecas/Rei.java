@@ -3,12 +3,10 @@ package pecas;
 import utils.Posicao;
 import utils.Cor;
 
-import tabuleiro.Tabuleiro;
-
 public class Rei extends Peca {
 
-    public Rei(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
-        super(posicao, cor, TipoPeca.REI, tabuleiro);
+    public Rei(Posicao posicao, Cor cor) {
+        super(posicao, cor, TipoPeca.REI);
     }
 
     @Override

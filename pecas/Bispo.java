@@ -1,13 +1,12 @@
 package pecas;
 
 import utils.Posicao;
-import tabuleiro.Tabuleiro;
 import utils.Cor;
 
 public class Bispo extends Peca {
 
-    public Bispo(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
-        super(posicao, cor, TipoPeca.BISPO, tabuleiro);
+    public Bispo(Posicao posicao, Cor cor) {
+        super(posicao, cor, TipoPeca.BISPO);
     }
 
     @Override
