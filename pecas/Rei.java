@@ -8,7 +8,7 @@ import tabuleiro.Tabuleiro;
 public class Rei extends Peca {
 
     public Rei(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
-        super(posicao, cor, IdPeca.REI, tabuleiro);
+        super(posicao, cor, TipoPeca.REI, tabuleiro);
     }
 
     @Override

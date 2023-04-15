@@ -1,5 +1,5 @@
 package pecas;
 
-public enum IdPeca {
+public enum TipoPeca {
     PEAO, TORRE, CAVALO, BISPO, RAINHA, REI;
 }

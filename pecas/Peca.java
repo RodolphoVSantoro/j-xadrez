@@ -13,13 +13,13 @@ import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
     private Cor cor;
-    private IdPeca id;
+    private TipoPeca id;
     private Posicao posicaoTabuleiro;
     private boolean capturada;
     private Tabuleiro tabuleiro;
     private Sprite sprite;
 
-    public Peca(Posicao posicaoTabuleiro, Cor cor, IdPeca id, Tabuleiro tabuleiro) {
+    public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca id, Tabuleiro tabuleiro) {
         this.capturada = false;
         this.tabuleiro = tabuleiro;
 

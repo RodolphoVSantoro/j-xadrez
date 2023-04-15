@@ -7,7 +7,7 @@ import utils.Cor;
 public class Bispo extends Peca {
 
     public Bispo(Posicao posicao, Cor cor, Tabuleiro tabuleiro) {
-        super(posicao, cor, IdPeca.BISPO, tabuleiro);
+        super(posicao, cor, TipoPeca.BISPO, tabuleiro);
     }
 
     @Override

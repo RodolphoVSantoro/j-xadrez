@@ -12,24 +12,24 @@ public final class SetupPecas {
     public static ArrayList<Peca> setup(Cor cor, Tabuleiro tabuleiro) {
         ArrayList<Peca> pecas = new ArrayList<Peca>();
 
-        HashMap<IdPeca, Posicao[]> configPosicoesIniciais = Config.POSICOES_INICIAIS.get(cor);
+        HashMap<TipoPeca, Posicao[]> configPosicoesIniciais = Config.POSICOES_INICIAIS.get(cor);
 
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.BISPO)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.BISPO)) {
             pecas.add(new Bispo(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.CAVALO)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.CAVALO)) {
             pecas.add(new Cavalo(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.PEAO)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.PEAO)) {
             pecas.add(new Peao(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.RAINHA)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.RAINHA)) {
             pecas.add(new Rainha(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.REI)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.REI)) {
             pecas.add(new Rei(posicao, cor, tabuleiro));
         }
-        for (Posicao posicao : configPosicoesIniciais.get(IdPeca.TORRE)) {
+        for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.TORRE)) {
             pecas.add(new Torre(posicao, cor, tabuleiro));
         }
         return pecas;
