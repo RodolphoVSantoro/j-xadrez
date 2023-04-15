@@ -1,8 +1,8 @@
 # J-Xadrez
 Xadrez em java
 ## Features:
-- Tela de login
-- IA que vence do Kaio
+- IA com seleção de dificuldade
+- 2 jogadores local
 ## Como rodar:
 - Clone o repositório
 - Instale java e make
