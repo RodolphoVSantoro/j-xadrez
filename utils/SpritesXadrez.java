@@ -7,41 +7,28 @@ import config.Config;
 import pecas.TipoPeca;
 
 public abstract class SpritesXadrez {
-    private static void tentaAdicionarImagem(HashMap<TipoPeca, Image> map, TipoPeca id, String path) {
+    private static void tentaAdicionarImagem(HashMap<TipoPeca, Image> map, TipoPeca tipoPeca, String path) {
         Image image = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + path);
-        map.put(id, image);
+        map.put(tipoPeca, image);
     }
 
-    private static HashMap<TipoPeca, Image> inicializaSpritesBrancos() {
+    private static HashMap<TipoPeca, Image> inicializaSpritesPecas(Cor cor) {
         HashMap<TipoPeca, Image> IMAGENS_PECAS_BRANCAS = new HashMap<TipoPeca, Image>();
-
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.PEAO, "peao_branco.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.TORRE, "torre_branca.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.CAVALO, "cavalo_branco.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.BISPO, "bispo_branco.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.DAMA, "dama_branca.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.REI, "rei_branco.png");
+        String path = cor == Cor.PRETO ? "pecas/preto/" : "pecas/branco/";
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.PEAO, path + "peao.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.TORRE, path + "torre.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.CAVALO, path + "cavalo.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.BISPO, path + "bispo.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.DAMA, path + "dama.png");
+        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.REI, path + "rei.png");
 
         return IMAGENS_PECAS_BRANCAS;
     }
 
-    private static HashMap<TipoPeca, Image> inicializaSpritesPretos() {
-        HashMap<TipoPeca, Image> IMAGENS_PECAS_PRETAS = new HashMap<TipoPeca, Image>();
-
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.PEAO, "peao_preto.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.TORRE, "torre_preta.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.CAVALO, "cavalo_preto.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.BISPO, "bispo_preto.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.DAMA, "dama_preta.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_PRETAS, TipoPeca.REI, "rei_preto.png");
-
-        return IMAGENS_PECAS_PRETAS;
-    }
-
     public static HashMap<Cor, HashMap<TipoPeca, Image>> inicializaSprites() {
         HashMap<Cor, HashMap<TipoPeca, Image>> IMAGENS_PECAS = new HashMap<Cor, HashMap<TipoPeca, Image>>();
-        IMAGENS_PECAS.put(Cor.PRETO, inicializaSpritesPretos());
-        IMAGENS_PECAS.put(Cor.BRANCO, inicializaSpritesBrancos());
+        IMAGENS_PECAS.put(Cor.PRETO, inicializaSpritesPecas(Cor.PRETO));
+        IMAGENS_PECAS.put(Cor.BRANCO, inicializaSpritesPecas(Cor.BRANCO));
         return IMAGENS_PECAS;
     };
 
