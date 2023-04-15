@@ -26,10 +26,10 @@ public final class ConfigPosicoesIniciais {
         Posicao[] BISPOS = { new Posicao(2, 0), new Posicao(5, 0) };
         posicoes.put(TipoPeca.BISPO, BISPOS);
 
-        Posicao[] DAMA = { new Posicao(4, 0) };
+        Posicao[] DAMA = { new Posicao(3, 0) };
         posicoes.put(TipoPeca.DAMA, DAMA);
 
-        Posicao[] REI = { new Posicao(3, 0) };
+        Posicao[] REI = { new Posicao(4, 0) };
         posicoes.put(TipoPeca.REI, REI);
 
         Posicao[] PEAO = {
@@ -59,10 +59,10 @@ public final class ConfigPosicoesIniciais {
         Posicao[] BISPOS = { new Posicao(2, 7), new Posicao(5, 7) };
         posicoes.put(TipoPeca.BISPO, BISPOS);
 
-        Posicao[] DAMA = { new Posicao(4, 7) };
+        Posicao[] DAMA = { new Posicao(3, 7) };
         posicoes.put(TipoPeca.DAMA, DAMA);
 
-        Posicao[] REI = { new Posicao(3, 7) };
+        Posicao[] REI = { new Posicao(4, 7) };
         posicoes.put(TipoPeca.REI, REI);
 
         Posicao[] PEAO = {
