@@ -13,19 +13,19 @@ import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
     private Cor cor;
-    private TipoPeca id;
+    private TipoPeca tipoPeca;
     private Posicao posicaoTabuleiro;
     private boolean capturada;
     private Tabuleiro tabuleiro;
     private Sprite sprite;
 
-    public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca id) {
+    public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca tipoPeca) {
         this.capturada = false;
         this.tabuleiro = null;
 
-        this.id = id;
+        this.tipoPeca = tipoPeca;
         this.cor = cor;
-        Image image = Config.IMAGENS_PECAS.get(this.cor).get(this.id);
+        Image image = Config.IMAGENS_PECAS.get(this.cor).get(this.tipoPeca);
 
         this.sprite = new Sprite(image, posicaoTabuleiro);
         this.setPosicaoTabuleiro(posicaoTabuleiro);
