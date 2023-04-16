@@ -13,16 +13,16 @@ public abstract class SpritesXadrez {
     }
 
     private static HashMap<TipoPeca, Image> inicializaSpritesPecas(Cor cor) {
-        HashMap<TipoPeca, Image> IMAGENS_PECAS_BRANCAS = new HashMap<TipoPeca, Image>();
+        HashMap<TipoPeca, Image> IMAGENS = new HashMap<TipoPeca, Image>();
         String path = cor == Cor.PRETO ? "pecas/preto/" : "pecas/branco/";
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.PEAO, path + "peao.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.TORRE, path + "torre.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.CAVALO, path + "cavalo.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.BISPO, path + "bispo.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.DAMA, path + "dama.png");
-        tentaAdicionarImagem(IMAGENS_PECAS_BRANCAS, TipoPeca.REI, path + "rei.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.PEAO, path + "peao.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.TORRE, path + "torre.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.CAVALO, path + "cavalo.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.BISPO, path + "bispo.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.DAMA, path + "dama.png");
+        tentaAdicionarImagem(IMAGENS, TipoPeca.REI, path + "rei.png");
 
-        return IMAGENS_PECAS_BRANCAS;
+        return IMAGENS;
     }
 
     public static HashMap<Cor, HashMap<TipoPeca, Image>> inicializaSprites() {
