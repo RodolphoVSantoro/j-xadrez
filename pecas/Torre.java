@@ -1,6 +1,9 @@
 package pecas;
 
 import utils.Posicao;
+
+import java.util.ArrayList;
+
 import utils.Cor;
 
 public class Torre extends Peca {
@@ -10,27 +13,57 @@ public class Torre extends Peca {
     }
 
     @Override
-    protected boolean podeMover(Posicao posicao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'podeMover'");
+    public ArrayList<Posicao> getMovimentosPossiveis() {
+        ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
+        
+        this.addMovimentosEsquerda(movimentosPossiveis, posicaoTabuleiro);
+        this.addMovimentosDireita(movimentosPossiveis, posicaoTabuleiro);
+        this.addMovimentosCima(movimentosPossiveis, posicaoTabuleiro);
+        this.addMovimentosBaixo(movimentosPossiveis, posicaoTabuleiro);
+        
+        return movimentosPossiveis;
     }
-
-    @Override
-    protected boolean podeCapturar(Posicao posicao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'podeCapturar'");
+    /**
+     * Só chamar se já validou que não tem
+     * peça no caminho
+     */
+    private boolean addPosicaoValida(Posicao proximaPosicao, ArrayList<Posicao> movimentosPossiveis){
+        Peca peca = this.tabuleiro.getPeca(proximaPosicao);
+        if(peca!=null) {
+            if(this.podeCapturar(proximaPosicao)){
+                movimentosPossiveis.add(proximaPosicao);
+            }
+            return false;
+        }
+        movimentosPossiveis.add(proximaPosicao);
+        return true;
     }
-
-    @Override
-    protected Peca tentaCapturar(Posicao posicao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tentaCapturar'");
+    private void addMovimentosDireita(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+        boolean podeContinuar = true;
+        for(int i = posicaoAtual.x + 1;i < 8 && podeContinuar;i++){
+            Posicao proximaPosicao = new Posicao(i, posicaoAtual.y);
+            podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
+        }
     }
-
-    @Override
-    public boolean tentaMover(Posicao posicao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tentaMover'");
+    private void addMovimentosEsquerda(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+        boolean podeContinuar = true;
+        for(int i = posicaoAtual.x - 1;i >= 0 && podeContinuar;i--){
+            Posicao proximaPosicao = new Posicao(i, posicaoAtual.y);
+            podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
+        }
     }
-
+    private void addMovimentosBaixo(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+        boolean podeContinuar = true;
+        for(int i = posicaoAtual.y + 1;i < 8 && podeContinuar;i++){
+            Posicao proximaPosicao = new Posicao(posicaoAtual.x, i);
+            podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
+        }
+    }
+    private void addMovimentosCima(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+        boolean podeContinuar = true;
+        for(int i = posicaoAtual.y - 1;i >= 0 && podeContinuar;i--){
+            Posicao proximaPosicao = new Posicao(posicaoAtual.x, i);
+            podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
+        }
+    }
 }
