@@ -6,12 +6,7 @@ import org.junit.Test;
 import config.Config;
 import config.SetupPecas;
 import pecas.Bispo;
-import pecas.Cavalo;
-import pecas.Dama;
-import pecas.Peao;
-import pecas.Peca;
-import pecas.Rei;
-import pecas.Torre;
+import pecas.*;
 import utils.Cor;
 
 import static org.junit.Assert.assertEquals;
