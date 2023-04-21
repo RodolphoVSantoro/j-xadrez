@@ -1,8 +1,10 @@
-package config;
+package tests.config;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import config.Config;
+import config.SetupPecas;
 import pecas.Peca;
 import utils.Cor;
 
