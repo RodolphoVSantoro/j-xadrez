@@ -8,12 +8,12 @@ import javax.swing.WindowConstants;
 
 import config.Config;
 import config.SetupPecas;
+import maquinaDeRegras.Tabuleiro;
 
 import java.util.ArrayList;
 
 import pecas.Peca;
 import utils.Cor;
-import tabuleiro.Tabuleiro;
 
 class Tela extends JFrame {
 

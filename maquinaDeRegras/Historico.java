@@ -1,4 +1,4 @@
-package tabuleiro;
+package maquinaDeRegras;
 
 import java.util.ArrayList;
 
@@ -37,23 +37,5 @@ public class Historico {
             return null;
         }
     }
-    public class Movimento{
-        private Peca peca;
-        private Posicao posicaoAnterior;
-        private Posicao posicaoPosterior;
-        Movimento(Peca peca, Posicao posicaoAnterior, Posicao posicaoPosterior){
-            this.peca = peca;
-            this.posicaoAnterior = posicaoAnterior;
-            this.posicaoPosterior = posicaoPosterior;
-        }
-        public Peca getPeca() {
-            return peca;
-        }
-        public Posicao getPosicaoAnterior() {
-            return posicaoAnterior;
-        }
-        public Posicao getPosicaoPosterior() {
-            return posicaoPosterior;
-        }
-    }
+
 }

@@ -1,4 +1,4 @@
-package tabuleiro;
+package maquinaDeRegras;
 
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
@@ -52,6 +52,14 @@ public class Tabuleiro {
     }
     public Peca getPeca(Posicao p){
         return this.posicoesPecas[p.x][p.y];
+    }
+
+    public ArrayList<Peca> getPecasPretas() {
+        return pecasPretas;
+    }
+
+    public ArrayList<Peca> getPecasBrancas() {
+        return pecasBrancas;
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {

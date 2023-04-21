@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import config.Config;
 import gui.Sprite;
+import maquinaDeRegras.Tabuleiro;
 import utils.Cor;
 import utils.Posicao;
-import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
     private Cor cor;
