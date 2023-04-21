@@ -8,3 +8,7 @@ Xadrez em java
 - Instale java e make
 - No terminal, digite `make` para compilar pacotes
 - No terminal, digite `make run` para rodar o programa
+## Setup recomendado para dev:
+- Java 15.0.2
+- Vscode com extensão Java Extension Pack
+- Junit 5 (instalado com extensão do vscode)
