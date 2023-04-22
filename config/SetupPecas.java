@@ -3,7 +3,6 @@ package config;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import maquinaDeRegras.Tabuleiro;
 import pecas.Bispo;
 import pecas.Cavalo;
 import pecas.Dama;

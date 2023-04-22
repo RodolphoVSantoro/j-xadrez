@@ -5,6 +5,8 @@
         "captura",
         "capturada",
         "Capturar",
+        "direcao",
+        "Historico",
         "Movimentos",
         "peao",
         "PEAO",
@@ -16,6 +18,7 @@
         "posicoes",
         "Posicoes",
         "Possiveis",
+        "Possivel",
         "PRETO",
         "Tabuleiro",
         "tenta"
