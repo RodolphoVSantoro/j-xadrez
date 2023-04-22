@@ -70,9 +70,9 @@ public class Menu extends javax.swing.JFrame {
         iniciar.setText("Iniciar");
         iniciar.setBorderColor(new java.awt.Color(242, 242, 242));
         iniciar.setBorderPainted(false);
-        iniciar.setColor(new java.awt.Color(52,52,52,255));
-        iniciar.setColorClick(new java.awt.Color(52,52,52,255));
-        iniciar.setColorOver(new java.awt.Color(218,142,43));
+        iniciar.setColor(new java.awt.Color(209,139,71));
+        iniciar.setColorClick(new java.awt.Color(209,139,71));
+        iniciar.setColorOver(new java.awt.Color(255,206,158));
         iniciar.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         iniciar.setRadius(10);
         iniciar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -88,9 +88,9 @@ public class Menu extends javax.swing.JFrame {
         sair.setToolTipText("");
         sair.setBorderColor(new java.awt.Color(242, 242, 242));
         sair.setBorderPainted(false);
-        sair.setColor(new java.awt.Color(52,52,52,255));
-        sair.setColorClick(new java.awt.Color(52,52,52,255));
-        sair.setColorOver(new java.awt.Color(218,142,43));
+        sair.setColor(new java.awt.Color(209,139,71));
+        sair.setColorClick(new java.awt.Color(209,139,71));
+        sair.setColorOver(new java.awt.Color(255,206,158));
         sair.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         sair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sair.setRadius(10);
