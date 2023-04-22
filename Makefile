@@ -11,7 +11,7 @@ default:
 	javac ./utils/*.java
 	javac ./config/*.java
 run:
-	java Tela.java
+	java menu/Menu.java
 
 ifeq ($(detected_OS),Windows)
 clean:
