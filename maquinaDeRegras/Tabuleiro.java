@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import config.Config;
 import gui.Sprite;
 import pecas.Peca;
+import utils.Cor;
 import utils.Posicao;
 
 public class Tabuleiro {
@@ -29,28 +30,29 @@ public class Tabuleiro {
         this.pecasPretas = pecasPretas;
         this.pecasPretasCapturadas = new ArrayList<Peca>();
         this.pecasPretas.forEach(p -> p.setTabuleiro(this));
-        
+
         this.posicoesPecas = new Peca[8][8];
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 this.posicoesPecas[i][j] = null;
             }
         }
 
-        this.pecasBrancas.forEach(peca->{
+        this.pecasBrancas.forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
-        this.pecasPretas.forEach(peca->{
+        this.pecasPretas.forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
     }
 
-    public Peca getPeca(int x, int y){
+    public Peca getPeca(int x, int y) {
         return this.posicoesPecas[x][y];
     }
-    public Peca getPeca(Posicao p){
+
+    public Peca getPeca(Posicao p) {
         return this.posicoesPecas[p.x][p.y];
     }
 
@@ -60,6 +62,14 @@ public class Tabuleiro {
 
     public ArrayList<Peca> getPecasBrancas() {
         return pecasBrancas;
+    }
+
+    public ArrayList<Peca> getPecas(Cor cor) {
+        return cor == Cor.BRANCO ? this.pecasBrancas : this.pecasPretas;
+    }
+
+    public ArrayList<Peca> getPecasAdversario(Cor cor) {
+        return cor == Cor.BRANCO ? this.pecasPretas : this.pecasBrancas;
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
