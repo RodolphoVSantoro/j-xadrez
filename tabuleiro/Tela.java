@@ -1,3 +1,4 @@
+package tabuleiro;
 
 import java.awt.Color;
 import java.awt.Canvas;
@@ -13,12 +14,11 @@ import java.util.ArrayList;
 
 import pecas.Peca;
 import utils.Cor;
-import tabuleiro.Tabuleiro;
 
-class Tela extends JFrame {
+public class Tela extends JFrame {
 
     // constructor
-    Tela(Tabuleiro tabuleiro, ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
+    public Tela(Tabuleiro tabuleiro, ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
         super(Config.TITULO);
 
         // create a empty canvas
@@ -40,6 +40,7 @@ class Tela extends JFrame {
 
         add(canvas);
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
+        setResizable(false);
         setVisible(true);
     }
 

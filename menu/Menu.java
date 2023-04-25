@@ -1,7 +1,16 @@
 package menu;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+
+import config.SetupPecas;
+import pecas.Peca;
+import tabuleiro.Tabuleiro;
+import tabuleiro.Tela;
+import utils.Cor;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -17,7 +26,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField inputNome;
     private javax.swing.JLabel labelNome;
     private Botao sair;
-    private javax.swing.JLabel teste;
 
     /* Função que inicia componentes do JFrame */
     private void initComponents() {
@@ -29,7 +37,6 @@ public class Menu extends javax.swing.JFrame {
         inputNome = new javax.swing.JTextField();
         iniciar = new Botao();
         sair = new Botao();
-        teste = new javax.swing.JLabel();
 
         /* Configurações do JFrame */
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,17 +49,17 @@ public class Menu extends javax.swing.JFrame {
 
         /* Configuração da imagem da tela inicial */
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/background.jpg"))); // NOI18N
+        Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/background.jpg")));
         Imagem.setText("jLabel2");
 
         /* Configuração do label */
-        labelNome.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        labelNome.setFont(new java.awt.Font("Segoe UI", 1, 32));
         labelNome.setForeground(new java.awt.Color(255, 255, 255));
         labelNome.setText("Digite seu nome");
         labelNome.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         /* Configuração do campo de nome */
-        inputNome.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        inputNome.setFont(new java.awt.Font("Segoe UI", 1, 32));
         inputNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputNome.setAutoscrolls(false);
         inputNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
@@ -73,7 +80,7 @@ public class Menu extends javax.swing.JFrame {
         iniciar.setColor(new java.awt.Color(209,139,71));
         iniciar.setColorClick(new java.awt.Color(209,139,71));
         iniciar.setColorOver(new java.awt.Color(255,206,158));
-        iniciar.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
+        iniciar.setFont(new java.awt.Font("Consolas", 1, 24));
         iniciar.setRadius(10);
         iniciar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         iniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +98,7 @@ public class Menu extends javax.swing.JFrame {
         sair.setColor(new java.awt.Color(209,139,71));
         sair.setColorClick(new java.awt.Color(209,139,71));
         sair.setColorOver(new java.awt.Color(255,206,158));
-        sair.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
+        sair.setFont(new java.awt.Font("Consolas", 1, 24));
         sair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sair.setRadius(10);
         sair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -105,9 +112,6 @@ public class Menu extends javax.swing.JFrame {
                 sairActionPerformed(evt);
             }
         });
-
-        /* Configuração de texto de teste para input do campo de nome ao clicar no botão iniciar */
-        teste.setForeground(new java.awt.Color(242, 242, 242));
 
         /* Criação de grupos de layout */
         javax.swing.GroupLayout FundoLayout = new javax.swing.GroupLayout(Fundo);
@@ -133,7 +137,6 @@ public class Menu extends javax.swing.JFrame {
                                 .addGap(87, 87, 87))))
                     .addGroup(FundoLayout.createSequentialGroup()
                         .addGap(147, 147, 147)
-                        .addComponent(teste)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         FundoLayout.setVerticalGroup(
@@ -149,7 +152,6 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(sair, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(teste)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,14 +160,12 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,30 +173,21 @@ public class Menu extends javax.swing.JFrame {
     }
 
     /* Configurando ação do botão iniciar */
-    private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
+    private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {
         
-        var nome = inputNome.getText();
-        teste.setText("Olá " + nome + "!");
-        
-        /*// Configurando Tabuleiro
-        JFrame frame = new JFrame();
-        frame.setTitle("Engenharia do Xadrez part. II");
-        frame.getContentPane().setBackground(Color.black);
-        frame.setLayout(new GridBagLayout());
-        frame.setMinimumSize(new Dimension(1080, 720));
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        /*var nome = inputNome.getText();
+        teste.setText("Olá " + nome + "!");*/
 
-        // Criando e adicionando o tabuleiro ao JFrame 
-        Tabuleiro tabuleiro = new Tabuleiro();
-        frame.add(tabuleiro);
-
-        // Configurando a visibilidade do JFrame
-        frame.setVisible(true);/* */
-    }//GEN-LAST:event_iniciarActionPerformed
+        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
+        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
+        Tabuleiro tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
+        Tela tela = new Tela(tabuleiro, pecasBrancas, pecasPretas);
+        tela.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        tela.setLocationRelativeTo(null);
+    }
 
     /* Configurando ação do botão sair */
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {
         JFrame confirmacao = new JFrame("Deseja realmente sair?");
         String[] opcao = new String[2];
         opcao[0] = "Sim";

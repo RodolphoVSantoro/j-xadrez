@@ -14,7 +14,7 @@ public class Tabuleiro {
     private ArrayList<Peca> pecasPretas;
 
     public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
-        this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);
+        this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 100, 0);
         this.pecasBrancas = pecasBrancas;
         this.pecasPretas = pecasPretas;
         this.pecasBrancas.forEach(p -> p.setTabuleiro(this));
