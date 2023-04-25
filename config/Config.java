@@ -1,5 +1,6 @@
 package config;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.HashMap;
 
@@ -21,6 +22,11 @@ public abstract class Config {
 
     public static final int LARGURA_TABULEIRO = 8;
     public static final int ALTURA_TABULEIRO = 8;
+
+
+    public static final Color colorOver = new Color(179, 250, 160);
+    public static final Color colorClick = new Color(152, 184, 144);
+    public static final Color borderColor = new Color(30, 136, 56);
 
     public static final String TITULO = "Xadrez";
     public static final String CAMINHO_IMAGENS = "assets/images/";
