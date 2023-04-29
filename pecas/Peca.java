@@ -36,8 +36,7 @@ public abstract class Peca {
     }
 
     public void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
-        this.posicaoTabuleiro.x = posicaoTabuleiro.x;
-        this.posicaoTabuleiro.y = posicaoTabuleiro.y;
+        this.posicaoTabuleiro = new Posicao(posicaoTabuleiro.x, posicaoTabuleiro.y);
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
         this.sprite.move(spriteX, spriteY);
