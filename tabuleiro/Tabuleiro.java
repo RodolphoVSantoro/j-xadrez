@@ -24,23 +24,40 @@ public class Tabuleiro {
         this.pecasPretas = pecasPretas;
         this.pecasBrancas.forEach(p -> p.setTabuleiro(this));
         this.pecasPretas.forEach(p -> p.setTabuleiro(this));
-        
+
         this.posicoesPecas = new Peca[8][8];
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 this.posicoesPecas[i][j] = null;
             }
         }
-        this.pecasBrancas.forEach(peca->{
+        this.pecasBrancas.forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
-        this.pecasPretas.forEach(peca->{
+        this.pecasPretas.forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
     }
 
+    private boolean posicaoDentroTabuleiro(int x, int y) {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
+    public Peca getPeca(int x, int y) {
+        if (!this.posicaoDentroTabuleiro(x, y)) {
+            return null;
+        }
+        return this.posicoesPecas[x][y];
+    }
+
+    public Peca getPeca(Posicao p) {
+        if (!this.posicaoDentroTabuleiro(p.x, p.y)) {
+            return null;
+        }
+        return this.posicoesPecas[p.x][p.y];
+    }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
         this.sprite.desenha(graphics, observer);
