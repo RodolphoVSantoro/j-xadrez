@@ -12,7 +12,9 @@ import utils.Posicao;
 public class Tabuleiro {
     private Sprite sprite;
     private ArrayList<Peca> pecasBrancas;
+    private ArrayList<Peca> pecasBrancasCapturadas;
     private ArrayList<Peca> pecasPretas;
+    private ArrayList<Peca> pecasPretasCapturadas;
     private Peca[][] posicoesPecas;
     private Historico historico;
 
@@ -21,8 +23,11 @@ public class Tabuleiro {
         this.historico = new Historico();
 
         this.pecasBrancas = pecasBrancas;
-        this.pecasPretas = pecasPretas;
+        this.pecasBrancasCapturadas = new ArrayList<Peca>();
         this.pecasBrancas.forEach(p -> p.setTabuleiro(this));
+
+        this.pecasPretas = pecasPretas;
+        this.pecasPretasCapturadas = new ArrayList<Peca>();
         this.pecasPretas.forEach(p -> p.setTabuleiro(this));
 
         this.posicoesPecas = new Peca[8][8];
