@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import pecas.Peca;
 import pecas.TipoPeca;
+import utils.Box;
 import utils.Cor;
 import utils.Posicao;
 
@@ -12,15 +13,28 @@ public class MaquinaDeRegras {
     private Cor jogador;
     private Cor adversario;
     private boolean IA;
+    private Box<Integer> nivelDificuldadeIA;
     private Historico historico;
 
-    public MaquinaDeRegras(Cor jogador, Cor Adversario, boolean IA, int nivelDificuldade) {
+    public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
         this.jogador = jogador;
-        this.adversario = Adversario;
-        this.IA = IA;
+        this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        this.IA = false;
+        this.nivelDificuldadeIA = new Box<Integer>();
     }
 
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+        this.historico = new Historico();
+        this.jogador = jogador;
+        this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        this.IA = true;
+        this.nivelDificuldadeIA = new Box<Integer>(Integer.valueOf(nivelDificuldadeIA));
+    }
+
+    /**
+     * Usar injeção de dependência
+     */
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
     }

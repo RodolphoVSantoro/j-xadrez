@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import config.Config;
 import config.SetupPecas;
+import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
 
 import java.util.ArrayList;
@@ -17,25 +18,25 @@ import utils.Cor;
 
 class Tela extends JFrame {
 
-    // constructor
-    Tela(Tabuleiro tabuleiro, ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
-        super(Config.TITULO);
+    private MaquinaDeRegras maquinaDeRegras;
+    private Tabuleiro tabuleiro;
+    private ArrayList<Peca> pecasBrancas;
+    private ArrayList<Peca> pecasPretas;
 
-        // create a empty canvas
+    Tela() {
+        super(Config.TITULO);
+        initGame();
+
         Canvas canvas = new Canvas() {
 
-            // paint the canvas
             public void paint(Graphics graphics) {
-                // set color to black
                 graphics.setColor(Color.black);
-                // draw a square
                 tabuleiro.desenha(graphics, this);
                 pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
                 pecasPretas.forEach(peca -> peca.desenha(graphics, this));
             }
         };
 
-        // set background
         canvas.setBackground(Color.white);
 
         add(canvas);
@@ -43,13 +44,18 @@ class Tela extends JFrame {
         setVisible(true);
     }
 
+    private void initGame() {
+        this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO);
+        this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
+        this.pecasPretas = SetupPecas.setup(Cor.PRETO);
+        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
+        this.maquinaDeRegras.setTabuleiro(tabuleiro);
+    }
+
     // Main Method
     public static void main(String args[]) {
         Config.loadImages();
-        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
-        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
-        Tabuleiro tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
-        Tela tela = new Tela(tabuleiro, pecasBrancas, pecasPretas);
+        Tela tela = new Tela();
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
