@@ -13,12 +13,6 @@ default:
 run:
 	java Tela.java
 
-build_tests:
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
-
-run_tests:
-	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
-
 ifeq ($(detected_OS),Windows)
 clean:
 	del /S gui\*.class
@@ -26,6 +20,11 @@ clean:
 	del /S tabuleiro\*.class
 	del /S utils\*.class
 	del /S config\*.class
+build_tests:
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
+
+run_tests:
+	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
 else
 clean:
 	rm -rf ./gui/*.class
@@ -33,4 +32,10 @@ clean:
 	rm -rf ./tabuleiro/*.class
 	rm -rf ./utils/*.class
 	rm -rf ./config/*.class
+
+build_tests:
+	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
+
+run_tests:
+	java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
 endif
