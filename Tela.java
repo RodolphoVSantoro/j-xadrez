@@ -45,6 +45,7 @@ class Tela extends JFrame {
 
     // Main Method
     public static void main(String args[]) {
+        Config.loadImages();
         ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
         Tabuleiro tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
