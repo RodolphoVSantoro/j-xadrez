@@ -11,24 +11,37 @@ public class Rei extends Peca {
     public Rei(Posicao posicao, Cor cor) {
         super(posicao, cor, TipoPeca.REI);
     }
+
+    private static final int[][] MOVIMENTOS_POSSIVEIS = {
+            { 1, 0 },
+            { 1, -1 },
+            { 0, -1 },
+            { -1, -1 },
+            { -1, 0 },
+            { -1, 1 },
+            { 0, 1 },
+            { 1, 1 }
+    };
+
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis() {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
         Posicao posicaoAtual = this.getPosicaoTabuleiro();
-        for(int i = posicaoAtual.x - 1;i <= posicaoAtual.x + 1 && i >= 0 && i < 8;i++) {
-            Posicao proximaPosicao = new Posicao(i, posicaoAtual.y);
-            Peca peca = this.tabuleiro.getPeca(proximaPosicao);
-            if(peca != null && this.podeCapturar(proximaPosicao)) {
-                movimentosPossiveis.add(proximaPosicao);
-            }
+
+        for (int[] movimento : MOVIMENTOS_POSSIVEIS) {
+            Posicao proximaPosicao = new Posicao(posicaoAtual.x + movimento[0], posicaoAtual.y + movimento[1]);
+            this.reiAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
         }
-        for(int i = posicaoAtual.y - 1;i <= posicaoAtual.y + 1  && i >= 0 && i < 8;i++) {
-            Posicao proximaPosicao = new Posicao(posicaoAtual.x, i);
-            Peca peca = this.tabuleiro.getPeca(proximaPosicao);
-            if(peca != null && this.podeCapturar(proximaPosicao)) {
-                movimentosPossiveis.add(proximaPosicao);
-            }
-        }
+
         return movimentosPossiveis;
+    }
+
+    private void reiAdicionaMovimentoPossivel(ArrayList<Posicao> movimentosPossiveis, Posicao proximaPosicao) {
+        if (proximaPosicao.x < 8 && proximaPosicao.x >= 0 && proximaPosicao.y < 8 && proximaPosicao.y >= 0) {
+            Peca peca = this.tabuleiro.getPeca(proximaPosicao);
+            if (peca == null || this.podeCapturar(proximaPosicao)) {
+                movimentosPossiveis.add(proximaPosicao);
+            }
+        }
     }
 }
