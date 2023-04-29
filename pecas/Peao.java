@@ -27,13 +27,15 @@ public class Peao extends Peca {
         Posicao posicaoAtual = this.getPosicaoTabuleiro();
         Posicao proximaPosicao = new Posicao(posicaoAtual.x, posicaoAtual.y + 1 * dir);
         Peca peca = this.tabuleiro.getPeca(proximaPosicao);
-        if (peca == null) {
+        boolean posicaoValida = this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y);
+        if (peca == null && posicaoValida) {
             movimentosPossiveis.add(proximaPosicao);
         }
         if (this.primeiroMovimento) {
             proximaPosicao = new Posicao(posicaoAtual.x, posicaoAtual.y + 2 * dir);
             peca = this.tabuleiro.getPeca(proximaPosicao);
-            if (peca == null) {
+            posicaoValida = this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y);
+            if (peca == null && posicaoValida) {
                 movimentosPossiveis.add(proximaPosicao);
             }
         }

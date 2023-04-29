@@ -46,7 +46,7 @@ public class Tabuleiro {
         });
     }
 
-    private boolean posicaoDentroTabuleiro(int x, int y) {
+    public boolean posicaoDentroTabuleiro(int x, int y) {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 

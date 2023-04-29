@@ -28,6 +28,9 @@ public class Bispo extends Peca {
      * peça no caminho
      */
     private boolean addPosicaoValida(Posicao proximaPosicao, ArrayList<Posicao> movimentosPossiveis) {
+        if (!this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y)) {
+            return false;
+        }
         Peca peca = this.tabuleiro.getPeca(proximaPosicao);
         if (peca != null) {
             if (this.podeCapturar(proximaPosicao)) {

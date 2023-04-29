@@ -15,22 +15,26 @@ public class Torre extends Peca {
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis() {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
-        
+
         this.addMovimentosEsquerda(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosDireita(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosCima(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosBaixo(movimentosPossiveis, posicaoTabuleiro);
-        
+
         return movimentosPossiveis;
     }
+
     /**
      * Só chamar se já validou que não tem
      * peça no caminho
      */
-    private boolean addPosicaoValida(Posicao proximaPosicao, ArrayList<Posicao> movimentosPossiveis){
+    private boolean addPosicaoValida(Posicao proximaPosicao, ArrayList<Posicao> movimentosPossiveis) {
+        if (!this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y)) {
+            return false;
+        }
         Peca peca = this.tabuleiro.getPeca(proximaPosicao);
-        if(peca!=null) {
-            if(this.podeCapturar(proximaPosicao)){
+        if (peca != null) {
+            if (this.podeCapturar(proximaPosicao)) {
                 movimentosPossiveis.add(proximaPosicao);
             }
             return false;
@@ -38,30 +42,34 @@ public class Torre extends Peca {
         movimentosPossiveis.add(proximaPosicao);
         return true;
     }
-    private void addMovimentosDireita(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+
+    private void addMovimentosDireita(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual) {
         boolean podeContinuar = true;
-        for(int i = posicaoAtual.x + 1;i < 8 && podeContinuar;i++){
+        for (int i = posicaoAtual.x + 1; i < 8 && podeContinuar; i++) {
             Posicao proximaPosicao = new Posicao(i, posicaoAtual.y);
             podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
         }
     }
-    private void addMovimentosEsquerda(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+
+    private void addMovimentosEsquerda(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual) {
         boolean podeContinuar = true;
-        for(int i = posicaoAtual.x - 1;i >= 0 && podeContinuar;i--){
+        for (int i = posicaoAtual.x - 1; i >= 0 && podeContinuar; i--) {
             Posicao proximaPosicao = new Posicao(i, posicaoAtual.y);
             podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
         }
     }
-    private void addMovimentosBaixo(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+
+    private void addMovimentosBaixo(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual) {
         boolean podeContinuar = true;
-        for(int i = posicaoAtual.y + 1;i < 8 && podeContinuar;i++){
+        for (int i = posicaoAtual.y + 1; i < 8 && podeContinuar; i++) {
             Posicao proximaPosicao = new Posicao(posicaoAtual.x, i);
             podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
         }
     }
-    private void addMovimentosCima(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual){
+
+    private void addMovimentosCima(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual) {
         boolean podeContinuar = true;
-        for(int i = posicaoAtual.y - 1;i >= 0 && podeContinuar;i--){
+        for (int i = posicaoAtual.y - 1; i >= 0 && podeContinuar; i--) {
             Posicao proximaPosicao = new Posicao(posicaoAtual.x, i);
             podeContinuar = this.addPosicaoValida(proximaPosicao, movimentosPossiveis);
         }
