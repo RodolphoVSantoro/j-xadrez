@@ -3,6 +3,7 @@ package maquinaDeRegras;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import config.Config;
 import gui.Sprite;
@@ -12,24 +13,23 @@ import utils.Posicao;
 
 public class Tabuleiro {
     private Sprite sprite;
-    private ArrayList<Peca> pecasBrancas;
-    private ArrayList<Peca> pecasBrancasCapturadas;
-    private ArrayList<Peca> pecasPretas;
-    private ArrayList<Peca> pecasPretasCapturadas;
+    private HashMap<Cor, ArrayList<Peca>> pecas;
+    private HashMap<Cor, ArrayList<Peca>> pecasCapturadas;
     private Peca[][] posicoesPecas;
-    private Historico historico;
 
     public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
         this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);
-        this.historico = new Historico();
 
-        this.pecasBrancas = pecasBrancas;
-        this.pecasBrancasCapturadas = new ArrayList<Peca>();
-        this.pecasBrancas.forEach(p -> p.setTabuleiro(this));
+        this.pecas = new HashMap<Cor, ArrayList<Peca>>();
+        this.pecasCapturadas = new HashMap<Cor, ArrayList<Peca>>();
 
-        this.pecasPretas = pecasPretas;
-        this.pecasPretasCapturadas = new ArrayList<Peca>();
-        this.pecasPretas.forEach(p -> p.setTabuleiro(this));
+        pecasBrancas.forEach(p -> p.setTabuleiro(this));
+        this.pecas.put(Cor.BRANCO, pecasBrancas);
+        this.pecasCapturadas.put(Cor.BRANCO, new ArrayList<Peca>());
+
+        pecasPretas.forEach(p -> p.setTabuleiro(this));
+        this.pecas.put(Cor.PRETO, pecasPretas);
+        this.pecasCapturadas.put(Cor.PRETO, new ArrayList<Peca>());
 
         this.posicoesPecas = new Peca[8][8];
         for (int i = 0; i < 8; i++) {
@@ -38,11 +38,11 @@ public class Tabuleiro {
             }
         }
 
-        this.pecasBrancas.forEach(peca -> {
+        this.pecas.get(Cor.BRANCO).forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
-        this.pecasPretas.forEach(peca -> {
+        this.pecas.get(Cor.PRETO).forEach(peca -> {
             Posicao posicao = peca.getPosicaoTabuleiro();
             this.posicoesPecas[posicao.x][posicao.y] = peca;
         });
@@ -56,20 +56,28 @@ public class Tabuleiro {
         return this.posicoesPecas[p.x][p.y];
     }
 
-    public ArrayList<Peca> getPecasPretas() {
-        return pecasPretas;
+    public ArrayList<Peca> getPecas(Cor corPecas) {
+        return this.getPecas(corPecas);
     }
 
-    public ArrayList<Peca> getPecasBrancas() {
-        return pecasBrancas;
-    }
-
-    public ArrayList<Peca> getPecas(Cor cor) {
-        return cor == Cor.BRANCO ? this.pecasBrancas : this.pecasPretas;
+    public ArrayList<Peca> getPecasJogador(Cor corJogador) {
+        return this.getPecas(corJogador);
     }
 
     public ArrayList<Peca> getPecasAdversario(Cor cor) {
-        return cor == Cor.BRANCO ? this.pecasPretas : this.pecasBrancas;
+        Cor corAdversario = cor == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        return this.getPecas(corAdversario);
+    }
+
+    public void movePeca(Peca peca, Posicao posicaoPosterior) {
+        Posicao posicaoAnterior = peca.getPosicaoTabuleiro();
+        peca.setPosicaoTabuleiro(posicaoPosterior);
+        this.posicoesPecas[posicaoAnterior.x][posicaoAnterior.y] = null;
+        if (this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] != null) {
+            Peca pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
+            this.pecasCapturadas.get(Cor.BRANCO).add(pecaCapturada);
+        }
+        this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] = peca;
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
