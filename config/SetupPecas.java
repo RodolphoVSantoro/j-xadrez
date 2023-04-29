@@ -11,14 +11,12 @@ import pecas.Peca;
 import pecas.Rei;
 import pecas.TipoPeca;
 import pecas.Torre;
-import tabuleiro.Tabuleiro;
 import utils.Cor;
 import utils.Posicao;
 
 public final class SetupPecas {
     public static ArrayList<Peca> setup(Cor cor) {
         ArrayList<Peca> pecas = new ArrayList<Peca>();
-
         HashMap<TipoPeca, Posicao[]> configPosicoesIniciais = Config.POSICOES_INICIAIS.get(cor);
 
         for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.BISPO)) {

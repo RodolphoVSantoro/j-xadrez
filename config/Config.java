@@ -24,10 +24,17 @@ public abstract class Config {
 
     public static final String TITULO = "Xadrez";
     public static final String CAMINHO_IMAGENS = "assets/images/";
-    public static final Image IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro.png");
-    public static final HashMap<Cor, HashMap<TipoPeca, Image>> IMAGENS_PECAS = SpritesXadrez.inicializaSprites();
+    public static Image IMAGEM_TABULEIRO = null;
+    public static HashMap<Cor, HashMap<TipoPeca, Image>> IMAGENS_PECAS = null;
 
-    public final static HashMap<Cor, HashMap<TipoPeca, Posicao[]>> POSICOES_INICIAIS = ConfigPosicoesIniciais
+    public static boolean LOAD_FAKE_IMAGES = false;
+
+    public static void loadImages() {
+        IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro.png");
+        IMAGENS_PECAS = SpritesXadrez.inicializaSprites();
+    }
+
+    public static final HashMap<Cor, HashMap<TipoPeca, Posicao[]>> POSICOES_INICIAIS = ConfigPosicoesIniciais
             .inicializa();
 
 }
