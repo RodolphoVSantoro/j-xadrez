@@ -16,6 +16,15 @@ public class IA {
         this.cor = cor;
     }
 
+    // Injetar dependencias tabuleiro e maquinaDeRegras
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+
+    public void setMaquinaDeRegras(MaquinaDeRegras maquinaDeRegras) {
+        this.maquinaDeRegras = maquinaDeRegras;
+    }
+
     public Movimento getIAMovimento() {
         int profundidade = Config.PROFUNDIDADE_IA;
         int alpha = Integer.MIN_VALUE;
@@ -26,7 +35,7 @@ public class IA {
     }
 
     private MovimentoPontuado minMax(Movimento movimento, int profundidade, int alpha, int beta, boolean maximizando) {
-        if (profundidade == 0 || maquinaDeRegras.chegouFimDeJogo(this.tabuleiro)) {
+        if (profundidade == 0 || maquinaDeRegras.chegouFimDeJogo()) {
             return new MovimentoPontuado(movimento, this.getValorTabuleiro());
         }
         if (maximizando) {
@@ -39,20 +48,23 @@ public class IA {
     private MovimentoPontuado max(int profundidade, int alpha, int beta) {
         int maxEval = Integer.MIN_VALUE;
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(this.cor);
-
         MovimentoPontuado movimentoPontuado = null;
 
         for (Peca peca : pecas) {
             for (Posicao posicao : peca.getMovimentosPossiveis()) {
                 Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao);
-                boolean movimentou = maquinaDeRegras.movimenta(novoMovimento);
-                if (!movimentou)
+                boolean movimentou = maquinaDeRegras.executaMovimento(novoMovimento);
+                if (!movimentou) {
                     throw new RuntimeException("Movimento inválido");
+                }
+
                 movimentoPontuado = this.minMax(novoMovimento, profundidade - 1, alpha, beta, false);
                 movimentoPontuado.pontuacao *= Math.random() / 10.0 + 1.0;
                 maxEval = Math.max(maxEval, movimentoPontuado.pontuacao);
                 alpha = Math.max(alpha, movimentoPontuado.pontuacao);
-                maquinaDeRegras.desfazMovimento(novoMovimento);
+
+                maquinaDeRegras.desfazUltimoMovimento();
+
                 if (beta <= alpha) {
                     return movimentoPontuado;
                 }
@@ -65,17 +77,23 @@ public class IA {
     private MovimentoPontuado min(int profundidade, int alpha, int beta) {
         int minEval = Integer.MAX_VALUE;
         ArrayList<Peca> pecas = this.tabuleiro.getPecasAdversario(this.cor);
-
         MovimentoPontuado movimentoPontuado = null;
+
         for (Peca peca : pecas) {
             for (Posicao posicao : peca.getMovimentosPossiveis()) {
                 Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao);
-                // TODO: mover a peça
+                boolean movimentou = maquinaDeRegras.executaMovimento(novoMovimento);
+                if (!movimentou) {
+                    throw new RuntimeException("Movimento inválido");
+                }
+
                 movimentoPontuado = this.minMax(novoMovimento, profundidade - 1, alpha, beta, true);
                 movimentoPontuado.pontuacao *= Math.random() / 10.0 + 1.0;
                 minEval = Math.min(minEval, movimentoPontuado.pontuacao);
                 beta = Math.min(beta, movimentoPontuado.pontuacao);
-                // TODO: desfazer o movimento
+
+                maquinaDeRegras.desfazUltimoMovimento();
+
                 if (beta <= alpha) {
                     return movimentoPontuado;
                 }
@@ -87,23 +105,18 @@ public class IA {
     private int getValorTabuleiro() {
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(this.cor);
         ArrayList<Peca> pecasAdversario = this.tabuleiro.getPecasAdversario(this.cor);
+
         int valorPecas = 0;
         for (Peca peca : pecas) {
             valorPecas += Config.pontuacao.get(peca.getTipoPeca());
         }
+
         int valorPecasAdversario = 0;
         for (Peca peca : pecasAdversario) {
             valorPecasAdversario += Config.pontuacao.get(peca.getTipoPeca());
         }
+
         return valorPecas - valorPecasAdversario;
-    }
-
-    public void setTabuleiro(Tabuleiro tabuleiro) {
-        this.tabuleiro = tabuleiro;
-    }
-
-    public void setMaquinaDeRegras(MaquinaDeRegras maquinaDeRegras) {
-        this.maquinaDeRegras = maquinaDeRegras;
     }
 
     private class MovimentoPontuado {
