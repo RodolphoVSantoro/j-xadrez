@@ -20,10 +20,10 @@ jobs:
         distribution: 'adopt'
         java-version: 17
     - name: Compile source code
-      run: javac -cp .;./lib/* src/**/*.java
+      run: make
       if: matrix.os == 'windows-2019'
     - name: Compile source code
-      run: javac -cp .:./lib/* src/**/*.java
+      run: make
       if: matrix.os == 'ubuntu-latest'
     - name: Run JUnit tests
       run: java -cp .;./lib/*;./src/test/java;./src/main/java org.junit.runner.JUnitCore tests/*
