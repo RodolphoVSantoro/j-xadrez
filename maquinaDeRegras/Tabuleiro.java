@@ -73,15 +73,38 @@ public class Tabuleiro {
         return this.getPecas(corAdversario);
     }
 
-    public void movePeca(Peca peca, Posicao posicaoPosterior) {
+    /*
+     * Move a peça para a posição posterior
+     * e retorna referência para
+     * a peça capturada, se houver
+     * captura.
+     * Assume que a posição posterior é válida.
+     */
+    public Peca movePeca(Peca peca, Posicao posicaoPosterior) {
         Posicao posicaoAnterior = peca.getPosicaoTabuleiro();
         peca.setPosicaoTabuleiro(posicaoPosterior);
         this.posicoesPecas[posicaoAnterior.x][posicaoAnterior.y] = null;
+        Peca pecaCapturada = null;
         if (this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] != null) {
-            Peca pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
+            pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
             this.pecasCapturadas.get(Cor.BRANCO).add(pecaCapturada);
         }
         this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] = peca;
+        return pecaCapturada;
+    }
+
+    public void recuperaPeca(Peca peca, Posicao posicao) {
+        boolean pecaEstaCapturada = this.pecasCapturadas.get(peca.getCor()).contains(peca);
+        if (!pecaEstaCapturada) {
+            throw new IllegalArgumentException("A peça não está capturada.");
+        }
+        boolean posicaoRecuperadaVazia = this.posicaoDentroTabuleiro(posicao.x, posicao.y)
+                && this.posicoesPecas[posicao.x][posicao.y] != null;
+        if (posicaoRecuperadaVazia) {
+            throw new IllegalArgumentException("Peca tentou ser recuperada para uma posicao nao vazia.");
+        }
+        this.pecasCapturadas.get(peca.getCor()).remove(peca);
+        this.posicoesPecas[posicao.x][posicao.y] = peca;
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {

@@ -46,8 +46,8 @@ public class MaquinaDeRegras {
 
         ArrayList<Posicao> posicoesValidas = pecaMovimentando.getMovimentosPossiveis();
         if (posicoesValidas.contains(posicaoPosterior)) {
-            this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior);
-            this.historico.adicionaMovimento(movimento);
+            Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior);
+            this.historico.adicionaMovimento(movimento, pecaCapturada);
             return true;
         }
 
@@ -60,6 +60,9 @@ public class MaquinaDeRegras {
             throw new Error("Tentou desfazer sem movimento no historico");
         }
         this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior());
+        if (ultimoMovimento.getPecaCapturada() != null) {
+            this.tabuleiro.recuperaPeca(ultimoMovimento.getPecaCapturada(), ultimoMovimento.getPosicaoPosterior());
+        }
         this.historico.reverteMovimento();
     }
 }
