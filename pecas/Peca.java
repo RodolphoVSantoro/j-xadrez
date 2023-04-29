@@ -35,9 +35,9 @@ public abstract class Peca {
         this.tabuleiro = tabuleiro;
     }
 
-    // deve ser chamada por tentaMover
-    private void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
-        this.posicaoTabuleiro = posicaoTabuleiro;
+    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
+        this.posicaoTabuleiro.x = posicaoTabuleiro.x;
+        this.posicaoTabuleiro.y = posicaoTabuleiro.y;
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
         this.sprite.move(spriteX, spriteY);
@@ -53,17 +53,17 @@ public abstract class Peca {
      */
     protected boolean podeCapturar(Posicao posicaoNova) {
         Peca peca = this.tabuleiro.getPeca(posicaoNova.x, posicaoNova.y);
-        return peca!=null && peca.getCor()!=this.getCor();
+        return peca != null && peca.getCor() != this.getCor();
     }
 
     /*
      * Move caso a casa for um movimento possível
-    */
+     */
     public boolean podeMover(Posicao posicao) {
-        //TODO: Salvar e só computar uma vez por jogada se ficar pesado
+        // TODO: Salvar e só computar uma vez por jogada se ficar pesado
         ArrayList<Posicao> posicoesValidas = this.getMovimentosPossiveis();
         for (Posicao posicaoNova : posicoesValidas) {
-            if(posicaoNova.x == posicao.x && posicaoNova.y == posicao.y){
+            if (posicaoNova.x == posicao.x && posicaoNova.y == posicao.y) {
                 return true;
             }
         }
@@ -72,7 +72,7 @@ public abstract class Peca {
 
     /**
      * Retorna todos os movimentos possiveis de uma peça
-     * */
+     */
     public abstract ArrayList<Posicao> getMovimentosPossiveis();
 
     public Cor getCor() {
