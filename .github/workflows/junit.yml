@@ -3,7 +3,8 @@ name: JUnit Test
 on:
   push:
     branches:
-      - main
+      - master
+      - wip/github-actions-testing
 
 jobs:
   test:
@@ -24,8 +25,8 @@ jobs:
       run: javac -cp .:./lib/* src/**/*.java
       if: matrix.os == 'ubuntu-latest'
     - name: Run JUnit tests
-      run: java -cp .;./lib/*;./src/test/java;./src/main/java org.junit.runner.JUnitCore <test-class-name>
+      run: java -cp .;./lib/*;./src/test/java;./src/main/java org.junit.runner.JUnitCore tests/*
       if: matrix.os == 'windows-2019'
     - name: Run JUnit tests
-      run: java -cp .:./lib/*:./src/test/java:./src/main/java org.junit.runner.JUnitCore <test-class-name>
+      run: java -cp .:./lib/*:./src/test/java:./src/main/java org.junit.runner.JUnitCore tests/*
       if: matrix.os == 'ubuntu-latest'
