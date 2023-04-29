@@ -25,9 +25,15 @@ jobs:
     - name: Compile source code
       run: make
       if: matrix.os == 'ubuntu-latest'
+    - name: Compile tests source code
+      run: make build_tests
+      if: matrix.os == 'windows-2019'
+    - name: Compile tests source code
+      run: make build_tests
+      if: matrix.os == 'ubuntu-latest'
     - name: Run JUnit tests
-      run: make test
+      run: make run_tests
       if: matrix.os == 'windows-2019'
     - name: Run JUnit tests
-      run: make test
+      run: make run_tests
       if: matrix.os == 'ubuntu-latest'

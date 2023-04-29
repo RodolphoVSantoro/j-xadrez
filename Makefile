@@ -12,8 +12,12 @@ default:
 	javac ./config/*.java
 run:
 	java Tela.java
-test:
-	java -jar lib/junit-platform-console-standalone-1.7.2.jar -cp ../ --scan-class-path
+
+build_tests:
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" .\tests\config\SetupPecasTest.java
+
+run_tests:
+	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
 
 ifeq ($(detected_OS),Windows)
 clean:
