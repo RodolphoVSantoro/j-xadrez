@@ -1,31 +1,65 @@
 package maquinaDeRegras;
 
+import java.util.ArrayList;
+
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
+import utils.Posicao;
 
 public class MaquinaDeRegras {
     private Tabuleiro tabuleiro;
     private Cor jogador;
     private Cor adversario;
     private boolean IA;
+    private Historico historico;
 
-    public boolean chegouFimDeJogo(Tabuleiro tabuleiro) {
-        Peca reiBranco = tabuleiro.getPecasBrancas().stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst()
+    public MaquinaDeRegras(Cor jogador, Cor Adversario, boolean IA, int nivelDificuldade) {
+        this.historico = new Historico();
+        this.jogador = jogador;
+        this.adversario = Adversario;
+        this.IA = IA;
+    }
+
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+
+    public boolean chegouFimDeJogo() {
+        Peca reiBranco = this.tabuleiro.getPecas(Cor.BRANCO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI)
+                .findFirst()
                 .get();
-        Peca reiPreto = tabuleiro.getPecasPretas().stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst()
+        Peca reiPreto = this.tabuleiro.getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI)
+                .findFirst()
                 .get();
+
         if (reiBranco == null || reiPreto == null) {
             return true;
         }
+
         return false;
     }
 
-    public boolean movimenta(Movimento movimento) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public boolean executaMovimento(Movimento movimento) {
+        Peca pecaMovimentando = movimento.getPeca();
+        Posicao posicaoPosterior = movimento.getPosicaoPosterior();
+
+        ArrayList<Posicao> posicoesValidas = pecaMovimentando.getMovimentosPossiveis();
+        if (posicoesValidas.contains(posicaoPosterior)) {
+            this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior);
+            this.historico.adicionaMovimento(movimento);
+            return true;
+        }
+
+        return false;
     }
 
-    public void desfazMovimento(Movimento movimento) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public void desfazUltimoMovimento() {
+        Movimento ultimoMovimento = this.historico.getUltimoMovimento();
+        if (ultimoMovimento == null) {
+            throw new Error("Tentou desfazer sem movimento no historico");
+        }
+        this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior());
+        this.historico.reverteMovimento();
     }
 }
