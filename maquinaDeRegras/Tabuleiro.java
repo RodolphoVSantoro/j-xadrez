@@ -48,6 +48,10 @@ public class Tabuleiro {
         });
     }
 
+    public boolean posicaoDentroTabuleiro(int x, int y) {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
     public Peca getPeca(int x, int y) {
         return this.posicoesPecas[x][y];
     }

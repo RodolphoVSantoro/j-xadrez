@@ -16,14 +16,14 @@ public class Dama extends Peca {
     public ArrayList<Posicao> getMovimentosPossiveis() {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
 
-        this.addMovimentosEsquerda(movimentosPossiveis, posicaoTabuleiro);
-        this.addMovimentosDireita(movimentosPossiveis, posicaoTabuleiro);
-        this.addMovimentosCima(movimentosPossiveis, posicaoTabuleiro);
-        this.addMovimentosBaixo(movimentosPossiveis, posicaoTabuleiro);
-        this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, 1, 1);
-        this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, 1, -1);
-        this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, 1);
-        this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, -1);
+        this.addMovimentosEsquerda(movimentosPossiveis, this.posicaoTabuleiro);
+        this.addMovimentosDireita(movimentosPossiveis, this.posicaoTabuleiro);
+        this.addMovimentosCima(movimentosPossiveis, this.posicaoTabuleiro);
+        this.addMovimentosBaixo(movimentosPossiveis, this.posicaoTabuleiro);
+        this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, 1, 1);
+        this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, 1, -1);
+        this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, 1);
+        this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, -1);
 
         return movimentosPossiveis;
     }
@@ -33,6 +33,9 @@ public class Dama extends Peca {
      * peça no caminho
      */
     private boolean addPosicaoValida(Posicao proximaPosicao, ArrayList<Posicao> movimentosPossiveis) {
+        if (!this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y)) {
+            return false;
+        }
         Peca peca = this.tabuleiro.getPeca(proximaPosicao);
         if (peca != null) {
             if (this.podeCapturar(proximaPosicao)) {

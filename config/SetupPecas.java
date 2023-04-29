@@ -17,7 +17,6 @@ import utils.Posicao;
 public final class SetupPecas {
     public static ArrayList<Peca> setup(Cor cor) {
         ArrayList<Peca> pecas = new ArrayList<Peca>();
-
         HashMap<TipoPeca, Posicao[]> configPosicoesIniciais = Config.POSICOES_INICIAIS.get(cor);
 
         for (Posicao posicao : configPosicoesIniciais.get(TipoPeca.BISPO)) {

@@ -12,21 +12,26 @@ public class Cavalo extends Peca {
         super(posicao, cor, TipoPeca.CAVALO);
     }
 
+    private static final int[][] MOVIMENTOS_POSSIVEIS = {
+            { 2, 1 },
+            { 2, -1 },
+            { -2, -1 },
+            { -2, 1 },
+            { -1, 2 },
+            { 1, 2 },
+            { 1, -2 },
+            { -1, -2 }
+    };
+
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis() {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
         Posicao posicaoAtual = this.getPosicaoTabuleiro();
-        Posicao proximaPosicao = new Posicao(posicaoAtual.x + 2, posicaoAtual.y + 1);
-        this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
 
-        proximaPosicao = new Posicao(posicaoAtual.x + 2, posicaoAtual.y + 1);
-        this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
-
-        proximaPosicao = new Posicao(posicaoAtual.x + 2, posicaoAtual.y + 1);
-        this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
-
-        proximaPosicao = new Posicao(posicaoAtual.x + 2, posicaoAtual.y + 1);
-        this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
+        for (int[] movimento : MOVIMENTOS_POSSIVEIS) {
+            Posicao proximaPosicao = new Posicao(posicaoAtual.x + movimento[0], posicaoAtual.y + movimento[1]);
+            this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
+        }
 
         return movimentosPossiveis;
     }
