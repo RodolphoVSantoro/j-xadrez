@@ -12,6 +12,8 @@ default:
 	javac ./config/*.java
 run:
 	java Tela.java
+test:
+	java -jar lib/junit-platform-console-standalone-1.7.2.jar -cp ../ --scan-class-path
 
 ifeq ($(detected_OS),Windows)
 clean:

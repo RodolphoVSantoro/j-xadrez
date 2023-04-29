@@ -26,8 +26,8 @@ jobs:
       run: make
       if: matrix.os == 'ubuntu-latest'
     - name: Run JUnit tests
-      run: java -cp .;./lib/*;./src/test/java;./src/main/java org.junit.runner.JUnitCore tests/*
+      run: make test
       if: matrix.os == 'windows-2019'
     - name: Run JUnit tests
-      run: java -cp .:./lib/*:./src/test/java:./src/main/java org.junit.runner.JUnitCore tests/*
+      run: make test
       if: matrix.os == 'ubuntu-latest'
