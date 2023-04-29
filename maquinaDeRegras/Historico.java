@@ -14,12 +14,12 @@ public class Historico {
         this.ultimoMovimento = -1;
     }
 
-    public void adicionaMovimento(Movimento movimento) {
+    public void adicionaMovimento(Movimento movimento, Peca pecaCapturada) {
         Peca peca = movimento.getPeca();
         Posicao posicaoAnterior = movimento.getPosicaoAnterior();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
 
-        this.movimentos.add(new Movimento(peca, posicaoAnterior, posicaoPosterior));
+        this.movimentos.add(new Movimento(peca, posicaoAnterior, posicaoPosterior, pecaCapturada));
         this.ultimoMovimento++;
     }
 
