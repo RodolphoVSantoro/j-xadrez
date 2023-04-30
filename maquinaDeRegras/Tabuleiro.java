@@ -53,15 +53,21 @@ public class Tabuleiro {
     }
 
     public Peca getPeca(int x, int y) {
+        if (!this.posicaoDentroTabuleiro(x, y)) {
+            return null;
+        }
         return this.posicoesPecas[x][y];
     }
 
     public Peca getPeca(Posicao p) {
+        if (!this.posicaoDentroTabuleiro(p.x, p.y)) {
+            return null;
+        }
         return this.posicoesPecas[p.x][p.y];
     }
 
     public ArrayList<Peca> getPecas(Cor corPecas) {
-        return this.getPecas(corPecas);
+        return this.pecas.get(corPecas);
     }
 
     public ArrayList<Peca> getPecasJogador(Cor corJogador) {
@@ -87,14 +93,15 @@ public class Tabuleiro {
         Peca pecaCapturada = null;
         if (this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] != null) {
             pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
-            this.pecasCapturadas.get(Cor.BRANCO).add(pecaCapturada);
+            this.pecasCapturadas.get(pecaCapturada.getCor()).add(pecaCapturada);
+            pecaCapturada.captura();
         }
         this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] = peca;
         return pecaCapturada;
     }
 
     public void recuperaPeca(Peca peca, Posicao posicao) {
-        boolean pecaEstaCapturada = this.pecasCapturadas.get(peca.getCor()).contains(peca);
+        boolean pecaEstaCapturada = this.pecasCapturadas.get(peca.getCor()).stream().anyMatch(p -> p == peca);
         if (!pecaEstaCapturada) {
             throw new IllegalArgumentException("A peça não está capturada.");
         }
