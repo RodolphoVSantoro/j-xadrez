@@ -46,6 +46,11 @@ public abstract class Peca {
         return new Posicao(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y);
     }
 
+    public void captura() {
+        this.capturada = true;
+        this.sprite.move(-100, -100);
+    }
+
     /*
      * Diz se a peca em determinada posiçao é capturável
      * Sem considerar peças entre ambas
@@ -80,6 +85,10 @@ public abstract class Peca {
 
     public TipoPeca getTipoPeca() {
         return tipoPeca;
+    }
+
+    public String stringify() {
+        return this.tipoPeca.toString() + " " + this.cor.toString() + " " + this.posicaoTabuleiro.stringify();
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
