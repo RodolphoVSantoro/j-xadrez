@@ -11,9 +11,13 @@ public class IA {
     private Cor cor;
     private Tabuleiro tabuleiro;
     private MaquinaDeRegras maquinaDeRegras;
+    private int profundidadeConfigurada;
+    private Movimento melhorMovimento;
 
-    public IA(Cor cor) {
+    public IA(Cor cor, int nivelDificuldadeIA) {
         this.cor = cor;
+        this.profundidadeConfigurada = nivelDificuldadeIA;
+        this.melhorMovimento = null;
     }
 
     // Injetar dependencias tabuleiro e maquinaDeRegras
@@ -26,80 +30,79 @@ public class IA {
     }
 
     public Movimento getIAMovimento() {
+        this.melhorMovimento = null;
         int profundidade = Config.PROFUNDIDADE_IA;
-        int alpha = Integer.MIN_VALUE;
-        int beta = Integer.MAX_VALUE;
-        boolean maximizando = true;
-        MovimentoPontuado movimentoPontuado = this.minMax(null, profundidade, alpha, beta, maximizando);
-        return movimentoPontuado.movimento;
+        this.minMax(profundidade);
+        if (this.melhorMovimento == null) {
+            throw new RuntimeException("IA falhou ao procurar movimento");
+        }
+        return this.melhorMovimento;
     }
 
-    private MovimentoPontuado minMax(Movimento movimento, int profundidade, int alpha, int beta, boolean maximizando) {
-        if (profundidade == 0 || maquinaDeRegras.chegouFimDeJogo()) {
-            return new MovimentoPontuado(movimento, this.getValorTabuleiro());
-        }
-        if (maximizando) {
-            return this.max(profundidade, alpha, beta);
+    private void minMax(int profundidade) {
+        if (this.cor == Cor.BRANCO) {
+            this.max(profundidade);
         } else {
-            return this.min(profundidade, alpha, beta);
+            this.min(profundidade);
         }
     }
 
-    private MovimentoPontuado max(int profundidade, int alpha, int beta) {
-        int maxEval = Integer.MIN_VALUE;
+    private int max(int profundidade) {
+        if (profundidade == 0) {
+            return this.getValorTabuleiro();
+        }
+        int melhorValor = Integer.MIN_VALUE;
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(this.cor);
-        MovimentoPontuado movimentoPontuado = null;
-
         for (Peca peca : pecas) {
             for (Posicao posicao : peca.getMovimentosPossiveis()) {
                 Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao);
-                boolean movimentou = maquinaDeRegras.executaMovimento(novoMovimento);
+                boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento);
                 if (!movimentou) {
-                    throw new RuntimeException("Movimento inválido");
+                    throw new RuntimeException("Movimento inválido computando minMax");
                 }
 
-                movimentoPontuado = this.minMax(novoMovimento, profundidade - 1, alpha, beta, false);
-                movimentoPontuado.pontuacao *= Math.random() / 10.0 + 1.0;
-                maxEval = Math.max(maxEval, movimentoPontuado.pontuacao);
-                alpha = Math.max(alpha, movimentoPontuado.pontuacao);
-
-                maquinaDeRegras.desfazUltimoMovimento();
-
-                if (beta <= alpha) {
-                    return movimentoPontuado;
+                int valor = -this.min(profundidade - 1);
+                valor *= Math.random() / 10.0 + 1.0;
+                if (valor > melhorValor) {
+                    melhorValor = valor;
+                    if (Cor.PRETO == this.cor) {
+                        this.melhorMovimento = novoMovimento;
+                    }
                 }
+                this.maquinaDeRegras.desfazUltimoMovimento();
             }
         }
-        return movimentoPontuado;
-
+        return melhorValor;
     }
 
-    private MovimentoPontuado min(int profundidade, int alpha, int beta) {
-        int minEval = Integer.MAX_VALUE;
-        ArrayList<Peca> pecas = this.tabuleiro.getPecasAdversario(this.cor);
-        MovimentoPontuado movimentoPontuado = null;
+    private int min(int profundidade) {
+        if (profundidade <= 0) {
+            return this.getValorTabuleiro();
+        }
+        int melhorValor = Integer.MIN_VALUE;
 
+        Cor adversarioIA = this.cor == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        ArrayList<Peca> pecas = this.tabuleiro.getPecas(adversarioIA);
         for (Peca peca : pecas) {
             for (Posicao posicao : peca.getMovimentosPossiveis()) {
                 Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao);
-                boolean movimentou = maquinaDeRegras.executaMovimento(novoMovimento);
+                boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento);
                 if (!movimentou) {
-                    throw new RuntimeException("Movimento inválido");
+                    throw new RuntimeException("Movimento inválido computando minMax");
                 }
 
-                movimentoPontuado = this.minMax(novoMovimento, profundidade - 1, alpha, beta, true);
-                movimentoPontuado.pontuacao *= Math.random() / 10.0 + 1.0;
-                minEval = Math.min(minEval, movimentoPontuado.pontuacao);
-                beta = Math.min(beta, movimentoPontuado.pontuacao);
-
-                maquinaDeRegras.desfazUltimoMovimento();
-
-                if (beta <= alpha) {
-                    return movimentoPontuado;
+                int valorTabuleiro = -this.max(profundidade - 1);
+                valorTabuleiro *= Math.random() / 10.0 + 1.0;
+                if (valorTabuleiro > melhorValor) {
+                    melhorValor = valorTabuleiro;
+                    if (Cor.BRANCO == this.cor) {
+                        this.melhorMovimento = novoMovimento;
+                    }
                 }
+                this.maquinaDeRegras.desfazUltimoMovimento();
             }
         }
-        return movimentoPontuado;
+        return melhorValor;
     }
 
     private int getValorTabuleiro() {
@@ -117,15 +120,5 @@ public class IA {
         }
 
         return valorPecas - valorPecasAdversario;
-    }
-
-    private class MovimentoPontuado {
-        public Movimento movimento;
-        public int pontuacao;
-
-        public MovimentoPontuado(Movimento movimento, int pontuacao) {
-            this.movimento = movimento;
-            this.pontuacao = pontuacao;
-        }
     }
 }
