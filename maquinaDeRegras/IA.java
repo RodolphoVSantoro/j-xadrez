@@ -40,7 +40,7 @@ public class IA {
     }
 
     private void minMax(int profundidade) {
-        if (this.cor == Cor.BRANCO) {
+        if (this.cor == Cor.PRETO) {
             this.max(profundidade);
         } else {
             this.min(profundidade);
@@ -48,7 +48,7 @@ public class IA {
     }
 
     private int max(int profundidade) {
-        if (profundidade == 0) {
+        if (profundidade <= 0 || this.maquinaDeRegras.chegouFimDeJogo()) {
             return this.getValorTabuleiro();
         }
         int melhorValor = Integer.MIN_VALUE;
@@ -62,6 +62,7 @@ public class IA {
                 }
 
                 int valor = -this.min(profundidade - 1);
+
                 valor *= Math.random() / 10.0 + 1.0;
                 if (valor > melhorValor) {
                     melhorValor = valor;
@@ -76,7 +77,7 @@ public class IA {
     }
 
     private int min(int profundidade) {
-        if (profundidade <= 0) {
+        if (profundidade <= 0 || this.maquinaDeRegras.chegouFimDeJogo()) {
             return this.getValorTabuleiro();
         }
         int melhorValor = Integer.MIN_VALUE;
@@ -92,6 +93,7 @@ public class IA {
                 }
 
                 int valorTabuleiro = -this.max(profundidade - 1);
+
                 valorTabuleiro *= Math.random() / 10.0 + 1.0;
                 if (valorTabuleiro > melhorValor) {
                     melhorValor = valorTabuleiro;

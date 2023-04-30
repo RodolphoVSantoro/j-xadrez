@@ -43,6 +43,13 @@ public class MaquinaDeRegras {
         this.IA.setTabuleiro(this.tabuleiro);
     }
 
+    public void jogada() {
+        if (this.partidaComIA && this.turno == this.adversario) {
+            this.moveIA();
+            this.turno = this.jogador;
+        }
+    }
+
     public boolean chegouFimDeJogo() {
         Peca reiBranco = this.tabuleiro.getPecas(Cor.BRANCO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI)
                 .findFirst()

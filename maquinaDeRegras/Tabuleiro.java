@@ -111,6 +111,7 @@ public class Tabuleiro {
             throw new IllegalArgumentException("Peca tentou ser recuperada para uma posicao nao vazia.");
         }
         this.pecasCapturadas.get(peca.getCor()).remove(peca);
+        peca.recupera();
         this.posicoesPecas[posicao.x][posicao.y] = peca;
     }
 

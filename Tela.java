@@ -15,12 +15,12 @@ import maquinaDeRegras.Tabuleiro;
 import java.util.ArrayList;
 
 import pecas.Peca;
-import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 
 class Tela extends JFrame {
 
+    private Canvas canvas;
     private MaquinaDeRegras maquinaDeRegras;
     private Tabuleiro tabuleiro;
     private ArrayList<Peca> pecasBrancas;
@@ -28,9 +28,8 @@ class Tela extends JFrame {
 
     Tela() {
         super(Config.TITULO);
-        initGame();
 
-        Canvas canvas = new Canvas() {
+        canvas = new Canvas() {
 
             public void paint(Graphics graphics) {
                 graphics.setColor(Color.black);
@@ -47,16 +46,39 @@ class Tela extends JFrame {
         setVisible(true);
     }
 
+    public void repaint() {
+        canvas.repaint();
+    }
+
     private void initGame() {
         this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 2);
         this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         this.pecasPretas = SetupPecas.setup(Cor.PRETO);
         this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
         this.maquinaDeRegras.setTabuleiro(tabuleiro);
+    }
 
-        Peca peao0 = pecasBrancas.stream().filter(p -> p.getTipoPeca() == TipoPeca.PEAO).findFirst().get();
+    private void gameLoop() throws Error {
+        Peca peao0 = this.tabuleiro.getPeca(new Posicao(0, 6));
         Movimento movimento = new Movimento(peao0, peao0.getPosicaoTabuleiro(), new Posicao(0, 4));
         this.maquinaDeRegras.executaMovimento(movimento);
+
+        this.maquinaDeRegras.moveIA();
+
+        Peca peao1 = this.tabuleiro.getPeca(new Posicao(4, 6));
+        Movimento movimento1 = new Movimento(peao1, peao1.getPosicaoTabuleiro(), new Posicao(4, 4));
+        this.maquinaDeRegras.executaMovimento(movimento1);
+
+        this.maquinaDeRegras.moveIA();
+
+        Movimento movimento2 = new Movimento(peao1, peao1.getPosicaoTabuleiro(), new Posicao(4, 3));
+        this.maquinaDeRegras.executaMovimento(movimento2);
+
+        this.maquinaDeRegras.moveIA();
+
+        Peca torreE = this.tabuleiro.getPeca(new Posicao(0, 7));
+        Movimento movimento3 = new Movimento(torreE, torreE.getPosicaoTabuleiro(), new Posicao(0, 5));
+        this.maquinaDeRegras.executaMovimento(movimento3);
 
         this.maquinaDeRegras.moveIA();
     }
@@ -66,5 +88,14 @@ class Tela extends JFrame {
         Config.loadImages();
         Tela tela = new Tela();
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        tela.initGame();
+        tela.gameLoop();
+        // while (true) {
+        // tela.repaint();
+        // try {
+        // Thread.sleep(1000);
+        // } catch (Exception e) {
+        // }
+        // }
     }
 }

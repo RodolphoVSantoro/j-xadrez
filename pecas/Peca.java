@@ -51,6 +51,11 @@ public abstract class Peca {
         this.sprite.move(-100, -100);
     }
 
+    public void recupera() {
+        this.capturada = false;
+        this.sprite.move(this.posicaoTabuleiro.x * Config.LARGURA_PECA, this.posicaoTabuleiro.y * Config.ALTURA_PECA);
+    }
+
     /*
      * Diz se a peca em determinada posiçao é capturável
      * Sem considerar peças entre ambas

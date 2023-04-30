@@ -19,7 +19,8 @@ public class Historico {
         Posicao posicaoAnterior = movimento.getPosicaoAnterior();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
 
-        this.movimentos.add(new Movimento(peca, posicaoAnterior, posicaoPosterior, pecaCapturada));
+        Movimento novoMovimento = new Movimento(peca, posicaoAnterior, posicaoPosterior, pecaCapturada);
+        this.movimentos.add(novoMovimento);
         this.ultimoMovimento++;
     }
 
