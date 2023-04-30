@@ -38,4 +38,14 @@ public class Movimento {
     public Posicao getPosicaoPosterior() {
         return posicaoPosterior;
     }
+
+    public String stringify() {
+        String strigified = "Peca: " + this.peca.stringify() + '\n';
+        strigified += "Posicao Anterior: " + this.posicaoAnterior.stringify() + '\n';
+        strigified += "Posicao Posterior: " + this.posicaoPosterior.stringify() + '\n';
+        if (this.pecaCapturada != null) {
+            strigified += "Peca Capturada: " + this.pecaCapturada.stringify() + '\n';
+        }
+        return strigified;
+    }
 }

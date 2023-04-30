@@ -8,4 +8,8 @@ public class Posicao {
         this.x = x;
         this.y = y;
     }
+
+    public String stringify() {
+        return "(" + this.x + ", " + this.y + ")";
+    }
 }
