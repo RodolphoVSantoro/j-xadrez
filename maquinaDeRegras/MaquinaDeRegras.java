@@ -4,32 +4,35 @@ import java.util.ArrayList;
 
 import pecas.Peca;
 import pecas.TipoPeca;
-import utils.Box;
 import utils.Cor;
 import utils.Posicao;
 
 public class MaquinaDeRegras {
     private Tabuleiro tabuleiro;
+    private Cor turno;
     private Cor jogador;
     private Cor adversario;
-    private boolean IA;
-    private Box<Integer> nivelDificuldadeIA;
+    private boolean partidaComIA;
     private Historico historico;
+    private IA IA;
 
     public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
+        this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
-        this.IA = false;
-        this.nivelDificuldadeIA = new Box<Integer>();
+        this.partidaComIA = false;
+        this.IA = null;
     }
 
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
         this.historico = new Historico();
+        this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
-        this.IA = true;
-        this.nivelDificuldadeIA = new Box<Integer>(Integer.valueOf(nivelDificuldadeIA));
+        this.partidaComIA = true;
+        this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.IA.setMaquinaDeRegras(this);
     }
 
     /**
@@ -37,6 +40,7 @@ public class MaquinaDeRegras {
      */
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
+        this.IA.setTabuleiro(this.tabuleiro);
     }
 
     public boolean chegouFimDeJogo() {
@@ -57,9 +61,11 @@ public class MaquinaDeRegras {
     public boolean executaMovimento(Movimento movimento) {
         Peca pecaMovimentando = movimento.getPeca();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
-
         ArrayList<Posicao> posicoesValidas = pecaMovimentando.getMovimentosPossiveis();
-        if (posicoesValidas.contains(posicaoPosterior)) {
+
+        boolean posicaoValida = posicoesValidas.stream()
+                .anyMatch(p -> p.x == posicaoPosterior.x && p.y == posicaoPosterior.y);
+        if (posicaoValida) {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
             return true;
@@ -78,5 +84,15 @@ public class MaquinaDeRegras {
             this.tabuleiro.recuperaPeca(ultimoMovimento.getPecaCapturada(), ultimoMovimento.getPosicaoPosterior());
         }
         this.historico.reverteMovimento();
+    }
+
+    public void moveIA() {
+        if (this.partidaComIA) {
+            Movimento movimento = this.IA.getIAMovimento();
+            boolean iaMoveu = this.executaMovimento(movimento);
+            if (!iaMoveu) {
+                throw new Error("IA tentou movimento invalido");
+            }
+        }
     }
 }
