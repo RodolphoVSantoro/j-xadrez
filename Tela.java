@@ -9,12 +9,15 @@ import javax.swing.WindowConstants;
 import config.Config;
 import config.SetupPecas;
 import maquinaDeRegras.MaquinaDeRegras;
+import maquinaDeRegras.Movimento;
 import maquinaDeRegras.Tabuleiro;
 
 import java.util.ArrayList;
 
 import pecas.Peca;
+import pecas.TipoPeca;
 import utils.Cor;
+import utils.Posicao;
 
 class Tela extends JFrame {
 
@@ -45,11 +48,17 @@ class Tela extends JFrame {
     }
 
     private void initGame() {
-        this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO);
+        this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 2);
         this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         this.pecasPretas = SetupPecas.setup(Cor.PRETO);
         this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
         this.maquinaDeRegras.setTabuleiro(tabuleiro);
+
+        Peca peao0 = pecasBrancas.stream().filter(p -> p.getTipoPeca() == TipoPeca.PEAO).findFirst().get();
+        Movimento movimento = new Movimento(peao0, peao0.getPosicaoTabuleiro(), new Posicao(0, 4));
+        this.maquinaDeRegras.executaMovimento(movimento);
+
+        this.maquinaDeRegras.moveIA();
     }
 
     // Main Method
