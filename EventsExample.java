@@ -3,6 +3,8 @@ import events.TipoEvento;
 import events.Thrower;
 
 class EventsExample {
+    static int x = 0, y = 1;
+
     public static void main(String[] args) {
         Thrower movePieceThrower = GerenciadorEventos.createThrower(TipoEvento.MOVE_PECA);
 
@@ -19,8 +21,10 @@ class EventsExample {
         movePieceThrower.Throw();
 
         Thrower clickSquareThrower = GerenciadorEventos.createThrower(TipoEvento.CLICK_TABULEIRO, () -> {
-            System.out.println("O usuario clicou no tabuleiro!!");
+            System.out.println("O usuario clicou no tabuleiro!!" + x + " " + y);
         });
+        clickSquareThrower.Throw();
+        x = 1;
         clickSquareThrower.Throw();
     }
 }
