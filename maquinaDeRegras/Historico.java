@@ -28,9 +28,7 @@ public class Historico {
             Movimento ultimoMovimento = this.movimentos.get(this.ultimoMovimento);
             return ultimoMovimento;
         } catch (Error error) {
-            System.out.println("Não existe movimento " + Integer.toString(this.ultimoMovimento));
-            System.out.println(error.toString());
-            return null;
+            throw new Error("Não ha ultimo movimento");
         }
     }
 
@@ -40,10 +38,15 @@ public class Historico {
             this.ultimoMovimento--;
             return ultimoMovimento;
         } catch (Error error) {
-            System.out.println("Impossivel voltar na jogada");
-            System.out.println(error.toString());
-            return null;
+            throw new Error("Impossivel voltar na jogada");
         }
     }
 
+    public String stringify() {
+        String stringified = "Historico de movimentos:\n";
+        for (Movimento movimento : this.movimentos) {
+            stringified += movimento.stringify();
+        }
+        return stringified;
+    }
 }
