@@ -30,7 +30,7 @@ public abstract class Config {
 
     public static final String TITULO = "Xadrez";
     public static final String CAMINHO_IMAGENS = "assets/images/";
-    public static final Image IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro1.png");
+    public static final Image IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro.png");
     public static final HashMap<Cor, HashMap<TipoPeca, Image>> IMAGENS_PECAS = SpritesXadrez.inicializaSprites();
 
     public final static HashMap<Cor, HashMap<TipoPeca, Posicao[]>> POSICOES_INICIAIS = ConfigPosicoesIniciais
