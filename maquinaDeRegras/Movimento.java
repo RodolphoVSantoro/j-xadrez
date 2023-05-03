@@ -8,12 +8,14 @@ public class Movimento {
     private Posicao posicaoAnterior;
     private Posicao posicaoPosterior;
     private Peca pecaCapturada;
+    private double valor;
 
-    public Movimento(Peca peca, Posicao posicaoAnterior, Posicao posicaoPosterior) {
+    public Movimento(Peca peca, Posicao posicaoAnterior, Posicao posicaoPosterior,double valor) {
         this.peca = peca;
         this.posicaoAnterior = posicaoAnterior;
         this.posicaoPosterior = posicaoPosterior;
         this.pecaCapturada = null;
+        this.valor=valor;
     }
 
     public Movimento(Peca peca, Posicao posicaoAnterior, Posicao posicaoPosterior, Peca pecaCapturada) {
@@ -25,6 +27,14 @@ public class Movimento {
 
     public Peca getPecaCapturada() {
         return pecaCapturada;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor+=valor;
     }
 
     public Peca getPeca() {

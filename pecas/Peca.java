@@ -46,6 +46,10 @@ public abstract class Peca {
         return new Posicao(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y);
     }
 
+    public boolean getCapturado() {
+        return this.capturada;
+    }
+
     public void captura() {
         this.capturada = true;
         this.sprite.move(-100, -100);
