@@ -137,7 +137,7 @@ class Tela extends JFrame {
         Tela tela = new Tela();
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         tela.initGame();
-        //tela.gameLoop();
+        tela.gameLoop();
         // while (true) {
         // tela.repaint();
         // try {
