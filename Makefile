@@ -7,7 +7,7 @@ endif
 default:
 	javac ./gui/*.java
 	javac ./pecas/*.java
-	javac ./tabuleiro/*.java
+	javac ./maquinaDeRegras/*.java
 	javac ./utils/*.java
 	javac ./config/*.java
 	javac ./menu/*.java
@@ -18,7 +18,7 @@ ifeq ($(detected_OS),Windows)
 clean:
 	del /S gui\*.class
 	del /S pecas\*.class
-	del /S tabuleiro\*.class
+	del /S maquinaDeRegras\*.class
 	del /S utils\*.class
 	del /S config\*.class
 	del /S menu\*.class
@@ -26,7 +26,7 @@ else
 clean:
 	rm -rf ./gui/*.class
 	rm -rf ./pecas/*.class
-	rm -rf ./tabuleiro/*.class
+	rm -rf ./maquinaDeRegras/*.class
 	rm -rf ./utils/*.class
 	rm -rf ./config/*.class
 	rm -rf ./menu/*.java

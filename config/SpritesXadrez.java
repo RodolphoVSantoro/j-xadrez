@@ -1,10 +1,11 @@
-package utils;
+package config;
 
 import java.awt.Image;
 import java.util.HashMap;
 
-import config.Config;
 import pecas.TipoPeca;
+import utils.Cor;
+import utils.LeitorImagem;
 
 public abstract class SpritesXadrez {
     private static void tentaAdicionarImagem(HashMap<TipoPeca, Image> map, TipoPeca tipoPeca, String path) {

@@ -7,16 +7,16 @@ import java.util.ArrayList;
 
 import config.Config;
 import gui.Sprite;
+import maquinaDeRegras.Tabuleiro;
 import utils.Cor;
 import utils.Posicao;
-import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
     private Cor cor;
     private TipoPeca tipoPeca;
-    private Posicao posicaoTabuleiro;
-    private boolean capturada;
-    private Tabuleiro tabuleiro;
+    protected Posicao posicaoTabuleiro;
+    protected boolean capturada;
+    protected Tabuleiro tabuleiro;
     private Sprite sprite;
 
     public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca tipoPeca) {
@@ -35,9 +35,8 @@ public abstract class Peca {
         this.tabuleiro = tabuleiro;
     }
 
-    // deve ser chamada por tentaMover
-    private void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
-        this.posicaoTabuleiro = posicaoTabuleiro;
+    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
+        this.posicaoTabuleiro = new Posicao(posicaoTabuleiro.x, posicaoTabuleiro.y);
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
         this.sprite.move(spriteX, spriteY);
@@ -47,27 +46,58 @@ public abstract class Peca {
         return new Posicao(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y);
     }
 
-    protected abstract boolean podeMover(Posicao posicao);
+    public boolean getCapturado() {
+        return this.capturada;
+    }
 
-    protected abstract boolean podeCapturar(Posicao posicao);
+    public void captura() {
+        this.capturada = true;
+        this.sprite.move(-100, -100);
+    }
 
-    protected abstract Peca tentaCapturar(Posicao posicao);
+    public void recupera() {
+        this.capturada = false;
+        this.sprite.move(this.posicaoTabuleiro.x * Config.LARGURA_PECA, this.posicaoTabuleiro.y * Config.ALTURA_PECA);
+    }
 
-    public abstract boolean tentaMover(Posicao posicao);
+    /*
+     * Diz se a peca em determinada posiçao é capturável
+     * Sem considerar peças entre ambas
+     */
+    protected boolean podeCapturar(Posicao posicaoNova) {
+        Peca peca = this.tabuleiro.getPeca(posicaoNova.x, posicaoNova.y);
+        return peca != null && peca.getCor() != this.getCor();
+    }
 
-    // Chamar para mostrar os movimentos possíveis
-    // caso a o jogador escolha uma posição inválida
-    public ArrayList<Posicao> getMovimentosPossiveis() {
-        ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
-        for (int linha = 0; linha < 8; linha++) {
-            for (int coluna = 0; coluna < 8; coluna++) {
-                Posicao posicao = new Posicao(linha, coluna);
-                if (this.podeMover(posicao)) {
-                    movimentosPossiveis.add(posicao);
-                }
+    /*
+     * Move caso a casa for um movimento possível
+     */
+    public boolean podeMover(Posicao posicao) {
+        // TODO: Salvar e só computar uma vez por jogada se ficar pesado
+        ArrayList<Posicao> posicoesValidas = this.getMovimentosPossiveis();
+        for (Posicao posicaoNova : posicoesValidas) {
+            if (posicaoNova.x == posicao.x && posicaoNova.y == posicao.y) {
+                return true;
             }
         }
-        return movimentosPossiveis;
+        return false;
+    }
+
+    /**
+     * Retorna todos os movimentos possiveis de uma peça
+     */
+    public abstract ArrayList<Posicao> getMovimentosPossiveis();
+
+    public Cor getCor() {
+        return cor;
+    }
+
+    public TipoPeca getTipoPeca() {
+        return tipoPeca;
+    }
+
+    public String stringify() {
+        return this.tipoPeca.toString() + " " + this.cor.toString() + " " + this.posicaoTabuleiro.stringify();
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
