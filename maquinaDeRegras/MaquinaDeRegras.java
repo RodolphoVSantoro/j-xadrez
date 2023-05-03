@@ -38,10 +38,19 @@ public class MaquinaDeRegras {
     /**
      * Usar injeção de dependência
      */
+
+     public Tabuleiro getTabuleiro() {
+        return this.tabuleiro;
+    }
+
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
         this.IA.setTabuleiro(this.tabuleiro);
     }
+
+    public Cor getTurno(){
+        return this.turno;
+    } 
 
     public void jogada() {
         if (this.partidaComIA && this.turno == this.adversario) {

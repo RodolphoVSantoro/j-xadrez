@@ -1,23 +1,31 @@
 package maquinaDeRegras;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JPanel;
+
 import config.Config;
+import events.Input;
 import gui.Sprite;
 import pecas.Peca;
 import utils.Cor;
 import utils.Posicao;
 
-public class Tabuleiro {
+public class Tabuleiro extends JPanel{
     private Sprite sprite;
     private HashMap<Cor, ArrayList<Peca>> pecas;
     private HashMap<Cor, ArrayList<Peca>> pecasCapturadas;
     private Peca[][] posicoesPecas;
+    private Canvas canvas;
 
-    public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
+    public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas, Canvas canvas) {
+        
+        this.canvas = canvas;
+        
         this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);
 
         this.pecas = new HashMap<Cor, ArrayList<Peca>>();

@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import config.Config;
 import config.SetupPecas;
+import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
 import maquinaDeRegras.Tabuleiro;
@@ -25,17 +26,21 @@ class Tela extends JFrame {
     private Tabuleiro tabuleiro;
     private ArrayList<Peca> pecasBrancas;
     private ArrayList<Peca> pecasPretas;
+    private Input input;
+    
 
     Tela() {
-        super(Config.TITULO);
+        super();
 
         canvas = new Canvas() {
 
             public void paint(Graphics graphics) {
                 graphics.setColor(Color.black);
-                tabuleiro.desenha(graphics, this);
-                pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
-                pecasPretas.forEach(peca -> peca.desenha(graphics, this));
+                if(maquinaDeRegras != null){
+                    tabuleiro.desenha(graphics, this);
+                    pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
+                    pecasPretas.forEach(peca -> peca.desenha(graphics, this));
+                }
             }
         };
 
@@ -44,6 +49,7 @@ class Tela extends JFrame {
         add(canvas);
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
         setVisible(true);
+        setResizable(false);
     }
 
     public void repaint() {
@@ -54,8 +60,11 @@ class Tela extends JFrame {
         this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 2);
         this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         this.pecasPretas = SetupPecas.setup(Cor.PRETO);
-        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
+        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas, canvas);
         this.maquinaDeRegras.setTabuleiro(tabuleiro);
+        this.input = new Input(maquinaDeRegras, canvas);
+        this.canvas.addMouseListener(input);
+        //this.canvas.addMouseMotionListener(input);
     }
 
     private void gameLoop() throws Error, InterruptedException {
@@ -66,8 +75,6 @@ class Tela extends JFrame {
         
         Thread.sleep(1000);
         this.repaint();
-
-
 
         this.maquinaDeRegras.moveIA();
 
@@ -122,7 +129,6 @@ class Tela extends JFrame {
 
         System.out.println("cabou");
 
-
     }
 
     // Main Method
@@ -131,7 +137,7 @@ class Tela extends JFrame {
         Tela tela = new Tela();
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         tela.initGame();
-        tela.gameLoop();
+        //tela.gameLoop();
         // while (true) {
         // tela.repaint();
         // try {

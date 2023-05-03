@@ -18,8 +18,8 @@ public abstract class Config {
     public static final int LARGURA_PECA = 100;
     public static final int ALTURA_PECA = 100;
 
-    public static final int LARGURA_TABULEIRO = 8;
-    public static final int ALTURA_TABULEIRO = 8;
+    public static final int LARGURA_TABULEIRO = 100;
+    public static final int ALTURA_TABULEIRO = 100;
 
     public static int PROFUNDIDADE_IA = 5;
 
