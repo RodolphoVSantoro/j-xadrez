@@ -51,6 +51,7 @@ public class Input extends MouseAdapter{
             Movimento movimento = new Movimento(this.selecionada, this.selecionada.getPosicaoTabuleiro(), novaPosicao, 0);
             if(this.selecionada.podeMover(novaPosicao)){
                 this.maquinaDeRegras.executaMovimento(movimento);
+                this.maquinaDeRegras.setTurno(Cor.PRETO);
             }
         }
 

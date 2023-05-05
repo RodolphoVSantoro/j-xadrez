@@ -52,6 +52,10 @@ public class MaquinaDeRegras {
         return this.turno;
     } 
 
+    public void setTurno(Cor cor){
+         this.turno=cor;
+    } 
+
     public void jogada() {
         if (this.partidaComIA && this.turno == this.adversario) {
             this.moveIA();
@@ -110,5 +114,6 @@ public class MaquinaDeRegras {
                 throw new Error("IA tentou movimento invalido");
             }
         }
+        this.turno=Cor.BRANCO;
     }
 }
