@@ -31,7 +31,7 @@ public class Peao extends Peca {
         if (peca == null && posicaoValida) {
             movimentosPossiveis.add(proximaPosicao);
         }
-        if (this.primeiroMovimento) {
+        if ((this.getCor() == Cor.PRETO && posicaoAtual.y==1)||(this.getCor() == Cor.BRANCO && posicaoAtual.y==6)) {
             proximaPosicao = new Posicao(posicaoAtual.x, posicaoAtual.y + 2 * dir);
             peca = this.tabuleiro.getPeca(proximaPosicao);
             posicaoValida = this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y);
