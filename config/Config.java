@@ -21,7 +21,7 @@ public abstract class Config {
     public static final int LARGURA_TABULEIRO = 100;
     public static final int ALTURA_TABULEIRO = 100;
 
-    public static int PROFUNDIDADE_IA = 1;
+    public static int PROFUNDIDADE_IA = 5;
 
     public static final String TITULO = "Xadrez";
     public static final String CAMINHO_IMAGENS = "assets/images/";

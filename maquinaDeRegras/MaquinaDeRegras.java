@@ -71,14 +71,14 @@ public class MaquinaDeRegras {
                 .findFirst()
                 .get();
 
-        if (reiBranco == null || reiPreto == null) {
+        if (reiBranco.getCapturado() || reiPreto.getCapturado()) {
             return true;
         }
 
         return false;
     }
 
-    public boolean executaMovimento(Movimento movimento) {
+    public boolean executaMovimento(Movimento movimento,boolean ehIA) {
         Peca pecaMovimentando = movimento.getPeca();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
         ArrayList<Posicao> posicoesValidas = pecaMovimentando.getMovimentosPossiveis();
@@ -86,7 +86,7 @@ public class MaquinaDeRegras {
         boolean posicaoValida = posicoesValidas.stream()
                 .anyMatch(p -> p.x == posicaoPosterior.x && p.y == posicaoPosterior.y);
         if (posicaoValida) {
-            Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior);
+            Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
             return true;
         }
@@ -94,14 +94,14 @@ public class MaquinaDeRegras {
         return false;
     }
 
-    public void desfazUltimoMovimento() {
+    public void desfazUltimoMovimento(boolean ehIA) {
         Movimento ultimoMovimento = this.historico.getUltimoMovimento();
         if (ultimoMovimento == null) {
             throw new Error("Tentou desfazer sem movimento no historico");
         }
-        this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior());
+        this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior(),ehIA);
         if (ultimoMovimento.getPecaCapturada() != null) {
-            this.tabuleiro.recuperaPeca(ultimoMovimento.getPecaCapturada(), ultimoMovimento.getPosicaoPosterior());
+            this.tabuleiro.recuperaPeca(ultimoMovimento.getPecaCapturada(), ultimoMovimento.getPosicaoPosterior(),ehIA);
         }
         this.historico.reverteMovimento();
     }
@@ -109,7 +109,7 @@ public class MaquinaDeRegras {
     public void moveIA() {
         if (this.partidaComIA) {
             Movimento movimento = this.IA.getIAMovimento();
-            boolean iaMoveu = this.executaMovimento(movimento);
+            boolean iaMoveu = this.executaMovimento(movimento,false);
             if (!iaMoveu) {
                 throw new Error("IA tentou movimento invalido");
             }

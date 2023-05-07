@@ -60,7 +60,7 @@ class Tela extends JFrame {
         this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 2);
         this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         this.pecasPretas = SetupPecas.setup(Cor.PRETO);
-        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas, canvas);
+        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
         this.maquinaDeRegras.setTabuleiro(tabuleiro);
         this.input = new Input(maquinaDeRegras, canvas);
         this.canvas.addMouseListener(input);
@@ -133,6 +133,7 @@ class Tela extends JFrame {
         while(!this.maquinaDeRegras.chegouFimDeJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
+                System.out.println("sua vez");
                 this.repaint();
                 
             };
@@ -143,6 +144,7 @@ class Tela extends JFrame {
             // };
             // i=(System.nanoTime() / 1000000)-timeOld;
         }
+        System.out.println("vc venceu");
 
     }
 
