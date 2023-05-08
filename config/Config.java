@@ -9,17 +9,17 @@ import utils.LeitorImagem;
 import utils.Posicao;
 
 public abstract class Config {
-    public static final int LARGURA_TELA = 1000;
-    public static final int ALTURA_TELA = 1000;
+    public static final int LARGURA_TELA = 800;
+    public static final int ALTURA_TELA = 800;
 
-    public static final int ALTURA_MARGEM = 100;
-    public static final int LARGURA_MARGEM = 100;
+    public static final int ALTURA_MARGEM = 80;
+    public static final int LARGURA_MARGEM = 80;
 
-    public static final int LARGURA_PECA = 100;
-    public static final int ALTURA_PECA = 100;
+    public static final int LARGURA_PECA = 80;
+    public static final int ALTURA_PECA = 80;
 
-    public static final int LARGURA_TABULEIRO = 100;
-    public static final int ALTURA_TABULEIRO = 100;
+    public static final int LARGURA_TABULEIRO = 80;
+    public static final int ALTURA_TABULEIRO = 80;
 
     public static int PROFUNDIDADE_IA = 5;
 
@@ -32,6 +32,7 @@ public abstract class Config {
 
     public static void loadImages() {
         IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro.png");
+        IMAGEM_TABULEIRO = IMAGEM_TABULEIRO.getScaledInstance(640, 640, Image.SCALE_SMOOTH);
         IMAGENS_PECAS = SpritesXadrez.inicializaSprites();
     }
 

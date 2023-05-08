@@ -19,6 +19,8 @@ public abstract class Peca {
     protected Tabuleiro tabuleiro;
     private Sprite sprite;
 
+    private boolean primeiroMovimento = true;
+
     public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca tipoPeca) {
         this.capturada = false;
         this.tabuleiro = null;

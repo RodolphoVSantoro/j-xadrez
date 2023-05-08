@@ -26,9 +26,9 @@ class Tela extends JFrame {
     private Tabuleiro tabuleiro;
     private ArrayList<Peca> pecasBrancas;
     private ArrayList<Peca> pecasPretas;
+    private ArrayList<Posicao> possiveis;
     private Input input;
     
-
     Tela() {
         super();
 
@@ -41,6 +41,19 @@ class Tela extends JFrame {
                     pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
                     pecasPretas.forEach(peca -> peca.desenha(graphics, this));
                 }
+                
+                // Highlight
+                if(input.selecionada != null){
+                    possiveis = input.selecionada.getMovimentosPossiveis();
+                    for(int i = 0; i < possiveis.size(); i++){
+                        graphics.setColor(new Color(68, 180, 57, 190));
+                        graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO, 
+                                          (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
+                                           Config.LARGURA_TABULEIRO,
+                                           Config.LARGURA_TABULEIRO);
+                        
+                    }
+                }
             }
         };
 
@@ -49,6 +62,7 @@ class Tela extends JFrame {
         add(canvas);
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
         setVisible(true);
+        setLocationRelativeTo(null);
         setResizable(false);
     }
 
@@ -130,7 +144,7 @@ class Tela extends JFrame {
         System.out.println("cabou");
 
     }
-
+    
     // Main Method
     public static void main(String args[]) throws InterruptedException, Error {
         Config.loadImages();

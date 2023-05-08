@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "teste",
+            "request": "launch",
+            "mainClass": "teste",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
             "name": "TelaPreta",
             "request": "launch",
             "mainClass": "utils.TelaPreta",
