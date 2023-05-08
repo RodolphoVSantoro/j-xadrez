@@ -34,7 +34,7 @@ public class Input extends MouseAdapter{
             Peca posicaoPeca = maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
             if(posicaoPeca != null && ( posicaoPeca.getCor() == Cor.BRANCO && !posicaoPeca.getCapturado())){
-                System.out.println("vc selecinou uma peça valida");
+                //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
         }

@@ -54,7 +54,7 @@ public abstract class Peca {
 
     public void captura(boolean ehIA) {
         this.capturada = true;
-        if(!ehIA)this.sprite.move(-100, -100);
+        if(!ehIA)this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
     }
 
     public void recupera(boolean ehIA) {

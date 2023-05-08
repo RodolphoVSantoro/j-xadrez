@@ -78,87 +78,19 @@ class Tela extends JFrame {
         this.maquinaDeRegras.setTabuleiro(tabuleiro);
         this.input = new Input(maquinaDeRegras, canvas);
         this.canvas.addMouseListener(input);
-        //this.canvas.addMouseMotionListener(input);
     }
 
     private void gameLoop() throws Error, InterruptedException {
-        // Thread.currentThread();
-        // Peca peao0 = this.tabuleiro.getPeca(new Posicao(0, 6));
-        // Movimento movimento = new Movimento(peao0, peao0.getPosicaoTabuleiro(), new Posicao(0, 4),0);
-        // this.maquinaDeRegras.executaMovimento(movimento);
         
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // this.maquinaDeRegras.moveIA();
-
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // Peca peao1 = this.tabuleiro.getPeca(new Posicao(4, 6));
-        // Movimento movimento1 = new Movimento(peao1, peao1.getPosicaoTabuleiro(), new Posicao(4, 4),0);
-        // this.maquinaDeRegras.executaMovimento(movimento1);
-
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // this.maquinaDeRegras.moveIA();
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // Movimento movimento2 = new Movimento(peao1, peao1.getPosicaoTabuleiro(), new Posicao(4, 3),0);
-        // this.maquinaDeRegras.executaMovimento(movimento2);
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // this.maquinaDeRegras.moveIA();
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // Peca torreE = this.tabuleiro.getPeca(new Posicao(0, 7));
-        // Movimento movimento3 = new Movimento(torreE, torreE.getPosicaoTabuleiro(), new Posicao(0, 5),0);
-        // this.maquinaDeRegras.executaMovimento(movimento3);
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // this.maquinaDeRegras.moveIA();
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // Movimento movimento4 = new Movimento(peao1, peao1.getPosicaoTabuleiro(), new Posicao(4, 2),0);
-        // this.maquinaDeRegras.executaMovimento(movimento4);
-
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // this.maquinaDeRegras.moveIA();
-        
-        // Thread.sleep(1000);
-        // this.repaint();
-
-        // System.out.println("cabou");
-        long i=0;
-        long timeOld=System.nanoTime() / 1000000;
         while(!this.maquinaDeRegras.chegouFimDeJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
-                System.out.println("sua vez");
+                //System.out.println("sua vez");
                 this.repaint();
                 
             };
-            // if(i>=100){
-                
-            //     System.out.println("cabou "+i);
-            //     timeOld=System.nanoTime() / 1000000;
-            // };
-            // i=(System.nanoTime() / 1000000)-timeOld;
         }
-        System.out.println("vc venceu");
+       // System.out.println("vc venceu");
 
     }
     
@@ -169,12 +101,6 @@ class Tela extends JFrame {
         tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         tela.initGame();
         tela.gameLoop();
-        // while (true) {
-        // tela.repaint();
-        // try {
-        // Thread.sleep(1000);
-        // } catch (Exception e) {
-        // }
-        // }
+        System.exit(ABORT);
     }
 }
