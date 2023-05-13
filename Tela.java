@@ -57,7 +57,7 @@ class Tela extends JFrame {
             }
         };
 
-        canvas.setBackground(Color.white);
+        canvas.setBackground(new Color(60, 40, 15));
 
         add(canvas);
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
