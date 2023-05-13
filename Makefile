@@ -10,9 +10,8 @@ default:
 	javac ./maquinaDeRegras/*.java
 	javac ./utils/*.java
 	javac ./config/*.java
-	javac ./menu/*.java
 run:
-	java menu/Menu.java
+	java Tela.java
 
 ifeq ($(detected_OS),Windows)
 clean:
@@ -21,7 +20,6 @@ clean:
 	del /S maquinaDeRegras\*.class
 	del /S utils\*.class
 	del /S config\*.class
-	del /S menu\*.class
 else
 clean:
 	rm -rf ./gui/*.class
@@ -29,5 +27,4 @@ clean:
 	rm -rf ./maquinaDeRegras/*.class
 	rm -rf ./utils/*.class
 	rm -rf ./config/*.class
-	rm -rf ./menu/*.java
 endif

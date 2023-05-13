@@ -52,29 +52,30 @@ public class IA {
         double betatemp=beta;
         boolean para=false;
         if (profundidade <= 0 || this.maquinaDeRegras.chegouFimDeJogo()) {
-            return new Movimento(null, null, null, this.getValorTabuleiro()* Math.random() / 10.0 + 1.0);
+            return new Movimento(null, null, null, this.getValorTabuleiro());
         }
         Movimento melhorMovimento=new Movimento(null, null, null, Integer.MIN_VALUE);
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(this.cor);
         for (Peca peca : pecas) {
-            for (Posicao posicao : peca.getMovimentosPossiveis()) {
-                Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
-                boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento);
-                if (movimentou) {
-                    // throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
-                
-                novoMovimento.setValor(this.minMax(profundidade - 1,alphatemp,betatemp,false).getValor());
+            if(!peca.getCapturado()){
+                for (Posicao posicao : peca.getMovimentosPossiveis()) {
+                    Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento,true);
+                    if (!movimentou) {
+                        throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
+                    };
+                    novoMovimento.setValor(this.minMax(profundidade - 1,alphatemp,betatemp,false).getValor());
 
-                if(novoMovimento.getValor()>=melhorMovimento.getValor())melhorMovimento=novoMovimento;
+                    if(novoMovimento.getValor() > melhorMovimento.getValor() || ( novoMovimento.getValor() == melhorMovimento.getValor() && Math.random() > 0.5 ))melhorMovimento=novoMovimento;
 
-                this.maquinaDeRegras.desfazUltimoMovimento();
+                    this.maquinaDeRegras.desfazUltimoMovimento(true);
 
-                if(novoMovimento.getValor()>=alphatemp)alphatemp=novoMovimento.getValor();
-                if(betatemp<=alphatemp){
-                    para=true;
-                    break;
-                };};
-
+                    if(novoMovimento.getValor()>=alphatemp)alphatemp=novoMovimento.getValor();
+                    if(betatemp<=alphatemp){
+                        para=true;
+                        break;
+                    };
+                }
 
             }
             if(para)break;
@@ -94,20 +95,22 @@ public class IA {
         Cor adversarioIA = this.cor == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(adversarioIA);
         for (Peca peca : pecas) {
-            for (Posicao posicao : peca.getMovimentosPossiveis()) {
-                Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
-                boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento);
-                if (movimentou) {
-                    // throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
-                
-                novoMovimento.setValor(this.minMax(profundidade - 1,alphatemp,betatemp,true).getValor());
-                if(novoMovimento.getValor()<=melhorMovimento.getValor())melhorMovimento=novoMovimento;
-                this.maquinaDeRegras.desfazUltimoMovimento();
-                if(novoMovimento.getValor()<=betatemp)betatemp=novoMovimento.getValor();
-                if(betatemp<=alphatemp){
-                    para=true;
-                    break;
-                };};
+            if(!peca.getCapturado()){
+                for (Posicao posicao : peca.getMovimentosPossiveis()) {
+                    Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento,true);
+                    if (!movimentou) {
+                        throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
+                    };
+                    novoMovimento.setValor(this.minMax(profundidade - 1,alphatemp,betatemp,true).getValor());
+                    if(novoMovimento.getValor() < melhorMovimento.getValor() || ( novoMovimento.getValor() == melhorMovimento.getValor() && Math.random() > 0.5 ))melhorMovimento=novoMovimento;
+                    this.maquinaDeRegras.desfazUltimoMovimento(true);
+                    if(novoMovimento.getValor()<=betatemp)betatemp=novoMovimento.getValor();
+                    if(betatemp<=alphatemp){
+                        para=true;
+                        break;
+                    };
+                }
             }
             if(para)break;
         }

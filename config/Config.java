@@ -1,6 +1,5 @@
 package config;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.util.HashMap;
 
@@ -10,24 +9,19 @@ import utils.LeitorImagem;
 import utils.Posicao;
 
 public abstract class Config {
-    public static final int LARGURA_TELA = 1295;
-    public static final int ALTURA_TELA = 838;
+    public static final int LARGURA_TELA = 800;
+    public static final int ALTURA_TELA = 800;
 
-    public static final int ALTURA_MARGEM = 0;
-    public static final int LARGURA_MARGEM = -100;
+    public static final int ALTURA_MARGEM = 80;
+    public static final int LARGURA_MARGEM = 80;
 
-    public static final int LARGURA_PECA = 100;
-    public static final int ALTURA_PECA = 100;
+    public static final int LARGURA_PECA = 80;
+    public static final int ALTURA_PECA = 80;
 
-    public static final int LARGURA_TABULEIRO = 100;
-    public static final int ALTURA_TABULEIRO = 100;
+    public static final int LARGURA_TABULEIRO = 80;
+    public static final int ALTURA_TABULEIRO = 80;
 
-    public static int PROFUNDIDADE_IA = 5;
-
-
-    public static final Color colorOver = new Color(179, 250, 160);
-    public static final Color colorClick = new Color(152, 184, 144);
-    public static final Color borderColor = new Color(30, 136, 56);
+    public static int PROFUNDIDADE_IA = 3;
 
     public static final String TITULO = "Xadrez";
     public static final String CAMINHO_IMAGENS = "assets/images/";
@@ -38,6 +32,7 @@ public abstract class Config {
 
     public static void loadImages() {
         IMAGEM_TABULEIRO = LeitorImagem.tentaLer(Config.CAMINHO_IMAGENS + "tabuleiro.png");
+        IMAGEM_TABULEIRO = IMAGEM_TABULEIRO.getScaledInstance(640, 640, Image.SCALE_SMOOTH);
         IMAGENS_PECAS = SpritesXadrez.inicializaSprites();
     }
 

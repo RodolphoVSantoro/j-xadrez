@@ -2,16 +2,18 @@ package menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,64 +22,51 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import config.SetupPecas;
-import pecas.Peca;
-import tabuleiro.Tabuleiro;
-import tabuleiro.Tela;
-import utils.Cor;
-
-
 public class Menu extends JFrame {
 
-    /* Inicia um JFrame */
-    public Menu() {
-        initComponents();
-    }
-
-    /* Declaração de variáveis */
     private JPanel Fundo;
     private JLabel Imagem;
     private Botao iniciar;
     private JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
+    
+    public Menu() {
+        initComponents();
+    }
 
-    /* Função que inicia componentes do JFrame */
+    @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        /* Instanciação das variáveis */
         Fundo = new JPanel();
         Imagem = new JLabel();
         labelNome = new JLabel();
         inputNome = new JTextField();
-        iniciar = new Botao();
-        sair = new Botao();
+        iniciar = new menu.Botao();
+        sair = new menu.Botao();
 
-        /* Configurações do JFrame */
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Engenharia do Xadrez part. II");
         setBackground(new Color(0, 0, 0));
         setResizable(false);
 
-        /* Configuração da tela de fundo */
         Fundo.setBackground(new Color(51, 51, 51));
 
-        /* Configuração da imagem da tela inicial */
         /* Imagem por macrovector disponível em freepik.com*/
         Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/background.jpg")));
         Imagem.setText("jLabel2");
 
-        /* Configuração do label */
         labelNome.setFont(new Font("Segoe UI", 1, 32));
         labelNome.setForeground(new Color(255, 255, 255));
         labelNome.setText("Digite seu nome");
         labelNome.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-        /* Configuração do campo de nome */
         inputNome.setFont(new Font("Segoe UI", 1, 32));
         inputNome.setHorizontalAlignment(JTextField.CENTER);
         inputNome.setAutoscrolls(false);
@@ -85,15 +74,19 @@ public class Menu extends JFrame {
         inputNome.setDisabledTextColor(new Color(255, 255, 255));
         inputNome.setMargin(new Insets(3, 6, 3, 6));
         inputNome.setSelectionColor(new Color(51, 51, 51));
+        inputNome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                inputNomeActionPerformed(evt);
+            }
+        });
 
-        /* Configuração do botão de iniciar */
         iniciar.setForeground(new Color(255, 255, 255));
         iniciar.setText("Iniciar");
         iniciar.setBorderColor(new Color(242, 242, 242));
         iniciar.setBorderPainted(false);
-        iniciar.setColor(new Color(209,139,71));
-        iniciar.setColorClick(new Color(209,139,71));
-        iniciar.setColorOver(new Color(255,206,158));
+        iniciar.setColor(new Color(209, 139, 71));
+        iniciar.setColorClick(new Color(209, 139, 71));
+        iniciar.setColorOver(new Color(255, 206, 158));
         iniciar.setFont(new Font("Consolas", 1, 24));
         iniciar.setRadius(10);
         iniciar.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -103,15 +96,14 @@ public class Menu extends JFrame {
             }
         });
 
-        /* Configuração do botão de sair */
         sair.setForeground(new Color(255, 255, 255));
         sair.setText("Sair");
         sair.setToolTipText("");
         sair.setBorderColor(new Color(242, 242, 242));
         sair.setBorderPainted(false);
-        sair.setColor(new Color(209,139,71));
-        sair.setColorClick(new Color(209,139,71));
-        sair.setColorOver(new Color(255,206,158));
+        sair.setColor(new Color(209, 139, 71));
+        sair.setColorClick(new Color(209, 139, 71));
+        sair.setColorOver(new Color(255, 206, 158));
         sair.setFont(new Font("Consolas", 1, 24));
         sair.setHorizontalTextPosition(SwingConstants.CENTER);
         sair.setRadius(10);
@@ -122,7 +114,6 @@ public class Menu extends JFrame {
             }
         });
 
-        /* Criação de grupos de layout */
         GroupLayout FundoLayout = new GroupLayout(Fundo);
         Fundo.setLayout(FundoLayout);
         FundoLayout.setHorizontalGroup(
@@ -149,7 +140,7 @@ public class Menu extends JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         FundoLayout.setVerticalGroup(
-            FundoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            FundoLayout.createParallelGroup(Alignment.LEADING)
             .addComponent(Imagem, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(FundoLayout.createSequentialGroup()
                 .addGap(74, 74, 74)
@@ -169,33 +160,42 @@ public class Menu extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }
 
-    /* Configurando ação do botão iniciar */
     private void iniciarActionPerformed(ActionEvent evt) {
         
         /*var nome = inputNome.getText();
-        teste.setText("Olá " + nome + "!");*/
+        teste.setText("Olá " + nome + "!");
+        
+        // Configurando Tabuleiro
+        JFrame frame = new JFrame();
+        frame.setTitle("Engenharia do Xadrez part. II");
+        frame.getContentPane().setBackground(Color.black);
+        frame.setLayout(new GridBagLayout());
+        frame.setMinimumSize(new Dimension(1080, 720));
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
 
-        ArrayList<Peca> pecasBrancas = SetupPecas.setup(Cor.BRANCO);
-        ArrayList<Peca> pecasPretas = SetupPecas.setup(Cor.PRETO);
-        Tabuleiro tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
-        Tela tela = new Tela(tabuleiro, pecasBrancas, pecasPretas);
-        tela.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        tela.setLocationRelativeTo(null);
+        // Criando e adicionando o tabuleiro ao JFrame 
+        Tabuleiro tabuleiro = new Tabuleiro();
+        frame.add(tabuleiro);
+
+        // Configurando a visibilidade do JFrame
+        frame.setVisible(true);*/
     }
 
-    /* Configurando ação do botão sair */
     private void sairActionPerformed(ActionEvent evt) {
         JFrame confirmacao = new JFrame("Deseja realmente sair?");
         String[] opcao = new String[2];
@@ -207,15 +207,8 @@ public class Menu extends JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Cria e exibe o JFrame */
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
+    private void inputNomeActionPerformed(ActionEvent evt) {
+        // TODO add your handling code here:
     }
+
 }

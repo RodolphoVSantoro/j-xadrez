@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Tela",
+            "request": "launch",
+            "mainClass": "Tela",
+            "projectName": "Nova pasta_b076c226"
+        },
+        {
+            "type": "java",
+            "name": "Tela",
+            "request": "launch",
+            "mainClass": "menu.Tela",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
+            "name": "Menu",
+            "request": "launch",
+            "mainClass": "menu.Menu",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
+            "name": "Tela",
+            "request": "launch",
+            "mainClass": "Tela",
+            "projectName": "J-Xadrez_d1b9538c"
+        },
+        {
+            "type": "java",
+            "name": "teste",
+            "request": "launch",
+            "mainClass": "teste",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
             "name": "TelaPreta",
             "request": "launch",
             "mainClass": "utils.TelaPreta",

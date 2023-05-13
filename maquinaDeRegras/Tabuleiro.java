@@ -9,7 +9,6 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import config.Config;
-import events.Input;
 import gui.Sprite;
 import pecas.Peca;
 import utils.Cor;
@@ -20,11 +19,8 @@ public class Tabuleiro extends JPanel{
     private HashMap<Cor, ArrayList<Peca>> pecas;
     private HashMap<Cor, ArrayList<Peca>> pecasCapturadas;
     private Peca[][] posicoesPecas;
-    private Canvas canvas;
 
-    public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas, Canvas canvas) {
-        
-        this.canvas = canvas;
+    public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {;
         
         this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);
 
@@ -94,21 +90,21 @@ public class Tabuleiro extends JPanel{
      * captura.
      * Assume que a posição posterior é válida.
      */
-    public Peca movePeca(Peca peca, Posicao posicaoPosterior) {
+    public Peca movePeca(Peca peca, Posicao posicaoPosterior,boolean ehIA) {
         Posicao posicaoAnterior = peca.getPosicaoTabuleiro();
-        peca.setPosicaoTabuleiro(posicaoPosterior);
+        peca.setPosicaoTabuleiro(posicaoPosterior,ehIA);
         this.posicoesPecas[posicaoAnterior.x][posicaoAnterior.y] = null;
         Peca pecaCapturada = null;
         if (this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] != null) {
             pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
             this.pecasCapturadas.get(pecaCapturada.getCor()).add(pecaCapturada);
-            pecaCapturada.captura();
+            pecaCapturada.captura(ehIA);
         }
         this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] = peca;
         return pecaCapturada;
     }
 
-    public void recuperaPeca(Peca peca, Posicao posicao) {
+    public void recuperaPeca(Peca peca, Posicao posicao,boolean ehIA) {
         boolean pecaEstaCapturada = this.pecasCapturadas.get(peca.getCor()).stream().anyMatch(p -> p == peca);
         if (!pecaEstaCapturada) {
             throw new IllegalArgumentException("A peça não está capturada.");
@@ -119,7 +115,7 @@ public class Tabuleiro extends JPanel{
             throw new IllegalArgumentException("Peca tentou ser recuperada para uma posicao nao vazia.");
         }
         this.pecasCapturadas.get(peca.getCor()).remove(peca);
-        peca.recupera();
+        peca.recupera(ehIA);
         this.posicoesPecas[posicao.x][posicao.y] = peca;
     }
 

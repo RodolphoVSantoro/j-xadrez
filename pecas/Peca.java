@@ -19,6 +19,8 @@ public abstract class Peca {
     protected Tabuleiro tabuleiro;
     private Sprite sprite;
 
+    private boolean primeiroMovimento = true;
+
     public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca tipoPeca) {
         this.capturada = false;
         this.tabuleiro = null;
@@ -28,18 +30,18 @@ public abstract class Peca {
         Image image = Config.IMAGENS_PECAS.get(this.cor).get(this.tipoPeca);
 
         this.sprite = new Sprite(image, posicaoTabuleiro);
-        this.setPosicaoTabuleiro(posicaoTabuleiro);
+        this.setPosicaoTabuleiro(posicaoTabuleiro,false);
     }
 
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
     }
 
-    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
+    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro,boolean ehIA) {
         this.posicaoTabuleiro = new Posicao(posicaoTabuleiro.x, posicaoTabuleiro.y);
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
-        this.sprite.move(spriteX, spriteY);
+        if(!ehIA)this.sprite.move(spriteX, spriteY);
     }
 
     public Posicao getPosicaoTabuleiro() {
@@ -50,14 +52,14 @@ public abstract class Peca {
         return this.capturada;
     }
 
-    public void captura() {
+    public void captura(boolean ehIA) {
         this.capturada = true;
-        this.sprite.move(-100, -100);
+        if(!ehIA)this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
     }
 
-    public void recupera() {
+    public void recupera(boolean ehIA) {
         this.capturada = false;
-        this.sprite.move(this.posicaoTabuleiro.x * Config.LARGURA_PECA, this.posicaoTabuleiro.y * Config.ALTURA_PECA);
+        if(!ehIA)this.sprite.move(this.posicaoTabuleiro.x * Config.LARGURA_PECA, this.posicaoTabuleiro.y * Config.ALTURA_PECA);
     }
 
     /*
