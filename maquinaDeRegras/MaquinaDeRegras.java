@@ -114,6 +114,6 @@ public class MaquinaDeRegras {
                 throw new Error("IA tentou movimento invalido");
             }
         }
-        this.turno=Cor.BRANCO;
+        this.turno = Cor.BRANCO;
     }
 }

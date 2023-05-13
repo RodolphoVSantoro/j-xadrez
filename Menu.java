@@ -1,15 +1,10 @@
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -21,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -40,16 +33,14 @@ public class Menu extends JFrame {
     private JPanel Fundo;
     private JLabel Imagem;
     private Botao iniciar;
-    private JTextField inputNome;
+    static JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
-    private Tela tela;
     
     public Menu() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         Fundo = new JPanel();
@@ -190,12 +181,16 @@ public class Menu extends JFrame {
     }
 
     private void gameLoop(Tela tela) throws Error, InterruptedException {
+        
         while(!tela.getMaquinaDeRegras().chegouFimDeJogo()){       
             if(tela.getMaquinaDeRegras().getTurno() == Cor.PRETO){
                 tela.getMaquinaDeRegras().moveIA();
-                tela.repaint();
+                System.out.println("sua vez");
+                this.repaint();
             };
         }
+        System.out.println("vc venceu");
+
     }     
 
     private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
@@ -220,11 +215,11 @@ public class Menu extends JFrame {
     }
 
     private void sairActionPerformed(ActionEvent evt) {
-        JFrame confirmacao = new JFrame("Deseja realmente sair?");
+        new JFrame("Deseja realmente sair?");
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Engenharia de Xadrez part. II", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }
