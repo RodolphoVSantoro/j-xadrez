@@ -1,4 +1,3 @@
-package menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,6 +27,14 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import config.Config;
+import config.SetupPecas;
+import events.Input;
+import maquinaDeRegras.MaquinaDeRegras;
+import maquinaDeRegras.Tabuleiro;
+import menu.Botao;
+import utils.Cor;
+
 public class Menu extends JFrame {
 
     private JPanel Fundo;
@@ -36,6 +43,7 @@ public class Menu extends JFrame {
     private JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
+    private Tela tela;
     
     public Menu() {
         initComponents();
@@ -59,7 +67,7 @@ public class Menu extends JFrame {
         Fundo.setBackground(new Color(51, 51, 51));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/background.jpg")));
+        Imagem.setIcon(new ImageIcon(getClass().getResource("assets/images/background.jpg")));
         Imagem.setText("jLabel2");
 
         labelNome.setFont(new Font("Segoe UI", 1, 32));
@@ -74,11 +82,6 @@ public class Menu extends JFrame {
         inputNome.setDisabledTextColor(new Color(255, 255, 255));
         inputNome.setMargin(new Insets(3, 6, 3, 6));
         inputNome.setSelectionColor(new Color(51, 51, 51));
-        inputNome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                inputNomeActionPerformed(evt);
-            }
-        });
 
         iniciar.setForeground(new Color(255, 255, 255));
         iniciar.setText("Iniciar");
@@ -92,7 +95,11 @@ public class Menu extends JFrame {
         iniciar.setVerticalAlignment(SwingConstants.BOTTOM);
         iniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                iniciarActionPerformed(evt);
+                try {
+                    iniciarActionPerformed(evt);
+                } catch (InterruptedException | Error e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -160,40 +167,56 @@ public class Menu extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }
 
-    private void iniciarActionPerformed(ActionEvent evt) {
-        
-        /*var nome = inputNome.getText();
-        teste.setText("Olá " + nome + "!");
-        
-        // Configurando Tabuleiro
-        JFrame frame = new JFrame();
-        frame.setTitle("Engenharia do Xadrez part. II");
-        frame.getContentPane().setBackground(Color.black);
-        frame.setLayout(new GridBagLayout());
-        frame.setMinimumSize(new Dimension(1080, 720));
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+    private void initGame(Tela tela) {
+        tela.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        tela.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
+        tela.setPecasPretas(SetupPecas.setup(Cor.PRETO));
+        tela.setTabuleiro(new Tabuleiro(tela.getPecasBrancas(), tela.getPecasPretas()));
+        tela.getMaquinaDeRegras().setTabuleiro(tela.getTabuleiro());
+        tela.setInput(new Input(tela.getMaquinaDeRegras(), tela.getCanvas()));
+        tela.getCanvas().addMouseListener(tela.getInput());
+    }
 
-        // Criando e adicionando o tabuleiro ao JFrame 
-        Tabuleiro tabuleiro = new Tabuleiro();
-        frame.add(tabuleiro);
+    private void gameLoop(Tela tela) throws Error, InterruptedException {
+        while(!tela.getMaquinaDeRegras().chegouFimDeJogo()){       
+            if(tela.getMaquinaDeRegras().getTurno() == Cor.PRETO){
+                tela.getMaquinaDeRegras().moveIA();
+                tela.repaint();
+            };
+        }
+    }     
 
-        // Configurando a visibilidade do JFrame
-        frame.setVisible(true);*/
+    private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
+        // Recebe o nome do usuário
+        String nome = inputNome.getText();
+    
+        // Verifica se o usuário informou um nome
+        if (nome.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite um nome válido.");
+            return;
+        }
+    
+        // Cria uma instância de tela
+        Tela tela = new Tela();
+        tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.initGame(tela);
+        //this.gameLoop(tela);
+        System.out.println("Fim de jogo!");
+    
+        // Esconde o Menu
+        setVisible(false);
     }
 
     private void sairActionPerformed(ActionEvent evt) {
@@ -207,8 +230,11 @@ public class Menu extends JFrame {
         }
     }
 
-    private void inputNomeActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+    public static void main(String args[]) throws Error, InterruptedException {
 
+        Config.loadImages();
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        
+    }        
 }
