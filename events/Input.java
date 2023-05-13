@@ -33,7 +33,8 @@ public class Input extends MouseAdapter{
             Posicao p = new Posicao(col, linha);
             Peca posicaoPeca = maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
-            if(posicaoPeca != null){
+            if(posicaoPeca != null && ( posicaoPeca.getCor() == Cor.BRANCO && !posicaoPeca.getCapturado())){
+                //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
         }
@@ -50,7 +51,8 @@ public class Input extends MouseAdapter{
         if(this.selecionada != null){
             Movimento movimento = new Movimento(this.selecionada, this.selecionada.getPosicaoTabuleiro(), novaPosicao, 0);
             if(this.selecionada.podeMover(novaPosicao)){
-                this.maquinaDeRegras.executaMovimento(movimento);
+                this.maquinaDeRegras.executaMovimento(movimento,false);
+                this.maquinaDeRegras.setTurno(Cor.PRETO);
             }
         }
 
