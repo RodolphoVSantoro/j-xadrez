@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import config.Config;
+import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
@@ -99,25 +104,88 @@ class Tela extends JFrame {
                     for(int i = 0; i < possiveis.size(); i++){
                         graphics.setColor(new Color(68, 180, 57, 190));
                         graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO, 
-                                          (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
+                                          (possiveis.get(i).y + 1) * Config.ALTURA_TABULEIRO,
                                            Config.LARGURA_TABULEIRO,
-                                           Config.LARGURA_TABULEIRO);
+                                           Config.ALTURA_TABULEIRO);
                         
                     }
                 }
             }
         };
+        
+        canvas.setBackground(new Color(18, 18, 18));
 
-        canvas.setBackground(new Color(60, 40, 15));
+        JLabel capturadas = new JLabel();
+        capturadas.setIcon(new ImageIcon(getClass().getResource("assets/images/capturadas.png")));
+        
+        JLabel historico = new JLabel();
+        historico.setIcon(new ImageIcon(getClass().getResource("assets/images/historico.png")));
+        
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(capturadas)
+                .addComponent(canvas)
+                .addComponent(historico))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(capturadas)
+                    .addComponent(canvas)
+                    .addComponent(historico)))
+        );
 
-        add(canvas);
+        pack();
+
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
     }
 
+    private void initGame() {
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
+        this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
+        this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
+        this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
+        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.getCanvas().addMouseListener(this.getInput());
+    }
+
+    private void gameLoop() throws Error, InterruptedException {
+        
+        while(!this.getMaquinaDeRegras().chegouFimDeJogo()){       
+            if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
+                this.getMaquinaDeRegras().moveIA();
+                this.repaint();
+            };
+        }
+
+    } 
+
     public void repaint() {
         canvas.repaint();
+    }    
+    
+    // Main Method
+    public static void main(String args[]) throws InterruptedException, Error {
+        Config.loadImages();
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        while(!menu.getInicia()){
+            Thread.sleep(500);
+        }
+        if(menu.getInicia()){
+            Tela tela = new Tela();
+            tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            tela.initGame();
+            tela.gameLoop();
+        }
+        System.exit(ABORT);
     }
 }

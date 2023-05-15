@@ -20,13 +20,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import config.Config;
-import config.SetupPecas;
-import events.Input;
-import maquinaDeRegras.MaquinaDeRegras;
-import maquinaDeRegras.Tabuleiro;
 import menu.Botao;
-import utils.Cor;
 
 public class Menu extends JFrame {
 
@@ -36,6 +30,15 @@ public class Menu extends JFrame {
     static JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
+    private boolean inicia = false;
+
+    public boolean getInicia(){
+        return this.inicia;
+    }
+
+    public boolean setInicia(boolean inicia){
+        return this.inicia = inicia;
+    }
     
     public Menu() {
         initComponents();
@@ -168,30 +171,7 @@ public class Menu extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }
-
-    private void initGame(Tela tela) {
-        tela.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
-        tela.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
-        tela.setPecasPretas(SetupPecas.setup(Cor.PRETO));
-        tela.setTabuleiro(new Tabuleiro(tela.getPecasBrancas(), tela.getPecasPretas()));
-        tela.getMaquinaDeRegras().setTabuleiro(tela.getTabuleiro());
-        tela.setInput(new Input(tela.getMaquinaDeRegras(), tela.getCanvas()));
-        tela.getCanvas().addMouseListener(tela.getInput());
-    }
-
-    private void gameLoop(Tela tela) throws Error, InterruptedException {
-        
-        while(!tela.getMaquinaDeRegras().chegouFimDeJogo()){       
-            if(tela.getMaquinaDeRegras().getTurno() == Cor.PRETO){
-                tela.getMaquinaDeRegras().moveIA();
-                System.out.println("sua vez");
-                this.repaint();
-            };
-        }
-        System.out.println("vc venceu");
-
-    }     
+    }    
 
     private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
         // Recebe o nome do usuário
@@ -202,14 +182,10 @@ public class Menu extends JFrame {
             JOptionPane.showMessageDialog(this, "Digite um nome válido.");
             return;
         }
-    
-        // Cria uma instância de tela
-        Tela tela = new Tela();
-        tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.initGame(tela);
-        //this.gameLoop(tela);
-        System.out.println("Fim de jogo!");
-    
+        
+        // Permite o início do jogo
+        this.setInicia(true);
+
         // Esconde o Menu
         setVisible(false);
     }
@@ -223,13 +199,5 @@ public class Menu extends JFrame {
         if (escolha == 0) {
             System.exit(0);
         }
-    }
-
-    public static void main(String args[]) throws Error, InterruptedException {
-
-        Config.loadImages();
-        Menu menu = new Menu();
-        menu.setVisible(true);
-        
-    }        
+    }       
 }
