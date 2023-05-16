@@ -1,3 +1,4 @@
+package menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -19,8 +20,6 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
-
-import menu.Botao;
 
 public class Menu extends JFrame {
 
@@ -54,14 +53,14 @@ public class Menu extends JFrame {
         sair = new menu.Botao();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Engenharia do Xadrez part. II");
+        setTitle("Xadrez");
         setBackground(new Color(0, 0, 0));
         setResizable(false);
 
         Fundo.setBackground(new Color(51, 51, 51));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon(getClass().getResource("assets/images/background.jpg")));
+        Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/background.jpg")));
         Imagem.setText("jLabel2");
 
         labelNome.setFont(new Font("Segoe UI", 1, 32));
