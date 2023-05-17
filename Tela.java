@@ -1,24 +1,24 @@
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import config.Config;
+import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
+import menu.Menu;
 import pecas.Peca;
 import utils.Cor;
 import utils.Posicao;
-import java.awt.GridBagLayout;
 
 class Tela extends JFrame {
 
@@ -116,25 +116,25 @@ class Tela extends JFrame {
         
         canvas.setBackground(new Color(18, 18, 18));
 
-        JLabel capturadas = new javax.swing.JLabel();
-        capturadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/capturadas.png")));
+        JLabel capturadas = new JLabel();
+        capturadas.setIcon(new ImageIcon(getClass().getResource("assets/images/capturadas.png")));
         
-        JLabel historico = new javax.swing.JLabel();
-        historico.setIcon(new javax.swing.ImageIcon(getClass().getResource("assets/images/historico.png")));
+        JLabel historico = new JLabel();
+        historico.setIcon(new ImageIcon(getClass().getResource("assets/images/historico.png")));
         
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(capturadas)
                 .addComponent(canvas)
                 .addComponent(historico))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(capturadas)
                     .addComponent(canvas)
                     .addComponent(historico)))
@@ -148,7 +148,45 @@ class Tela extends JFrame {
         setResizable(false);
     }
 
+    private void initGame() {
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
+        this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
+        this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
+        this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
+        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.getCanvas().addMouseListener(this.getInput());
+    }
+
+    private void gameLoop() throws Error, InterruptedException {
+        
+        while(!this.getMaquinaDeRegras().chegouFimDeJogo()){       
+            if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
+                this.getMaquinaDeRegras().moveIA();
+                this.repaint();
+            };
+        }
+
+    } 
+
     public void repaint() {
         canvas.repaint();
-    }        
+    }    
+    
+    // Main Method
+    public static void main(String args[]) throws InterruptedException, Error {
+        Config.loadImages();
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        while(!menu.getInicia()){
+            Thread.sleep(500);
+        }
+        if(menu.getInicia()){
+            Tela tela = new Tela();
+            tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            tela.initGame();
+            tela.gameLoop();
+        }
+        System.exit(ABORT);
+    }
 }

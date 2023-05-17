@@ -2,15 +2,10 @@ package menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -33,15 +26,23 @@ public class Menu extends JFrame {
     private JPanel Fundo;
     private JLabel Imagem;
     private Botao iniciar;
-    private JTextField inputNome;
+    static JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
+    private boolean inicia = false;
+
+    public boolean getInicia(){
+        return this.inicia;
+    }
+
+    public boolean setInicia(boolean inicia){
+        return this.inicia = inicia;
+    }
     
     public Menu() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         Fundo = new JPanel();
@@ -52,7 +53,7 @@ public class Menu extends JFrame {
         sair = new menu.Botao();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Engenharia do Xadrez part. II");
+        setTitle("Xadrez");
         setBackground(new Color(0, 0, 0));
         setResizable(false);
 
@@ -74,11 +75,6 @@ public class Menu extends JFrame {
         inputNome.setDisabledTextColor(new Color(255, 255, 255));
         inputNome.setMargin(new Insets(3, 6, 3, 6));
         inputNome.setSelectionColor(new Color(51, 51, 51));
-        inputNome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                inputNomeActionPerformed(evt);
-            }
-        });
 
         iniciar.setForeground(new Color(255, 255, 255));
         iniciar.setText("Iniciar");
@@ -92,7 +88,11 @@ public class Menu extends JFrame {
         iniciar.setVerticalAlignment(SwingConstants.BOTTOM);
         iniciar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                iniciarActionPerformed(evt);
+                try {
+                    iniciarActionPerformed(evt);
+                } catch (InterruptedException | Error e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -160,55 +160,43 @@ public class Menu extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fundo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
-    }
+    }    
 
-    private void iniciarActionPerformed(ActionEvent evt) {
+    private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
+        // Recebe o nome do usuário
+        String nome = inputNome.getText();
+    
+        // Verifica se o usuário informou um nome
+        if (nome.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite um nome válido.");
+            return;
+        }
         
-        /*var nome = inputNome.getText();
-        teste.setText("Olá " + nome + "!");
-        
-        // Configurando Tabuleiro
-        JFrame frame = new JFrame();
-        frame.setTitle("Engenharia do Xadrez part. II");
-        frame.getContentPane().setBackground(Color.black);
-        frame.setLayout(new GridBagLayout());
-        frame.setMinimumSize(new Dimension(1080, 720));
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        // Permite o início do jogo
+        this.setInicia(true);
 
-        // Criando e adicionando o tabuleiro ao JFrame 
-        Tabuleiro tabuleiro = new Tabuleiro();
-        frame.add(tabuleiro);
-
-        // Configurando a visibilidade do JFrame
-        frame.setVisible(true);*/
+        // Esconde o Menu
+        setVisible(false);
     }
 
     private void sairActionPerformed(ActionEvent evt) {
-        JFrame confirmacao = new JFrame("Deseja realmente sair?");
+        new JFrame("Deseja realmente sair?");
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Engenharia de Xadrez part. II", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }
-    }
-
-    private void inputNomeActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
+    }       
 }
