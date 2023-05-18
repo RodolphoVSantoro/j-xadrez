@@ -26,7 +26,7 @@ public class Menu extends JFrame {
     private JPanel Fundo;
     private JLabel Imagem;
     private Botao iniciar;
-    static JTextField inputNome;
+    JTextField inputNome;
     private JLabel labelNome;
     private Botao sair;
     private boolean inicia = false;

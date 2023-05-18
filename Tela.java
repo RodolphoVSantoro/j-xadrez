@@ -17,8 +17,10 @@ import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
 import menu.Menu;
 import pecas.Peca;
+import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
+import menu.EndGameScreen;
 
 class Tela extends JFrame {
 
@@ -180,13 +182,18 @@ class Tela extends JFrame {
         menu.setVisible(true);
         while(!menu.getInicia()){
             Thread.sleep(500);
+            if(menu.getInicia()){
+                Tela tela = new Tela();
+                tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                tela.initGame();
+                tela.gameLoop();
+                Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
+                Boolean resultado = reiDerrotado.getCapturado();
+                tela.dispose();
+                menu.setInicia(false);
+                EndGameScreen endGame = new EndGameScreen(menu, resultado);
+                endGame.setVisible(true);
+            }
         }
-        if(menu.getInicia()){
-            Tela tela = new Tela();
-            tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            tela.initGame();
-            tela.gameLoop();
-        }
-        System.exit(ABORT);
     }
 }

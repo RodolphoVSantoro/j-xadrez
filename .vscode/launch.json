@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EndGameScreen",
+            "request": "launch",
+            "mainClass": "menu.EndGameScreen",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
             "name": "Menu",
             "request": "launch",
             "mainClass": "Menu",
