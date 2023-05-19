@@ -1,8 +1,11 @@
-# J-Xadrez
-Xadrez em java
+# J-Xadrez – Xadrez em Java
+
+<a href="https://docs.google.com/spreadsheets/d/1a5Nc3pKskJVpm6gM_Te1dmpv3l2tpfCo/edit#gid=1338283704" target="_blank"><img height="25" width="40" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg">Monitoramento e Controle</a>
+
+<a href="https://drive.google.com/drive/folders/1ON9gRFM64G2FDuSEwgcRIc4nPwJPDoV5?usp=sharing" target="_blank"><img height="20" width="35" src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"> Repositório</a>
+
 ## Features:
 - IA com seleção de dificuldade
-- 2 jogadores local
 ## Como rodar:
 - Clone o repositório
 - Instale java e make
@@ -10,5 +13,5 @@ Xadrez em java
 - No terminal, digite `make run` para rodar o programa
 ## Setup recomendado para dev:
 - Java 17.0.3.1
-- Vscode com extensão Java Extension Pack
+- VScode com extensão Java Extension Pack
 - Junit 5 (instalado com extensão do vscode)
