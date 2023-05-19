@@ -60,7 +60,7 @@ public class Menu extends JFrame {
         Fundo.setBackground(new Color(51, 51, 51));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/background.jpg")));
+        Imagem.setIcon(new ImageIcon("assets/images/background.jpg"));
         Imagem.setText("jLabel2");
 
         labelNome.setFont(new Font("Segoe UI", 1, 32));

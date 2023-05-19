@@ -119,10 +119,10 @@ class Tela extends JFrame {
         canvas.setBackground(new Color(18, 18, 18));
 
         JLabel capturadas = new JLabel();
-        capturadas.setIcon(new ImageIcon(getClass().getResource("assets/images/capturadas.png")));
+        capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         
         JLabel historico = new JLabel();
-        historico.setIcon(new ImageIcon(getClass().getResource("assets/images/historico.png")));
+        historico.setIcon(new ImageIcon("assets/images/historico.png"));
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
