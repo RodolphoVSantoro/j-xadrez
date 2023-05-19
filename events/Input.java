@@ -53,6 +53,7 @@ public class Input extends MouseAdapter{
             if(this.selecionada.podeMover(novaPosicao)){
                 this.maquinaDeRegras.executaMovimento(movimento,false);
                 this.maquinaDeRegras.setTurno(Cor.PRETO);
+                new PrintaHistorico(this.maquinaDeRegras).print();
             }
         }
 

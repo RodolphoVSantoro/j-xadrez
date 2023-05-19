@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Tela",
+            "request": "launch",
+            "mainClass": "Tela",
+            "projectName": "j-xadrez_16f7c49f"
+        },
+        {
+            "type": "java",
             "name": "EndGameScreen",
             "request": "launch",
             "mainClass": "menu.EndGameScreen",

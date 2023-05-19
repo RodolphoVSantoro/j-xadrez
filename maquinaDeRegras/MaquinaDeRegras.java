@@ -56,6 +56,10 @@ public class MaquinaDeRegras {
          this.turno = cor;
     } 
 
+    public Historico getHistorico() {
+        return historico;
+    }
+
     public void jogada() {
         if (this.partidaComIA && this.turno == this.adversario) {
             this.moveIA();
