@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -75,6 +77,19 @@ public class Menu extends JFrame {
         inputNome.setDisabledTextColor(new Color(255, 255, 255));
         inputNome.setMargin(new Insets(3, 6, 3, 6));
         inputNome.setSelectionColor(new Color(51, 51, 51));
+        inputNome.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+                        iniciarActionPerformed(e);
+                    } catch (InterruptedException | Error evt) {
+                        evt.printStackTrace();
+                    }
+                }
+            }
+            public void keyTyped(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {}
+        });
 
         iniciar.setForeground(new Color(255, 255, 255));
         iniciar.setText("Iniciar");
@@ -171,6 +186,23 @@ public class Menu extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }    
+
+    private void iniciarActionPerformed(KeyEvent e) throws InterruptedException, Error {
+        // Recebe o nome do usuário
+        String nome = inputNome.getText();
+    
+        // Verifica se o usuário informou um nome
+        if (nome.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite um nome válido.");
+            return;
+        }
+        
+        // Permite o início do jogo
+        this.setInicia(true);
+
+        // Esconde o Menu
+        setVisible(false);
+    }
 
     private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
         // Recebe o nome do usuário
