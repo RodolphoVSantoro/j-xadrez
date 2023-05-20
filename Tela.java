@@ -1,13 +1,18 @@
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import config.Config;
@@ -31,6 +36,7 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
+    private JTextArea textArea = new JTextArea();;
     
     public Canvas getCanvas() {
         return canvas;
@@ -121,8 +127,26 @@ class Tela extends JFrame {
         JLabel capturadas = new JLabel();
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         
-        JLabel historico = new JLabel();
+        /*JLabel historico = new JLabel();
         historico.setIcon(new ImageIcon("assets/images/historico.png"));
+        JScrollPane scrollHistorico = new JScrollPane();
+        scrollHistorico.setViewportView(historico);*/
+
+        this.textArea.setLineWrap(true);
+        this.textArea.setEditable(false);
+        this.textArea.setCaretColor(new Color(255, 255, 255, 255));
+        this.textArea.setBackground(new Color(255, 209, 155));
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        JComponent viewport = (JComponent) scrollPane.getViewport().getView();
+
+        Dimension componentSize = viewport.getPreferredSize();
+        componentSize.width = 33;
+        viewport.setPreferredSize(componentSize);
+
+        scrollPane.revalidate();
+        scrollPane.repaint();
+        add(scrollPane);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,7 +155,7 @@ class Tela extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(capturadas)
                 .addComponent(canvas)
-                .addComponent(historico))
+                .addComponent(scrollPane))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -139,7 +163,7 @@ class Tela extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(capturadas)
                     .addComponent(canvas)
-                    .addComponent(historico)))
+                    .addComponent(scrollPane)))
         );
 
         pack();
@@ -151,7 +175,7 @@ class Tela extends JFrame {
     }
 
     private void initGame() {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.textArea));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
@@ -166,7 +190,7 @@ class Tela extends JFrame {
             if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
                 this.getMaquinaDeRegras().moveIA();
                 this.repaint();
-            };
+            }           
         }
 
     } 

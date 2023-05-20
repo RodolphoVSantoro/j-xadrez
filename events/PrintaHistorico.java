@@ -1,5 +1,7 @@
 package events;
 
+import javax.swing.JTextArea;
+
 import maquinaDeRegras.MaquinaDeRegras;
 import pecas.Peca;
 
@@ -46,8 +48,12 @@ public class PrintaHistorico {
         return nomeCasaPeca;
     }
 
-    public void print(){        
-        System.out.println(
+    public void print(JTextArea textArea, String espaco){        
+        textArea.append(espaco);
+    }
+
+    public void print(JTextArea textArea){        
+        textArea.append( 
             peca.getTipoPeca().toString().substring(0, 1) + " -> " +
             this.nomeCasa(peca.getPosicaoTabuleiro().x) +
             (8 - peca.getPosicaoTabuleiro().y));

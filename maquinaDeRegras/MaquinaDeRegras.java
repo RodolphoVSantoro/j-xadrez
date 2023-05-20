@@ -2,6 +2,8 @@ package maquinaDeRegras;
 
 import java.util.ArrayList;
 
+import javax.swing.JTextArea;
+
 import events.PrintaHistorico;
 import pecas.Peca;
 import pecas.TipoPeca;
@@ -16,6 +18,7 @@ public class MaquinaDeRegras {
     private boolean partidaComIA;
     private Historico historico;
     private IA IA;
+    private JTextArea textArea;
 
     public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
@@ -26,13 +29,14 @@ public class MaquinaDeRegras {
         this.IA = null;
     }
 
-    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea textArea) {
         this.historico = new Historico();
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
         this.partidaComIA = true;
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.textArea = textArea;
         this.IA.setMaquinaDeRegras(this);
     }
 
@@ -94,7 +98,9 @@ public class MaquinaDeRegras {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
             if(!ehIA){
-                new PrintaHistorico(this).print();
+                new PrintaHistorico(this).print(textArea);
+                String espaco = " ";
+                new PrintaHistorico(this).print(textArea, espaco);
             }
             return true;
         }

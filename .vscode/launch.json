@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Teste",
+            "request": "launch",
+            "mainClass": "Teste",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
             "name": "Tela",
             "request": "launch",
             "mainClass": "Tela",
