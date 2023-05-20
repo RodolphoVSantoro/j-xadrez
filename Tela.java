@@ -8,7 +8,6 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import config.Config;
@@ -124,8 +123,6 @@ class Tela extends JFrame {
         
         JLabel historico = new JLabel();
         historico.setIcon(new ImageIcon("assets/images/historico.png"));
-        JScrollPane scrollHistorico = new JScrollPane();
-        scrollHistorico.setViewportView(historico);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,7 +131,7 @@ class Tela extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(capturadas)
                 .addComponent(canvas)
-                .addComponent(scrollHistorico))
+                .addComponent(historico))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -142,7 +139,7 @@ class Tela extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(capturadas)
                     .addComponent(canvas)
-                    .addComponent(scrollHistorico)))
+                    .addComponent(historico)))
         );
 
         pack();
@@ -169,7 +166,7 @@ class Tela extends JFrame {
             if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
                 this.getMaquinaDeRegras().moveIA();
                 this.repaint();
-            }           
+            };
         }
 
     } 
