@@ -2,6 +2,7 @@ package maquinaDeRegras;
 
 import java.util.ArrayList;
 
+import events.PrintaHistorico;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
@@ -92,6 +93,9 @@ public class MaquinaDeRegras {
         if (posicaoValida) {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
+            if(!ehIA){
+                new PrintaHistorico(this).print();
+            }
             return true;
         }
 

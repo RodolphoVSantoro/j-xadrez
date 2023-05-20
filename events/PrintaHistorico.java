@@ -50,7 +50,7 @@ public class PrintaHistorico {
         System.out.println(
             peca.getTipoPeca().toString().substring(0, 1) + " -> " +
             this.nomeCasa(peca.getPosicaoTabuleiro().x) +
-            peca.getPosicaoTabuleiro().y);
+            (8 - peca.getPosicaoTabuleiro().y));
     }
 
 }
