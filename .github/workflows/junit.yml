@@ -1,0 +1,39 @@
+name: JUnit Test
+
+on:
+  push:
+    branches:
+      - master
+      - wip/github-actions-testing
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2019]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: 17
+    - name: Compile source code
+      run: make
+      if: matrix.os == 'windows-2019'
+    - name: Compile source code
+      run: make
+      if: matrix.os == 'ubuntu-latest'
+    - name: Compile tests source code
+      run: make build_tests
+      if: matrix.os == 'windows-2019'
+    - name: Compile tests source code
+      run: make build_tests
+      if: matrix.os == 'ubuntu-latest'
+    - name: Run JUnit tests
+      run: make run_tests
+      if: matrix.os == 'windows-2019'
+    - name: Run JUnit tests
+      run: make run_tests
+      if: matrix.os == 'ubuntu-latest'
