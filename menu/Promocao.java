@@ -11,6 +11,7 @@ public class Promocao extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private int valor;
     private boolean podeContinuar;
 
     public Promocao() {
@@ -23,6 +24,14 @@ public class Promocao extends javax.swing.JFrame {
 
     public boolean getPodeContinuar() {
         return false;
+    }
+
+    public int setValor(int valor){
+        return this.valor = valor;
+    }
+
+    public int getValor(){
+        return this.valor;
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +57,7 @@ public class Promocao extends javax.swing.JFrame {
         jButton4.setBorder(null);
         jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pecaActionPerformed(evt);
+                damaActionPerformed(evt);
             }
         });
 
@@ -57,7 +66,7 @@ public class Promocao extends javax.swing.JFrame {
         jButton5.setBorder(null);
         jButton5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pecaActionPerformed(evt);
+                cavaloActionPerformed(evt);
             }
         });
 
@@ -66,7 +75,7 @@ public class Promocao extends javax.swing.JFrame {
         jButton6.setBorder(null);
         jButton6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pecaActionPerformed(evt);
+                torreActionPerformed(evt);
             }
         });
 
@@ -75,7 +84,7 @@ public class Promocao extends javax.swing.JFrame {
         jButton7.setBorder(null);
         jButton7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pecaActionPerformed(evt);
+                bispoActionPerformed(evt);
             }
         });
 
@@ -123,7 +132,21 @@ public class Promocao extends javax.swing.JFrame {
         pack();
     }
 
-    private void pecaActionPerformed(ActionEvent evt) {
+    private void damaActionPerformed(ActionEvent evt) {
         this.setPodeContinuar(true);
-    }   
+        this.setValor(9);
+    }
+
+    private void torreActionPerformed(ActionEvent evt) {
+        this.setPodeContinuar(true);
+        this.setValor(5);
+    } 
+    private void cavaloActionPerformed(ActionEvent evt) {
+        this.setPodeContinuar(true);
+        this.setValor(3);
+    } 
+    private void bispoActionPerformed(ActionEvent evt) {
+        this.setPodeContinuar(true);
+        this.setValor(4);
+    }    
 }

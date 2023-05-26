@@ -7,9 +7,12 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+import javax.swing.WindowConstants;
+
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
+import menu.Promocao;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
@@ -59,10 +62,10 @@ public class Input extends MouseAdapter{
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
         
-        int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
-        int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
+        int col = (evt.getX() / Config.LARGURA_TABULEIRO) - 1;
+        int linha = (evt.getY() / Config.ALTURA_TABULEIRO) - 1;
 
         // Se houver uma peça selecionada, define a posição da peça como a posiçao onde o jogador soltou o clique do mouse
         if(this.selecionada != null){
@@ -71,9 +74,11 @@ public class Input extends MouseAdapter{
             Optional<Posicao> pecaOptinonal = this.selecionada.getMovimentosPossiveis(false).stream().filter(p -> (p.x==col && p.y==linha)||((selecionadaTabuleiro.x==p.xp && selecionadaTabuleiro.y==p.yp )&&(p.x2==col && p.y2==linha))).findFirst();
             if(pecaOptinonal.isPresent()){
                 if(this.selecionada.tipoPromocao == TipoPeca.PEAO && this.selecionada.qtdMovimento == 5) {
-                    Scanner s = new Scanner(System.in);
-                    System.out.println("promoção!!!!!");
-                    this.selecionada.promocao=s.nextInt();
+                    Promocao telaPromocao = new Promocao();
+                    telaPromocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    telaPromocao.setLocationRelativeTo(null);
+                    telaPromocao.setVisible(true);
+                    this.selecionada.promocao = telaPromocao.getValor();
                 }
                 Posicao peca = pecaOptinonal.get();
                 if(!peca.duplo){
