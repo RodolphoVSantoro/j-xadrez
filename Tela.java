@@ -169,7 +169,7 @@ class Tela extends JFrame {
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate = false;
         while(!checkmate){       
-            if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
+            if(this.maquinaDeRegras.getTurno()==Cor.PRETO && false){
                 this.maquinaDeRegras.moveIA();
                 //System.out.println("sua vez");
                 this.repaint();
