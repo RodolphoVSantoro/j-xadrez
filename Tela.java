@@ -1,23 +1,26 @@
 
-import java.awt.Color;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
 import config.Config;
 import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
-import maquinaDeRegras.Movimento;
 import maquinaDeRegras.Tabuleiro;
-
-import java.util.ArrayList;
-
+import menu.Menu;
 import pecas.Peca;
+import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
+import menu.EndGameScreen;
 
 class Tela extends JFrame {
 
@@ -29,6 +32,62 @@ class Tela extends JFrame {
     private ArrayList<Posicao> possiveis;
     private Input input;
     
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+    }
+
+    public MaquinaDeRegras getMaquinaDeRegras() {
+        return maquinaDeRegras;
+    }
+
+    public void setMaquinaDeRegras(MaquinaDeRegras maquinaDeRegras) {
+        this.maquinaDeRegras = maquinaDeRegras;
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+
+    public ArrayList<Peca> getPecasBrancas() {
+        return pecasBrancas;
+    }
+
+    public void setPecasBrancas(ArrayList<Peca> pecasBrancas) {
+        this.pecasBrancas = pecasBrancas;
+    }
+
+    public ArrayList<Peca> getPecasPretas() {
+        return pecasPretas;
+    }
+
+    public void setPecasPretas(ArrayList<Peca> pecasPretas) {
+        this.pecasPretas = pecasPretas;
+    }
+
+    public ArrayList<Posicao> getPossiveis() {
+        return possiveis;
+    }
+
+    public void setPossiveis(ArrayList<Posicao> possiveis) {
+        this.possiveis = possiveis;
+    }
+
+    public Input getInput() {
+        return input;
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
+    }
+
     Tela() {
         super();
 
@@ -48,59 +107,93 @@ class Tela extends JFrame {
                     for(int i = 0; i < possiveis.size(); i++){
                         graphics.setColor(new Color(68, 180, 57, 190));
                         graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO, 
-                                          (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
+                                          (possiveis.get(i).y + 1) * Config.ALTURA_TABULEIRO,
                                            Config.LARGURA_TABULEIRO,
-                                           Config.LARGURA_TABULEIRO);
+                                           Config.ALTURA_TABULEIRO);
                         
                     }
                 }
             }
         };
+        
+        canvas.setBackground(new Color(18, 18, 18));
 
-        canvas.setBackground(Color.white);
+        JLabel capturadas = new JLabel();
+        capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
+        
+        JLabel historico = new JLabel();
+        historico.setIcon(new ImageIcon("assets/images/historico.png"));
+        
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(capturadas)
+                .addComponent(canvas)
+                .addComponent(historico))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(capturadas)
+                    .addComponent(canvas)
+                    .addComponent(historico)))
+        );
 
-        add(canvas);
+        pack();
+
         setSize(Config.LARGURA_TELA, Config.ALTURA_TELA);
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
     }
 
-    public void repaint() {
-        canvas.repaint();
-    }
-
     private void initGame() {
-        this.maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 2);
-        this.pecasBrancas = SetupPecas.setup(Cor.BRANCO);
-        this.pecasPretas = SetupPecas.setup(Cor.PRETO);
-        this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
-        this.maquinaDeRegras.setTabuleiro(tabuleiro);
-        this.input = new Input(maquinaDeRegras, canvas);
-        this.canvas.addMouseListener(input);
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
+        this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
+        this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
+        this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
+        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.getCanvas().addMouseListener(this.getInput());
     }
 
     private void gameLoop() throws Error, InterruptedException {
         
-        while(!this.maquinaDeRegras.chegouFimDeJogo()){       
-            if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
-                this.maquinaDeRegras.moveIA();
-                //System.out.println("sua vez");
+        while(!this.getMaquinaDeRegras().chegouFimDeJogo()){       
+            if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
+                this.getMaquinaDeRegras().moveIA();
                 this.repaint();
-                
             };
         }
-       // System.out.println("vc venceu");
 
-    }
+    } 
+
+    public void repaint() {
+        canvas.repaint();
+    }    
     
     // Main Method
     public static void main(String args[]) throws InterruptedException, Error {
         Config.loadImages();
-        Tela tela = new Tela();
-        tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        tela.initGame();
-        tela.gameLoop();
-        System.exit(ABORT);
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        while(!menu.getInicia()){
+            Thread.sleep(500);
+            if(menu.getInicia()){
+                Tela tela = new Tela();
+                tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                tela.initGame();
+                tela.gameLoop();
+                Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
+                Boolean resultado = reiDerrotado.getCapturado();
+                tela.dispose();
+                menu.setInicia(false);
+                EndGameScreen endGame = new EndGameScreen(menu, resultado);
+                endGame.setVisible(true);
+            }
+        }
     }
 }

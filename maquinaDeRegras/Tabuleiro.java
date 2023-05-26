@@ -1,6 +1,5 @@
 package maquinaDeRegras;
 
-import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
