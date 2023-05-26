@@ -9,17 +9,20 @@ import utils.Cor;
 public class Bispo extends Peca {
 
     public Bispo(Posicao posicao, Cor cor) {
-        super(posicao, cor, TipoPeca.BISPO);
+        super(posicao, cor, TipoPeca.BISPO, TipoPeca.BISPO);
     }
 
     @Override
-    public ArrayList<Posicao> getMovimentosPossiveis() {
+    public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
 
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, 1, 1);
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, 1, -1);
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, 1);
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, -1);
+
+        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
+
         return movimentosPossiveis;
     }
 

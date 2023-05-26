@@ -17,7 +17,7 @@ public class Tabuleiro extends JPanel{
     private Sprite sprite;
     private HashMap<Cor, ArrayList<Peca>> pecas;
     private HashMap<Cor, ArrayList<Peca>> pecasCapturadas;
-    private Peca[][] posicoesPecas;
+    public Peca[][] posicoesPecas;
 
     public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {;
         
@@ -42,12 +42,18 @@ public class Tabuleiro extends JPanel{
         }
 
         this.pecas.get(Cor.BRANCO).forEach(peca -> {
-            Posicao posicao = peca.getPosicaoTabuleiro();
-            this.posicoesPecas[posicao.x][posicao.y] = peca;
+            if(!peca.capturada){
+
+                Posicao posicao = peca.getPosicaoTabuleiro();
+                this.posicoesPecas[posicao.x][posicao.y] = peca;
+            }
         });
         this.pecas.get(Cor.PRETO).forEach(peca -> {
-            Posicao posicao = peca.getPosicaoTabuleiro();
-            this.posicoesPecas[posicao.x][posicao.y] = peca;
+            if(!peca.capturada){
+                Posicao posicao = peca.getPosicaoTabuleiro();
+                this.posicoesPecas[posicao.x][posicao.y] = peca;
+                
+            }
         });
     }
 
