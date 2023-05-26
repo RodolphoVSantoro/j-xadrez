@@ -17,7 +17,7 @@ public final class ConfigPosicoesIniciais {
     public static HashMap<TipoPeca, Posicao[]> Preto() {
         HashMap<TipoPeca, Posicao[]> posicoes = new HashMap<TipoPeca, Posicao[]>();
 
-        Posicao[] TORRES = { new Posicao(0, 0), new Posicao(7, 0) };
+        Posicao[] TORRES = { new Posicao(1, 3), new Posicao(7, 0) };
         posicoes.put(TipoPeca.TORRE, TORRES);
 
         Posicao[] CAVALOS = { new Posicao(1, 0), new Posicao(6, 0) };
@@ -33,7 +33,7 @@ public final class ConfigPosicoesIniciais {
         posicoes.put(TipoPeca.REI, REI);
 
         Posicao[] PEAO = {
-                new Posicao(0, 1),
+                new Posicao(0, 2),
                 new Posicao(1, 1),
                 new Posicao(2, 1),
                 new Posicao(3, 1),
@@ -66,7 +66,7 @@ public final class ConfigPosicoesIniciais {
         posicoes.put(TipoPeca.REI, REI);
 
         Posicao[] PEAO = {
-                new Posicao(0, 6),
+                new Posicao(0, 1),
                 new Posicao(1, 6),
                 new Posicao(2, 6),
                 new Posicao(3, 6),

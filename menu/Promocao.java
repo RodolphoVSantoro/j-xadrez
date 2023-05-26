@@ -1,5 +1,8 @@
 package menu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Promocao extends javax.swing.JFrame {
 
     private javax.swing.JButton jButton4;
@@ -8,9 +11,18 @@ public class Promocao extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    
+    private boolean podeContinuar;
+
     public Promocao() {
         initComponents();
+    }
+
+    public void setPodeContinuar(boolean podeContinuar) {
+        this.podeContinuar = podeContinuar;
+    }
+
+    public boolean getPodeContinuar() {
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -34,18 +46,38 @@ public class Promocao extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(242, 207, 159));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/dama.png")));
         jButton4.setBorder(null);
+        jButton4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                pecaActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(242, 207, 159));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/cavalo.png")));
         jButton5.setBorder(null);
+        jButton5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                pecaActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(242, 207, 159));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/torre.png")));
         jButton6.setBorder(null);
+        jButton6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                pecaActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(242, 207, 159));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/bispo.png")));
         jButton7.setBorder(null);
+        jButton7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                pecaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,4 +122,8 @@ public class Promocao extends javax.swing.JFrame {
 
         pack();
     }
+
+    private void pecaActionPerformed(ActionEvent evt) {
+        this.setPodeContinuar(true);
+    }   
 }

@@ -93,12 +93,6 @@ public class MaquinaDeRegras {
         if (posicaoValida) {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior, ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
-            if(pecaMovimentando.getTipoPeca() == TipoPeca.PEAO){
-                Promocao promocao = new Promocao();
-                promocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                promocao.setLocationRelativeTo(null);
-                promocao.setVisible(true);
-            }
             return true;
         }
 
