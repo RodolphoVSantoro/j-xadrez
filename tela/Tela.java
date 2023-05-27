@@ -1,4 +1,4 @@
-
+package tela;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,13 +16,14 @@ import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
 import menu.Menu;
+import menu.Promocao;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 import menu.EndGameScreen;
 
-class Tela extends JFrame {
+public class Tela extends JFrame {
 
     private Canvas canvas;
     private MaquinaDeRegras maquinaDeRegras;
@@ -31,6 +32,7 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
+    private Promocao promocao;
     
     public Canvas getCanvas() {
         return canvas;
@@ -102,7 +104,7 @@ class Tela extends JFrame {
                 }
                 
                 // Highlight
-                if(input.selecionada != null){
+                if(input != null && input.selecionada != null){
                     possiveis = input.selecionada.getMovimentosPossiveis(false);
                     for(int i = 0; i < possiveis.size(); i++){
                         graphics.setColor(new Color(68, 180, 57, 190));
@@ -163,14 +165,14 @@ class Tela extends JFrame {
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
         this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
         this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.getInput().setPromocaoDialog(new Promocao(this));
         this.getCanvas().addMouseListener(this.getInput());
     }
 
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate = false;
         while(!checkmate){       
-            if(this.maquinaDeRegras.getTurno()==Cor.PRETO && false
-            ){
+            if(this.maquinaDeRegras.getTurno()==Cor.PRETO && false){
                 this.maquinaDeRegras.moveIA();
                 //System.out.println("sua vez");
                 this.repaint();
@@ -178,6 +180,8 @@ class Tela extends JFrame {
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
                 
             };
+            boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
+            this.maquinaDeRegras.checkmate=temp[0]||temp[1];
             checkmate=this.maquinaDeRegras.checkmate;
             Thread.sleep(200);
         }
@@ -201,10 +205,11 @@ class Tela extends JFrame {
                 tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 tela.initGame();
                 tela.gameLoop();
-                Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
-                Boolean resultado = reiDerrotado.getCapturado();
+                boolean[] resultados = tela.maquinaDeRegras.chegouFimDeJogo();
+                boolean resultado = resultados[0] ? false : true;
                 tela.dispose();
                 menu.setInicia(false);
+                System.out.println(resultado);
                 EndGameScreen endGame = new EndGameScreen(menu, resultado);
                 endGame.setVisible(true);
             }

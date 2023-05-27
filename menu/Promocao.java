@@ -3,7 +3,11 @@ package menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Promocao extends javax.swing.JFrame {
+
+import tela.Tela;
+import utils.ArmazemInt;
+
+public class Promocao extends javax.swing.JDialog {
 
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -13,9 +17,13 @@ public class Promocao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private int valor;
     private boolean podeContinuar;
+    private ArmazemInt promocao;
 
-    public Promocao() {
+    public Promocao(Tela t) {
+        super(t, "Promocao", true);
+        this.setLocationRelativeTo(null);
         initComponents();
+        this.promocao = ArmazemInt.getInstance();
     }
 
     public void setPodeContinuar(boolean podeContinuar) {
@@ -45,15 +53,15 @@ public class Promocao extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setBackground(new java.awt.Color(242, 207, 159));
 
         jPanel1.setBackground(new java.awt.Color(242, 207, 159));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/promocao.png")));
+        jLabel1.setIcon(new javax.swing.ImageIcon("assets/images/promocao.png"));
 
         jButton4.setBackground(new java.awt.Color(242, 207, 159));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/dama.png")));
+        jButton4.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/dama.png"));
         jButton4.setBorder(null);
         jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -62,7 +70,7 @@ public class Promocao extends javax.swing.JFrame {
         });
 
         jButton5.setBackground(new java.awt.Color(242, 207, 159));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/cavalo.png")));
+        jButton5.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/cavalo.png"));
         jButton5.setBorder(null);
         jButton5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -71,7 +79,7 @@ public class Promocao extends javax.swing.JFrame {
         });
 
         jButton6.setBackground(new java.awt.Color(242, 207, 159));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/torre.png")));
+        jButton6.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/torre.png"));
         jButton6.setBorder(null);
         jButton6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -80,7 +88,7 @@ public class Promocao extends javax.swing.JFrame {
         });
 
         jButton7.setBackground(new java.awt.Color(242, 207, 159));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/pecas/branco_center/bispo.png")));
+        jButton7.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/bispo.png"));
         jButton7.setBorder(null);
         jButton7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -135,18 +143,26 @@ public class Promocao extends javax.swing.JFrame {
     private void damaActionPerformed(ActionEvent evt) {
         this.setPodeContinuar(true);
         this.setValor(9);
+        this.promocao.setValue(9);
+        this.dispose();
     }
 
     private void torreActionPerformed(ActionEvent evt) {
         this.setPodeContinuar(true);
         this.setValor(5);
+        this.promocao.setValue(5);
+        this.dispose();
     } 
     private void cavaloActionPerformed(ActionEvent evt) {
         this.setPodeContinuar(true);
         this.setValor(3);
+        this.promocao.setValue(3);
+        this.dispose();
     } 
     private void bispoActionPerformed(ActionEvent evt) {
         this.setPodeContinuar(true);
         this.setValor(4);
+        this.promocao.setValue(4);
+        this.dispose();
     }    
 }

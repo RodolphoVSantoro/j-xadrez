@@ -6,13 +6,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -54,7 +52,7 @@ public class EndGameScreen extends JFrame {
         Fundo.setBackground(new Color(51, 51, 51));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/endgame_background.png")));
+        Imagem.setIcon(new ImageIcon("assets/images/endgame_background.png"));
 
         labelResultado.setFont(new Font("Segoe UI", 1, 32));
         labelResultado.setForeground(new Color(255, 255, 255));
@@ -142,7 +140,7 @@ public class EndGameScreen extends JFrame {
         );
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/endgame_background.png")));
+        Imagem.setIcon(new javax.swing.ImageIcon("assets/images/endgame_background.png"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,7 +180,7 @@ public class EndGameScreen extends JFrame {
     }
 
     private void cancelaActionPerformed(ActionEvent evt) {
-        JFrame confirmacao = new JFrame("Deseja realmente cancela?");
+        JFrame confirmacao = new JFrame("Deseja realmente cancelar?");
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";

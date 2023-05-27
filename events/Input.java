@@ -4,10 +4,6 @@ import java.awt.Canvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
-import java.util.Scanner;
-import java.util.stream.Stream;
-
-import javax.swing.WindowConstants;
 
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
@@ -15,6 +11,7 @@ import maquinaDeRegras.Movimento;
 import menu.Promocao;
 import pecas.Peca;
 import pecas.TipoPeca;
+import utils.ArmazemInt;
 import utils.Cor;
 import utils.Posicao;
 
@@ -24,11 +21,14 @@ public class Input extends MouseAdapter{
     public Peca selecionada;
     public Canvas canvas;
     public boolean executando=false;
+    private Promocao promocaoDialog;
+    private ArmazemInt promocaoGetter;
 
     public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas){
         super();
         this.maquinaDeRegras = maquinaDeRegras;
         this.canvas = canvas;
+        this.promocaoGetter = ArmazemInt.getInstance(); 
     }
 
     @Override
@@ -74,11 +74,11 @@ public class Input extends MouseAdapter{
             Optional<Posicao> pecaOptinonal = this.selecionada.getMovimentosPossiveis(false).stream().filter(p -> (p.x==col && p.y==linha)||((selecionadaTabuleiro.x==p.xp && selecionadaTabuleiro.y==p.yp )&&(p.x2==col && p.y2==linha))).findFirst();
             if(pecaOptinonal.isPresent()){
                 if(this.selecionada.tipoPromocao == TipoPeca.PEAO && this.selecionada.qtdMovimento == 5) {
-                    Promocao telaPromocao = new Promocao();
-                    telaPromocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                    telaPromocao.setLocationRelativeTo(null);
-                    telaPromocao.setVisible(true);
-                    this.selecionada.promocao = telaPromocao.getValor();
+                    //Promocao telaPromocao = new Promocao();
+                    // telaPromocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    // telaPromocao.setLocationRelativeTo(null);
+                    this.promocaoDialog.setVisible(true);
+                    this.selecionada.promocao = this.promocaoGetter.getValue();
                 }
                 Posicao peca = pecaOptinonal.get();
                 if(!peca.duplo){
@@ -99,6 +99,10 @@ public class Input extends MouseAdapter{
         // Desseleciona a peça
         this.selecionada = null;
         canvas.repaint();
+    }
+
+    public void setPromocaoDialog(Promocao p){
+        this.promocaoDialog = p;
     }
     
 }

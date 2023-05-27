@@ -1,7 +1,6 @@
 package maquinaDeRegras;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import pecas.Bispo;
 import pecas.Cavalo;
