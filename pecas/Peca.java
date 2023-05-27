@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import config.Config;
 import gui.Sprite;
+import maquinaDeRegras.Tabuleiro;
 import utils.Cor;
 import utils.Posicao;
-import tabuleiro.Tabuleiro;
 
 public abstract class Peca {
     private Cor cor;
@@ -18,6 +18,8 @@ public abstract class Peca {
     protected boolean capturada;
     protected Tabuleiro tabuleiro;
     private Sprite sprite;
+
+    private boolean primeiroMovimento = true;
 
     public Peca(Posicao posicaoTabuleiro, Cor cor, TipoPeca tipoPeca) {
         this.capturada = false;
@@ -28,23 +30,36 @@ public abstract class Peca {
         Image image = Config.IMAGENS_PECAS.get(this.cor).get(this.tipoPeca);
 
         this.sprite = new Sprite(image, posicaoTabuleiro);
-        this.setPosicaoTabuleiro(posicaoTabuleiro);
+        this.setPosicaoTabuleiro(posicaoTabuleiro,false);
     }
 
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
     }
 
-    // deve ser chamada por tentaMover
-    private void setPosicaoTabuleiro(Posicao posicaoTabuleiro) {
-        this.posicaoTabuleiro = posicaoTabuleiro;
+    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro,boolean ehIA) {
+        this.posicaoTabuleiro = new Posicao(posicaoTabuleiro.x, posicaoTabuleiro.y);
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
-        this.sprite.move(spriteX, spriteY);
+        if(!ehIA)this.sprite.move(spriteX, spriteY);
     }
 
     public Posicao getPosicaoTabuleiro() {
         return new Posicao(this.posicaoTabuleiro.x, this.posicaoTabuleiro.y);
+    }
+
+    public boolean getCapturado() {
+        return this.capturada;
+    }
+
+    public void captura(boolean ehIA) {
+        this.capturada = true;
+        if(!ehIA)this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
+    }
+
+    public void recupera(boolean ehIA) {
+        this.capturada = false;
+        if(!ehIA)this.sprite.move(this.posicaoTabuleiro.x * Config.LARGURA_PECA, this.posicaoTabuleiro.y * Config.ALTURA_PECA);
     }
 
     /*
@@ -53,17 +68,17 @@ public abstract class Peca {
      */
     public boolean podeCapturar(Posicao posicaoNova) {
         Peca peca = this.tabuleiro.getPeca(posicaoNova.x, posicaoNova.y);
-        return peca!=null && peca.getCor()!=this.getCor();
+        return peca != null && peca.getCor() != this.getCor();
     }
 
     /*
      * Move caso a casa for um movimento possível
-    */
+     */
     public boolean podeMover(Posicao posicao) {
-        //TODO: Salvar e só computar uma vez por jogada se ficar pesado
+        // TODO: Salvar e só computar uma vez por jogada se ficar pesado
         ArrayList<Posicao> posicoesValidas = this.getMovimentosPossiveis();
         for (Posicao posicaoNova : posicoesValidas) {
-            if(posicaoNova.x == posicao.x && posicaoNova.y == posicao.y){
+            if (posicaoNova.x == posicao.x && posicaoNova.y == posicao.y) {
                 return true;
             }
         }
@@ -72,7 +87,7 @@ public abstract class Peca {
 
     /**
      * Retorna todos os movimentos possiveis de uma peça
-     * */
+     */
     public abstract ArrayList<Posicao> getMovimentosPossiveis();
 
     public Cor getCor() {
@@ -81,6 +96,10 @@ public abstract class Peca {
 
     public TipoPeca getTipoPeca() {
         return tipoPeca;
+    }
+
+    public String stringify() {
+        return this.tipoPeca.toString() + " " + this.cor.toString() + " " + this.posicaoTabuleiro.stringify();
     }
 
     public void desenha(Graphics graphics, ImageObserver observer) {
