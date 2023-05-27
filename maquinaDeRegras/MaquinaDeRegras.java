@@ -120,18 +120,67 @@ public class MaquinaDeRegras {
     }
 
     public boolean empatouJogo() {
-        Peca reiBranco = this.tabuleiro.getPecas(Cor.BRANCO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI)
-                .findFirst()
-                .get();
-        Peca reiPreto = this.tabuleiro.getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI)
-                .findFirst()
-                .get();
-
-        if (reiBranco.getCapturado() || reiPreto.getCapturado()) {
-            return true;
+        ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
+        for(Peca peca : this.tabuleiro.getPecas(Cor.BRANCO)){
+            try {
+                if(peca.getTipoPeca()==TipoPeca.PEAO)pecaBranca.add((Peao) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.CAVALO)pecaBranca.add((Cavalo) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.BISPO)pecaBranca.add((Bispo) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.TORRE)pecaBranca.add((Torre) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.DAMA)pecaBranca.add((Dama) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.REI)pecaBranca.add((Rei) peca.clone());
+            } catch (CloneNotSupportedException e) {
+                
+                e.printStackTrace();
+            };
         }
+        ArrayList<Peca> pecaPreto = new ArrayList<Peca>();
+        for(Peca peca : this.tabuleiro.getPecas(Cor.PRETO)){
+            try {
+                if(peca.getTipoPeca()==TipoPeca.PEAO)pecaPreto.add((Peao) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.CAVALO)pecaPreto.add((Cavalo) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.BISPO)pecaPreto.add((Bispo) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.TORRE)pecaPreto.add((Torre) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.DAMA)pecaPreto.add((Dama) peca.clone());
+                else if(peca.getTipoPeca()==TipoPeca.REI)pecaPreto.add((Rei) peca.clone());
+            } catch (CloneNotSupportedException e) {
+                
+                e.printStackTrace();
+            };
+        }
+        
+        Tabuleiro tabu = new Tabuleiro(pecaBranca, pecaPreto);
 
-        return false;
+        Peca reiBranco = pecaBranca.stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
+        Peca reiPreto = pecaPreto.stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
+
+
+        boolean presoBranco=pecaBranca.stream().allMatch(p->p.getMovimentosPossiveis(false).isEmpty()||p.capturada);
+        
+        boolean checkBranco=pecaPreto.stream().anyMatch(p-> p.tipoPromocao!=TipoPeca.PEAO && !p.capturada && p.getMovimentosPossiveis(true).stream().anyMatch(m->m.x==reiBranco.getPosicaoTabuleiro().x && m.y==reiBranco.getPosicaoTabuleiro().y)) || this.tabuleiro.getPecas(Cor.PRETO).stream().anyMatch(p->p.tipoPromocao==TipoPeca.PEAO && p.capturada==false && (p.getPosicaoTabuleiro().x+1==reiBranco.getPosicaoTabuleiro().x || p.getPosicaoTabuleiro().x-1==reiBranco.getPosicaoTabuleiro().x)&& p.getPosicaoTabuleiro().y+p.dir==reiBranco.getPosicaoTabuleiro().y);
+
+        boolean reiSoloBranco = pecaBranca.stream().allMatch(p->p.tipoPeca==TipoPeca.REI||p.capturada);
+
+        boolean bispoBranco=pecaBranca.stream().anyMatch(p->p.tipoPromocao==TipoPeca.BISPO && !p.capturada && pecaBranca.stream().allMatch(p2-> p2==p  || p2.tipoPeca==TipoPeca.REI || p2.capturada));
+
+        boolean cavaloBranco=pecaBranca.stream().anyMatch(p->p.tipoPromocao==TipoPeca.CAVALO && !p.capturada && pecaBranca.stream().allMatch(p2-> p2==p || p2.tipoPeca==TipoPeca.REI || (p2.tipoPromocao==TipoPeca.CAVALO && !p2.capturada) || p2.capturada));
+
+
+
+
+
+        boolean presoPreto=pecaPreto.stream().allMatch(p->p.getMovimentosPossiveis(false).isEmpty()||p.capturada);
+        
+        boolean checkPreto=pecaBranca.stream().anyMatch(p-> p.tipoPromocao!=TipoPeca.PEAO && !p.capturada && p.getMovimentosPossiveis(true).stream().anyMatch(m->m.x==reiPreto.getPosicaoTabuleiro().x && m.y==reiPreto.getPosicaoTabuleiro().y)) || this.tabuleiro.getPecas(Cor.BRANCO).stream().anyMatch(p->p.tipoPromocao==TipoPeca.PEAO && p.capturada==false && (p.getPosicaoTabuleiro().x+1==reiPreto.getPosicaoTabuleiro().x || p.getPosicaoTabuleiro().x-1==reiPreto.getPosicaoTabuleiro().x)&& p.getPosicaoTabuleiro().y+p.dir==reiPreto.getPosicaoTabuleiro().y);
+
+        boolean reiSoloPreto = pecaPreto.stream().allMatch(p->p.tipoPeca==TipoPeca.REI||p.capturada);
+
+        boolean bispoPreto = pecaPreto.stream().anyMatch(p->p.tipoPromocao==TipoPeca.BISPO && !p.capturada && pecaPreto.stream().allMatch(p2-> p2==p  || p2.tipoPeca==TipoPeca.REI || p2.capturada));
+
+        boolean cavaloPreto = pecaPreto.stream().anyMatch(p->p.tipoPromocao==TipoPeca.CAVALO && !p.capturada && pecaPreto.stream().allMatch(p2-> p2==p || p2.tipoPeca==TipoPeca.REI || (p2.tipoPromocao==TipoPeca.CAVALO && !p2.capturada) || p2.capturada));
+
+        return (  ((presoBranco && !checkBranco)||(presoPreto && !checkPreto))   ||  ( (reiSoloBranco||bispoBranco||cavaloBranco)  &&  (reiSoloPreto||bispoPreto||cavaloPreto) )  );
+
     }
 
     public boolean executaMovimento(Movimento movimento,boolean ehIA) {

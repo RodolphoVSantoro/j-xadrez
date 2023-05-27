@@ -21,6 +21,7 @@ public class Input extends MouseAdapter{
     public Peca selecionada;
     public Canvas canvas;
     public boolean executando=false;
+    private boolean godMod=false;
 
     public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas){
         super();
@@ -31,14 +32,14 @@ public class Input extends MouseAdapter{
     @Override
     public void mouseClicked(MouseEvent e) {
        
-        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO)){
+        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO || this.godMod)){
             // Seleciona posição clicada pelo mouse
             int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
             int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
             Posicao p = new Posicao(col, linha);
             Peca posicaoPeca = this.maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
-            if(posicaoPeca != null  && posicaoPeca.getCor()==Cor.BRANCO &&(!posicaoPeca.getCapturado())){
+            if(posicaoPeca != null  && (posicaoPeca.getCor()==Cor.BRANCO || this.godMod) &&(!posicaoPeca.getCapturado())){
                 //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
