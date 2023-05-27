@@ -10,7 +10,6 @@ import config.Config;
 import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
-import maquinaDeRegras.Movimento;
 import maquinaDeRegras.Tabuleiro;
 
 import java.util.ArrayList;

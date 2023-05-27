@@ -5,8 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Stream;
-
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
@@ -39,23 +37,10 @@ public class Input extends MouseAdapter{
             Peca posicaoPeca = this.maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
             if(posicaoPeca != null  && posicaoPeca.getCor()==Cor.BRANCO &&(!posicaoPeca.getCapturado())){
-                //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
         }
 
-        // if(maquinaDeRegras.getTurno() == Cor.PRETO ){
-        //     // Seleciona posição clicada pelo mouse
-        //     int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
-        //     int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
-        //     Posicao p = new Posicao(col, linha);
-        //     Peca posicaoPeca = maquinaDeRegras.getTabuleiro().getPeca(p);
-        //     // Se houver uma peça onde o mouse clicou, seleciona a peça
-        //     if(posicaoPeca != null && posicaoPeca.getCor()==Cor.PRETO && (!posicaoPeca.getCapturado())){
-        //         //System.out.println("vc selecinou uma peça valida");
-        //         this.selecionada = posicaoPeca;
-        //     }
-        // }
     }
 
     @Override
@@ -74,6 +59,7 @@ public class Input extends MouseAdapter{
                     Scanner s = new Scanner(System.in);
                     System.out.println("promoção!!!!!");
                     this.selecionada.promocao=s.nextInt();
+                    s.close();
                 }
                 Posicao peca = pecaOptinonal.get();
                 if(!peca.duplo){

@@ -1,8 +1,6 @@
 package maquinaDeRegras;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
 import pecas.Bispo;
 import pecas.Cavalo;
 import pecas.Dama;
@@ -101,6 +99,8 @@ public class MaquinaDeRegras {
             };
         }
         
+
+        //Tabuleiro faz acoes necessarias na peca em seu construtor;
         Tabuleiro tabu = new Tabuleiro(pecaBranca, pecaPreto);
         
         
