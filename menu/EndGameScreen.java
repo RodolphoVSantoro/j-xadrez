@@ -54,7 +54,7 @@ public class EndGameScreen extends JFrame {
         Fundo.setBackground(new Color(44, 44, 44));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon("../assets/images/endgame_background.png"));
+        Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/endgame_background.png")));
 
         labelResultado.setFont(new Font("Segoe UI", 1, 32));
         labelResultado.setForeground(new Color(255, 255, 255));
@@ -140,9 +140,6 @@ public class EndGameScreen extends JFrame {
                 .addComponent(cancela, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
-
-        /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("../assets/images/endgame_background.png")));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
