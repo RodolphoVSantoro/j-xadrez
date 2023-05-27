@@ -51,7 +51,7 @@ public class EndGameScreen extends JFrame {
         setBackground(new Color(0, 0, 0));
         setResizable(false);
 
-        Fundo.setBackground(new Color(51, 51, 51));
+        Fundo.setBackground(new Color(44, 44, 44));
 
         /* Imagem por macrovector disponível em freepik.com*/
         Imagem.setIcon(new ImageIcon(getClass().getResource("../assets/images/endgame_background.png")));
@@ -182,11 +182,11 @@ public class EndGameScreen extends JFrame {
     }
 
     private void cancelaActionPerformed(ActionEvent evt) {
-        JFrame confirmacao = new JFrame("Deseja realmente cancela?");
+        JFrame confirmacao = new JFrame("Deseja realmente cancelar?");
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancela?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }
