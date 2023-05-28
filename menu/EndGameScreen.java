@@ -184,7 +184,7 @@ public class EndGameScreen extends JFrame {
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancela?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }

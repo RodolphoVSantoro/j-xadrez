@@ -3,8 +3,8 @@ package menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 
-import tela.Tela;
 import utils.ArmazemInt;
 
 public class Promocao extends javax.swing.JDialog {
@@ -19,7 +19,7 @@ public class Promocao extends javax.swing.JDialog {
     private boolean podeContinuar;
     private ArmazemInt promocao;
 
-    public Promocao(Tela t) {
+    public Promocao(JFrame t) {
         super(t, "Promocao", true);
         this.setLocationRelativeTo(null);
         initComponents();
