@@ -18,7 +18,6 @@ import maquinaDeRegras.Tabuleiro;
 import menu.Menu;
 import menu.Promocao;
 import pecas.Peca;
-import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 import menu.EndGameScreen;
@@ -172,7 +171,7 @@ public class Tela extends JFrame {
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate = false;
         while(!checkmate){       
-            if(this.maquinaDeRegras.getTurno()==Cor.PRETO && false){
+            if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
                 //System.out.println("sua vez");
                 this.repaint();
@@ -180,9 +179,9 @@ public class Tela extends JFrame {
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
                 
             };
-            boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
-            this.maquinaDeRegras.checkmate=temp[0]||temp[1];
-            checkmate=this.maquinaDeRegras.checkmate;
+            // boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
+            // this.maquinaDeRegras.checkmate=temp[0]||temp[1];
+            // checkmate=this.maquinaDeRegras.checkmate;
             Thread.sleep(200);
         }
        // System.out.println("vc venceu");

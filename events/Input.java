@@ -34,14 +34,14 @@ public class Input extends MouseAdapter{
     @Override
     public void mouseClicked(MouseEvent e) {
        
-        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO || true)){
+        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO)){
             // Seleciona posição clicada pelo mouse
             int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
             int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
             Posicao p = new Posicao(col, linha);
             Peca posicaoPeca = this.maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
-            if(posicaoPeca != null &&(!posicaoPeca.getCapturado())){
+            if(posicaoPeca != null  && posicaoPeca.getCor()==Cor.BRANCO &&(!posicaoPeca.getCapturado())){
                 //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
@@ -74,9 +74,6 @@ public class Input extends MouseAdapter{
             Optional<Posicao> pecaOptinonal = this.selecionada.getMovimentosPossiveis(false).stream().filter(p -> (p.x==col && p.y==linha)||((selecionadaTabuleiro.x==p.xp && selecionadaTabuleiro.y==p.yp )&&(p.x2==col && p.y2==linha))).findFirst();
             if(pecaOptinonal.isPresent()){
                 if(this.selecionada.tipoPromocao == TipoPeca.PEAO && this.selecionada.qtdMovimento == 5) {
-                    //Promocao telaPromocao = new Promocao();
-                    // telaPromocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                    // telaPromocao.setLocationRelativeTo(null);
                     this.promocaoDialog.setVisible(true);
                     this.selecionada.promocao = this.promocaoGetter.getValue();
                 }
