@@ -110,6 +110,7 @@ class Tela extends JFrame {
                                           (possiveis.get(i).y + 1) * Config.ALTURA_TABULEIRO,
                                            Config.LARGURA_TABULEIRO,
                                            Config.ALTURA_TABULEIRO);
+
                         
                     }
                 }
@@ -168,12 +169,12 @@ class Tela extends JFrame {
                 this.repaint();
             };
         }
-
     } 
 
     public void repaint() {
         canvas.repaint();
     }    
+
     
     // Main Method
     public static void main(String args[]) throws InterruptedException, Error {

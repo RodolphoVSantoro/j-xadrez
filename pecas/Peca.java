@@ -66,7 +66,7 @@ public abstract class Peca {
      * Diz se a peca em determinada posiçao é capturável
      * Sem considerar peças entre ambas
      */
-    protected boolean podeCapturar(Posicao posicaoNova) {
+    public boolean podeCapturar(Posicao posicaoNova) {
         Peca peca = this.tabuleiro.getPeca(posicaoNova.x, posicaoNova.y);
         return peca != null && peca.getCor() != this.getCor();
     }
