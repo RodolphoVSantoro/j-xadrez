@@ -53,7 +53,7 @@ public class MaquinaDeRegras {
     } 
 
     public void setTurno(Cor cor){
-         this.turno=cor;
+         this.turno = cor;
     } 
 
     public void jogada() {
@@ -114,6 +114,6 @@ public class MaquinaDeRegras {
                 throw new Error("IA tentou movimento invalido");
             }
         }
-        this.turno=Cor.BRANCO;
+        this.turno = Cor.BRANCO;
     }
 }
