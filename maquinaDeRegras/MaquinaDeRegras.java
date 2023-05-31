@@ -18,7 +18,8 @@ public class MaquinaDeRegras {
     private boolean partidaComIA;
     private Historico historico;
     private IA IA;
-    private JTextArea textArea;
+    private JTextArea brancasTextArea;
+    private JTextArea pretasTextArea;
 
     public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
@@ -29,14 +30,15 @@ public class MaquinaDeRegras {
         this.IA = null;
     }
 
-    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea textArea) {
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea) {
         this.historico = new Historico();
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
         this.partidaComIA = true;
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
-        this.textArea = textArea;
+        this.brancasTextArea = brancasTextArea;
+        this.pretasTextArea = pretasTextArea;
         this.IA.setMaquinaDeRegras(this);
     }
 
@@ -98,9 +100,12 @@ public class MaquinaDeRegras {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
             if(!ehIA){
-                new PrintaHistorico(this).print(textArea);
-                String espaco = " ";
-                new PrintaHistorico(this).print(textArea, espaco);
+                if(this.getTurno() == Cor.BRANCO){
+                    new PrintaHistorico(this).print(brancasTextArea);
+                }
+                else{
+                    new PrintaHistorico(this).print(pretasTextArea);
+                }
             }
             return true;
         }

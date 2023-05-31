@@ -56,7 +56,7 @@ public class PrintaHistorico {
         textArea.append( 
             peca.getTipoPeca().toString().substring(0, 1) + " -> " +
             this.nomeCasa(peca.getPosicaoTabuleiro().x) +
-            (8 - peca.getPosicaoTabuleiro().y));
+            (8 - peca.getPosicaoTabuleiro().y) + "\n");
     }
 
 }

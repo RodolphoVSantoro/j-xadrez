@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.ScrollPane;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -11,9 +12,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.DimensionUIResource;
 
 import config.Config;
 import config.SetupPecas;
@@ -36,7 +40,8 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
-    private JTextArea textArea = new JTextArea();;
+    private JTextArea brancasTextArea = new javax.swing.JTextArea();
+    private JTextArea pretasTextArea = new javax.swing.JTextArea();
     
     public Canvas getCanvas() {
         return canvas;
@@ -127,26 +132,57 @@ class Tela extends JFrame {
         JLabel capturadas = new JLabel();
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         
-        /*JLabel historico = new JLabel();
-        historico.setIcon(new ImageIcon("assets/images/historico.png"));
-        JScrollPane scrollHistorico = new JScrollPane();
-        scrollHistorico.setViewportView(historico);*/
+        JScrollPane brancasScrollPane = new JScrollPane();
+        JScrollPane pretasScrollPane = new JScrollPane();
+        JLabel fundoHistorico = new JLabel();
 
-        this.textArea.setLineWrap(true);
-        this.textArea.setEditable(false);
-        this.textArea.setCaretColor(new Color(255, 255, 255, 255));
-        this.textArea.setBackground(new Color(255, 209, 155));
+        setPreferredSize(new DimensionUIResource(180, 800));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        JComponent viewport = (JComponent) scrollPane.getViewport().getView();
+        brancasScrollPane.setBackground(new Color(255, 208, 156));
+        brancasScrollPane.setBorder(null);
+        brancasScrollPane.setForeground(new Color(255, 208, 156));
+        brancasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        Dimension componentSize = viewport.getPreferredSize();
-        componentSize.width = 33;
-        viewport.setPreferredSize(componentSize);
+        this.brancasTextArea.setEditable(false);
+        this.brancasTextArea.setBackground(new Color(255, 208, 156));
+        this.brancasTextArea.setColumns(20);
+        this.brancasTextArea.setFont(new Font("Segoe UI Bold", 0, 16)); 
+        this.brancasTextArea.setRows(20);
+        this.brancasTextArea.setBorder(null);
+        this.brancasTextArea.setCaretColor(new Color(255, 208, 156));
+        this.brancasTextArea.setDisabledTextColor(new Color(255, 208, 156));
+        this.brancasTextArea.setSelectedTextColor(new Color(255, 208, 156));
+        this.brancasTextArea.setSelectionColor(new Color(255, 208, 156));
+        brancasScrollPane.setViewportView(this.brancasTextArea);
 
-        scrollPane.revalidate();
-        scrollPane.repaint();
-        add(scrollPane);
+        getContentPane().add(brancasScrollPane);
+        brancasScrollPane.setBounds(1130, 146, 60, 560);
+        
+        pretasScrollPane.setBackground(new Color(255, 208, 156));
+        pretasScrollPane.setBorder(null);
+        pretasScrollPane.setForeground(new Color(255, 208, 156));
+        pretasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        this.pretasTextArea.setEditable(false);
+        this.pretasTextArea.setBackground(new Color(255, 208, 156));
+        this.pretasTextArea.setColumns(20);
+        this.pretasTextArea.setFont(new Font("Segoe UI Bold", 0, 16)); 
+        this.pretasTextArea.setRows(20);
+        this.pretasTextArea.setBorder(null);
+        this.pretasTextArea.setCaretColor(new Color(255, 208, 156));
+        this.pretasTextArea.setDisabledTextColor(new Color(255, 208, 156));
+        this.pretasTextArea.setSelectedTextColor(new Color(255, 208, 156));
+        this.pretasTextArea.setSelectionColor(new Color(255, 208, 156));
+        pretasScrollPane.setViewportView(this.pretasTextArea);
+
+        getContentPane().add(pretasScrollPane);
+        pretasScrollPane.setBounds(1200, 146, 58, 560);
+
+        fundoHistorico.setIcon(new ImageIcon("assets/images/historico.png"));
+        getContentPane().add(fundoHistorico);
+        fundoHistorico.setBounds(0, 0, 180, 800);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,7 +191,7 @@ class Tela extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(capturadas)
                 .addComponent(canvas)
-                .addComponent(scrollPane))
+                .addComponent(fundoHistorico))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -163,7 +199,7 @@ class Tela extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(capturadas)
                     .addComponent(canvas)
-                    .addComponent(scrollPane)))
+                    .addComponent(fundoHistorico)))
         );
 
         pack();
@@ -175,7 +211,7 @@ class Tela extends JFrame {
     }
 
     private void initGame() {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.textArea));
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));

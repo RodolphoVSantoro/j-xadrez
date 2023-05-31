@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaHistorico",
+            "request": "launch",
+            "mainClass": "menu.TelaHistorico",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
             "name": "Teste",
             "request": "launch",
             "mainClass": "Teste",
