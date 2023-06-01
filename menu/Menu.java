@@ -29,6 +29,7 @@ public class Menu extends JFrame {
     private JLabel Imagem;
     private Botao iniciar;
     JTextField inputNome;
+    private String nome;
     private JLabel labelNome;
     private Botao sair;
     private boolean inicia = false;
@@ -39,6 +40,14 @@ public class Menu extends JFrame {
 
     public boolean setInicia(boolean inicia){
         return this.inicia = inicia;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     public Menu() {
@@ -189,7 +198,7 @@ public class Menu extends JFrame {
 
     private void iniciarActionPerformed(KeyEvent e) throws InterruptedException, Error {
         // Recebe o nome do usuário
-        String nome = inputNome.getText();
+        this.setNome(inputNome.getText());
     
         // Verifica se o usuário informou um nome
         if (nome.trim().isEmpty()) {
@@ -205,8 +214,8 @@ public class Menu extends JFrame {
     }
 
     private void iniciarActionPerformed(ActionEvent evt) throws InterruptedException, Error {
-        // Recebe o nome do usuário
-        String nome = inputNome.getText();
+         // Recebe o nome do usuário
+         this.setNome(inputNome.getText());
     
         // Verifica se o usuário informou um nome
         if (nome.trim().isEmpty()) {

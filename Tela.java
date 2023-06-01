@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.DimensionUIResource;
@@ -39,6 +40,7 @@ class Tela extends JFrame {
     private Input input;
     private JTextArea brancasTextArea = new javax.swing.JTextArea();
     private JTextArea pretasTextArea = new javax.swing.JTextArea();
+    private JTextPane vez;
     
     public Canvas getCanvas() {
         return canvas;
@@ -96,7 +98,7 @@ class Tela extends JFrame {
         this.input = input;
     }
 
-    Tela() {
+    Tela(Menu menu) {
         super();
 
         canvas = new Canvas() {
@@ -126,6 +128,15 @@ class Tela extends JFrame {
         };
         
         canvas.setBackground(new Color(18, 18, 18));
+        this.vez = new JTextPane();
+        this.vez.setEditable(false);
+        this.vez.setBounds(320, 25, 700, 40);
+        this.vez.setFont(new Font("Segoe UI Bold", 0, 24)); 
+        this.vez.setBackground(new Color(18, 18, 18));
+        this.vez.setCaretColor(new Color(18, 18, 18));
+        this.vez.setForeground(Color.WHITE);
+        this.vez.setText("Vez de " + menu.getNome());
+        add(this.vez);
 
         JLabel capturadas = new JLabel();
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
@@ -217,8 +228,8 @@ class Tela extends JFrame {
         setResizable(false);
     }
 
-    private void initGame() {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea));
+    private void initGame(Menu menu) {
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
@@ -250,9 +261,9 @@ class Tela extends JFrame {
         while(!menu.getInicia()){
             Thread.sleep(500);
             if(menu.getInicia()){
-                Tela tela = new Tela();
+                Tela tela = new Tela(menu);
                 tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                tela.initGame();
+                tela.initGame(menu);
                 tela.gameLoop();
                 Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
                 Boolean resultado = reiDerrotado.getCapturado();
