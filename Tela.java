@@ -1,35 +1,32 @@
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.ScrollPane;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.DimensionUIResource;
+import javax.swing.text.DefaultCaret;
 
 import config.Config;
 import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
+import menu.EndGameScreen;
 import menu.Menu;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
-import menu.EndGameScreen;
 
 class Tela extends JFrame {
 
@@ -144,6 +141,10 @@ class Tela extends JFrame {
         brancasScrollPane.setBorder(null);
         brancasScrollPane.setForeground(new Color(255, 208, 156));
         brancasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        brancasScrollPane.getVerticalScrollBar().setBackground(new Color(255, 208, 156));
+
+        DefaultCaret caretBrancas = (DefaultCaret)brancasTextArea.getCaret();
+        caretBrancas.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         this.brancasTextArea.setEditable(false);
         this.brancasTextArea.setBackground(new Color(255, 208, 156));
@@ -158,12 +159,17 @@ class Tela extends JFrame {
         brancasScrollPane.setViewportView(this.brancasTextArea);
 
         getContentPane().add(brancasScrollPane);
-        brancasScrollPane.setBounds(1130, 146, 60, 560);
+        brancasScrollPane.setBounds(1100, 143, 75, 577);
         
         pretasScrollPane.setBackground(new Color(255, 208, 156));
         pretasScrollPane.setBorder(null);
         pretasScrollPane.setForeground(new Color(255, 208, 156));
         pretasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pretasScrollPane.getVerticalScrollBar().setBackground(new Color(255, 208, 156));
+        pretasScrollPane.getVerticalScrollBar().setAutoscrolls(true);
+
+        DefaultCaret caretPretas = (DefaultCaret)pretasTextArea.getCaret();
+        caretPretas.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         this.pretasTextArea.setEditable(false);
         this.pretasTextArea.setBackground(new Color(255, 208, 156));
@@ -177,10 +183,131 @@ class Tela extends JFrame {
         this.pretasTextArea.setSelectionColor(new Color(255, 208, 156));
         pretasScrollPane.setViewportView(this.pretasTextArea);
 
-        getContentPane().add(pretasScrollPane);
-        pretasScrollPane.setBounds(1200, 146, 58, 560);
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
+        brancasTextArea.append("text\n");
+        pretasTextArea.append("text\n");
 
-        fundoHistorico.setIcon(new ImageIcon("assets/images/historico.png"));
+        getContentPane().add(pretasScrollPane);
+        pretasScrollPane.setBounds(1180, 143, 75, 577);
+
+        fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
         getContentPane().add(fundoHistorico);
         fundoHistorico.setBounds(0, 0, 180, 800);
         
