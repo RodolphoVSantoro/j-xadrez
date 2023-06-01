@@ -1,20 +1,29 @@
 package menu;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
 
 import utils.ArmazemInt;
 
-public class Promocao extends javax.swing.JDialog {
+public class Promocao extends JDialog {
 
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private JButton jButton4;
+    private JButton cavalo;
+    private JButton torre;
+    private JButton bispo;
+    private JLabel jLabel1;
+    private JPanel jPanel1;
     private int valor;
     private boolean podeContinuar;
     private ArmazemInt promocao;
@@ -46,22 +55,22 @@ public class Promocao extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        jPanel1 = new JPanel();
+        jLabel1 = new JLabel();
+        jButton4 = new JButton();
+        cavalo = new JButton();
+        torre = new JButton();
+        bispo = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        setBackground(new java.awt.Color(242, 207, 159));
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setBackground(new Color(242, 207, 159));
 
-        jPanel1.setBackground(new java.awt.Color(242, 207, 159));
+        jPanel1.setBackground(new Color(242, 207, 159));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("assets/images/promocao.png"));
+        jLabel1.setIcon(new ImageIcon("assets/images/promocao.png"));
 
-        jButton4.setBackground(new java.awt.Color(242, 207, 159));
-        jButton4.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/dama.png"));
+        jButton4.setBackground(new Color(242, 207, 159));
+        jButton4.setIcon(new ImageIcon("assets/images/pecas/branco_center/dama.png"));
         jButton4.setBorder(null);
         jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -69,72 +78,72 @@ public class Promocao extends javax.swing.JDialog {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(242, 207, 159));
-        jButton5.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/cavalo.png"));
-        jButton5.setBorder(null);
-        jButton5.addActionListener(new ActionListener() {
+        cavalo.setBackground(new Color(242, 207, 159));
+        cavalo.setIcon(new ImageIcon("assets/images/pecas/branco_center/cavalo.png"));
+        cavalo.setBorder(null);
+        cavalo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cavaloActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(242, 207, 159));
-        jButton6.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/torre.png"));
-        jButton6.setBorder(null);
-        jButton6.addActionListener(new ActionListener() {
+        torre.setBackground(new Color(242, 207, 159));
+        torre.setIcon(new ImageIcon("assets/images/pecas/branco_center/torre.png"));
+        torre.setBorder(null);
+        torre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 torreActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(242, 207, 159));
-        jButton7.setIcon(new javax.swing.ImageIcon("assets/images/pecas/branco_center/bispo.png"));
-        jButton7.setBorder(null);
-        jButton7.addActionListener(new ActionListener() {
+        bispo.setBackground(new Color(242, 207, 159));
+        bispo.setIcon(new ImageIcon("assets/images/pecas/branco_center/bispo.png"));
+        bispo.setBorder(null);
+        bispo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 bispoActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(torre)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bispo)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cavalo)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(torre, GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4, GroupLayout.Alignment.TRAILING)
+                    .addComponent(bispo, GroupLayout.Alignment.TRAILING)
+                    .addComponent(cavalo, GroupLayout.Alignment.TRAILING))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
