@@ -1,6 +1,7 @@
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -8,19 +9,24 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.DimensionUIResource;
+import javax.swing.text.DefaultCaret;
 
 import config.Config;
 import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
+import menu.EndGameScreen;
 import menu.Menu;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
-import menu.EndGameScreen;
 
 class Tela extends JFrame {
 
@@ -31,6 +37,8 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
+    private JTextArea brancasTextArea = new javax.swing.JTextArea();
+    private JTextArea pretasTextArea = new javax.swing.JTextArea();
     
     public Canvas getCanvas() {
         return canvas;
@@ -122,8 +130,66 @@ class Tela extends JFrame {
         JLabel capturadas = new JLabel();
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         
-        JLabel historico = new JLabel();
-        historico.setIcon(new ImageIcon("assets/images/historico.png"));
+        JScrollPane brancasScrollPane = new JScrollPane();
+        JScrollPane pretasScrollPane = new JScrollPane();
+        JLabel fundoHistorico = new JLabel();
+
+        setPreferredSize(new DimensionUIResource(180, 800));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        brancasScrollPane.setBackground(new Color(255, 208, 156));
+        brancasScrollPane.setBorder(null);
+        brancasScrollPane.setForeground(new Color(255, 208, 156));
+        brancasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        brancasScrollPane.getVerticalScrollBar().setBackground(new Color(255, 208, 156));
+
+        DefaultCaret caretBrancas = (DefaultCaret)brancasTextArea.getCaret();
+        caretBrancas.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+        this.brancasTextArea.setEditable(false);
+        this.brancasTextArea.setBackground(new Color(255, 208, 156));
+        this.brancasTextArea.setColumns(20);
+        this.brancasTextArea.setFont(new Font("Segoe UI Bold", 0, 16)); 
+        this.brancasTextArea.setRows(20);
+        this.brancasTextArea.setBorder(null);
+        this.brancasTextArea.setCaretColor(new Color(255, 208, 156));
+        this.brancasTextArea.setDisabledTextColor(new Color(255, 208, 156));
+        this.brancasTextArea.setSelectedTextColor(new Color(255, 208, 156));
+        this.brancasTextArea.setSelectionColor(new Color(255, 208, 156));
+        brancasScrollPane.setViewportView(this.brancasTextArea);
+
+        getContentPane().add(brancasScrollPane);
+        brancasScrollPane.setBounds(1100, 143, 75, 577);
+        
+        pretasScrollPane.setBackground(new Color(255, 208, 156));
+        pretasScrollPane.setBorder(null);
+        pretasScrollPane.setForeground(new Color(255, 208, 156));
+        pretasScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pretasScrollPane.getVerticalScrollBar().setBackground(new Color(255, 208, 156));
+        pretasScrollPane.getVerticalScrollBar().setAutoscrolls(true);
+
+        DefaultCaret caretPretas = (DefaultCaret)pretasTextArea.getCaret();
+        caretPretas.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+        this.pretasTextArea.setEditable(false);
+        this.pretasTextArea.setBackground(new Color(255, 208, 156));
+        this.pretasTextArea.setColumns(20);
+        this.pretasTextArea.setFont(new Font("Segoe UI Bold", 0, 16)); 
+        this.pretasTextArea.setRows(20);
+        this.pretasTextArea.setBorder(null);
+        this.pretasTextArea.setCaretColor(new Color(255, 208, 156));
+        this.pretasTextArea.setDisabledTextColor(new Color(255, 208, 156));
+        this.pretasTextArea.setSelectedTextColor(new Color(255, 208, 156));
+        this.pretasTextArea.setSelectionColor(new Color(255, 208, 156));
+        pretasScrollPane.setViewportView(this.pretasTextArea);
+
+        getContentPane().add(pretasScrollPane);
+        pretasScrollPane.setBounds(1180, 143, 75, 577);
+
+        fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
+        getContentPane().add(fundoHistorico);
+        fundoHistorico.setBounds(0, 0, 180, 800);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +198,7 @@ class Tela extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(capturadas)
                 .addComponent(canvas)
-                .addComponent(historico))
+                .addComponent(fundoHistorico))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -140,7 +206,7 @@ class Tela extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(capturadas)
                     .addComponent(canvas)
-                    .addComponent(historico)))
+                    .addComponent(fundoHistorico)))
         );
 
         pack();
@@ -152,7 +218,7 @@ class Tela extends JFrame {
     }
 
     private void initGame() {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2));
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
@@ -167,7 +233,7 @@ class Tela extends JFrame {
             if(this.getMaquinaDeRegras().getTurno() == Cor.PRETO){
                 this.getMaquinaDeRegras().moveIA();
                 this.repaint();
-            };
+            }           
         }
     } 
 

@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaHistorico",
+            "request": "launch",
+            "mainClass": "menu.TelaHistorico",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
+            "name": "Teste",
+            "request": "launch",
+            "mainClass": "Teste",
+            "projectName": "j-xadrez_18a0921a"
+        },
+        {
+            "type": "java",
+            "name": "Tela",
+            "request": "launch",
+            "mainClass": "Tela",
+            "projectName": "j-xadrez_16f7c49f"
+        },
+        {
+            "type": "java",
             "name": "EndGameScreen",
             "request": "launch",
             "mainClass": "menu.EndGameScreen",

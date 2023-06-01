@@ -2,6 +2,9 @@ package maquinaDeRegras;
 
 import java.util.ArrayList;
 
+import javax.swing.JTextArea;
+
+import events.PrintaHistorico;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
@@ -15,6 +18,8 @@ public class MaquinaDeRegras {
     private boolean partidaComIA;
     private Historico historico;
     private IA IA;
+    private JTextArea brancasTextArea;
+    private JTextArea pretasTextArea;
 
     public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
@@ -25,13 +30,15 @@ public class MaquinaDeRegras {
         this.IA = null;
     }
 
-    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea) {
         this.historico = new Historico();
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
         this.partidaComIA = true;
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.brancasTextArea = brancasTextArea;
+        this.pretasTextArea = pretasTextArea;
         this.IA.setMaquinaDeRegras(this);
     }
 
@@ -55,6 +62,10 @@ public class MaquinaDeRegras {
     public void setTurno(Cor cor){
          this.turno = cor;
     } 
+
+    public Historico getHistorico() {
+        return historico;
+    }
 
     public void jogada() {
         if (this.partidaComIA && this.turno == this.adversario) {
@@ -88,6 +99,14 @@ public class MaquinaDeRegras {
         if (posicaoValida) {
             Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
             this.historico.adicionaMovimento(movimento, pecaCapturada);
+            if(!ehIA){
+                if(this.getTurno() == Cor.BRANCO){
+                    new PrintaHistorico(this).print(brancasTextArea);
+                }
+                else{
+                    new PrintaHistorico(this).print(pretasTextArea);
+                }
+            }
             return true;
         }
 
