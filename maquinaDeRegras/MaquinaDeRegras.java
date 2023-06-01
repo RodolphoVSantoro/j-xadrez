@@ -3,8 +3,10 @@ package maquinaDeRegras;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import events.PrintaHistorico;
+import menu.Menu;
 import pecas.Peca;
 import pecas.TipoPeca;
 import utils.Cor;
@@ -20,6 +22,8 @@ public class MaquinaDeRegras {
     private IA IA;
     private JTextArea brancasTextArea;
     private JTextArea pretasTextArea;
+    private JTextPane vez;
+    private Menu menu;
 
     public MaquinaDeRegras(Cor jogador) {
         this.historico = new Historico();
@@ -30,7 +34,7 @@ public class MaquinaDeRegras {
         this.IA = null;
     }
 
-    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea) {
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea, JTextPane vez, Menu menu) {
         this.historico = new Historico();
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
@@ -39,6 +43,8 @@ public class MaquinaDeRegras {
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
         this.brancasTextArea = brancasTextArea;
         this.pretasTextArea = pretasTextArea;
+        this.vez = vez;
+        this.menu = menu;
         this.IA.setMaquinaDeRegras(this);
     }
 
@@ -101,9 +107,11 @@ public class MaquinaDeRegras {
             this.historico.adicionaMovimento(movimento, pecaCapturada);
             if(!ehIA){
                 if(this.getTurno() == Cor.BRANCO){
+                    this.vez.setText("Vez da IA");
                     new PrintaHistorico(this).print(brancasTextArea);
                 }
                 else{
+                    this.vez.setText("Vez de " + menu.getNome());
                     new PrintaHistorico(this).print(pretasTextArea);
                 }
             }
