@@ -1,7 +1,8 @@
 
-import java.awt.Color;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -10,11 +11,7 @@ import config.Config;
 import config.SetupPecas;
 import events.Input;
 import maquinaDeRegras.MaquinaDeRegras;
-import maquinaDeRegras.Movimento;
 import maquinaDeRegras.Tabuleiro;
-
-import java.util.ArrayList;
-
 import pecas.Peca;
 import utils.Cor;
 import utils.Posicao;

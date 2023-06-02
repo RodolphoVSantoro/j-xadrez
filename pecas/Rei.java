@@ -24,6 +24,16 @@ public class Rei extends Peca {
             { 1, 1 }
     };
 
+    /**
+     * Este método é usado para calcular todos os movimentos possíveis para o Rei,
+     * incluindo a lógica de roque, se aplicável. Além disso, ele verifica a segurança
+     * desses movimentos para não colocar o próprio rei em xeque.
+     *
+     * @param pulaTeste Um booleano que se for verdadeiro irá pular a verificação de
+     *                  segurança do movimento (para não colocar o rei em xeque).
+     * @return Uma lista de todas as posições possíveis para onde o Rei pode se mover.
+     *         Esta lista pode ser vazia se a peça não tiver movimentos válidos.
+     */
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
