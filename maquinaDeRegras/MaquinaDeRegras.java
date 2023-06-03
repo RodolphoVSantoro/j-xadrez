@@ -5,12 +5,16 @@ import pecas.Bispo;
 import pecas.Cavalo;
 import pecas.Dama;
 import pecas.Peao;
+import menu.Menu;
 import pecas.Peca;
 import pecas.Rei;
 import pecas.TipoPeca;
 import pecas.Torre;
 import utils.Cor;
 import utils.Posicao;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import events.PrintaHistorico;
 
 public class MaquinaDeRegras {
     private Tabuleiro tabuleiro;
@@ -20,6 +24,10 @@ public class MaquinaDeRegras {
     private boolean partidaComIA;
     private Historico historico;
     private IA IA;
+    private JTextArea brancasTextArea;
+    private JTextArea pretasTextArea;
+    private JTextPane vez;
+    private Menu menu;
 
     public boolean checkmate=false;
 
@@ -31,12 +39,18 @@ public class MaquinaDeRegras {
         this.IA = null;
     }
 
-    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea, JTextPane vez, Menu menu) {
+        this.historico = new Historico();
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
         this.partidaComIA = true;
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.brancasTextArea = brancasTextArea;
+        this.pretasTextArea = pretasTextArea;
+        this.vez = vez;
+        this.menu = menu;
         this.IA.setMaquinaDeRegras(this);
     }
 
@@ -59,8 +73,12 @@ public class MaquinaDeRegras {
     } 
 
     public void setTurno(Cor cor){
-         this.turno=cor;
+         this.turno = cor;
     } 
+
+    public Historico getHistorico() {
+        return historico;
+    }
 
     public void jogada() {
         if (this.partidaComIA && this.turno == this.adversario) {
@@ -149,6 +167,16 @@ public class MaquinaDeRegras {
                 if(pecaCapturada==null)movimento.getPeca2().qtdMovimento+=1;
             }
             this.historico.adicionaMovimento(movimento, pecaCapturada);
+            if(!ehIA){
+                if(this.getTurno() == Cor.BRANCO){
+                    this.vez.setText("Vez da IA");
+                    new PrintaHistorico(this).print(brancasTextArea);
+                }
+                else{
+                    this.vez.setText("Vez de " + menu.getNome());
+                    new PrintaHistorico(this).print(pretasTextArea);
+                }
+            }
             return true;
         }
 
@@ -184,6 +212,6 @@ public class MaquinaDeRegras {
                 }
             }
         }
-        this.turno=Cor.BRANCO;
+        this.turno = Cor.BRANCO;
     }
 }
