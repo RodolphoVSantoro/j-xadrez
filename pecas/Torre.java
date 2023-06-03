@@ -9,17 +9,19 @@ import utils.Cor;
 public class Torre extends Peca {
 
     public Torre(Posicao posicao, Cor cor) {
-        super(posicao, cor, TipoPeca.TORRE);
+        super(posicao, cor, TipoPeca.TORRE, TipoPeca.TORRE);
     }
 
     @Override
-    public ArrayList<Posicao> getMovimentosPossiveis() {
+    public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
 
         this.addMovimentosEsquerda(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosDireita(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosCima(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosBaixo(movimentosPossiveis, posicaoTabuleiro);
+
+        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
 
         return movimentosPossiveis;
     }

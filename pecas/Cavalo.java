@@ -9,7 +9,7 @@ import utils.Cor;
 public class Cavalo extends Peca {
 
     public Cavalo(Posicao posicao, Cor cor) {
-        super(posicao, cor, TipoPeca.CAVALO);
+        super(posicao, cor, TipoPeca.CAVALO, TipoPeca.CAVALO);
     }
 
     private static final int[][] MOVIMENTOS_POSSIVEIS = {
@@ -24,7 +24,7 @@ public class Cavalo extends Peca {
     };
 
     @Override
-    public ArrayList<Posicao> getMovimentosPossiveis() {
+    public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
         Posicao posicaoAtual = this.getPosicaoTabuleiro();
 
@@ -32,6 +32,8 @@ public class Cavalo extends Peca {
             Posicao proximaPosicao = new Posicao(posicaoAtual.x + movimento[0], posicaoAtual.y + movimento[1]);
             this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
         }
+
+        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
 
         return movimentosPossiveis;
     }
