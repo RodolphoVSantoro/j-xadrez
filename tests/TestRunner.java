@@ -5,8 +5,6 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import tests.config.SetupPecasTest;
-import tests.config.SetupTabuleiroTest;
-import tests.maquinaDeRegras.IATest;
 
 public class TestRunner {
     public static void main(String[] args) {
