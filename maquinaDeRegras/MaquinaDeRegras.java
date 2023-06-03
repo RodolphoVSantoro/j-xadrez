@@ -60,6 +60,10 @@ public class MaquinaDeRegras {
         }
     }
 
+    public void setIA(IA IA) {
+        this.IA = IA;
+    }
+
     public Historico getHistorico() {
         return historico;
     }
