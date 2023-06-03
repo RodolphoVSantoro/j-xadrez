@@ -9,11 +9,11 @@ import utils.Cor;
 public class Dama extends Peca {
 
     public Dama(Posicao posicao, Cor cor) {
-        super(posicao, cor, TipoPeca.DAMA);
+        super(posicao, cor, TipoPeca.DAMA, TipoPeca.DAMA);
     }
 
     @Override
-    public ArrayList<Posicao> getMovimentosPossiveis() {
+    public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
 
         this.addMovimentosEsquerda(movimentosPossiveis, this.posicaoTabuleiro);
@@ -24,6 +24,8 @@ public class Dama extends Peca {
         this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, 1, -1);
         this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, 1);
         this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, -1);
+
+        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
 
         return movimentosPossiveis;
     }

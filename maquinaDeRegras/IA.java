@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import config.Config;
 import pecas.Peca;
+import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 
@@ -11,12 +12,10 @@ public class IA {
     private Cor cor;
     private Tabuleiro tabuleiro;
     private MaquinaDeRegras maquinaDeRegras;
-    private int profundidadeConfigurada;
     private Movimento melhorMovimento;
 
     public IA(Cor cor, int nivelDificuldadeIA) {
         this.cor = cor;
-        this.profundidadeConfigurada = nivelDificuldadeIA;
         this.melhorMovimento = null;
     }
 
@@ -36,6 +35,7 @@ public class IA {
         if (this.melhorMovimento == null) {
             throw new RuntimeException("IA falhou ao procurar movimento");
         }
+        if(this.melhorMovimento.getPeca()!=null && this.melhorMovimento.getPeca().tipoPromocao == TipoPeca.PEAO && this.melhorMovimento.getPeca().qtdMovimento == 5) this.melhorMovimento.getPeca().promocao=9;
         return this.melhorMovimento;
     }
 
@@ -51,15 +51,25 @@ public class IA {
         double alphatemp=alpha;
         double betatemp=beta;
         boolean para=false;
-        if (profundidade <= 0 || this.maquinaDeRegras.chegouFimDeJogo()) {
+        boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
+        if (profundidade <= 0 || temp[0]||temp[1]) {
+            if(temp[0])return new Movimento(null, null, null, Integer.MAX_VALUE);
+            if(temp[1])return new Movimento(null, null, null, Integer.MIN_VALUE);
             return new Movimento(null, null, null, this.getValorTabuleiro());
         }
         Movimento melhorMovimento=new Movimento(null, null, null, Integer.MIN_VALUE);
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(this.cor);
         for (Peca peca : pecas) {
             if(!peca.getCapturado()){
-                for (Posicao posicao : peca.getMovimentosPossiveis()) {
-                    Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                for (Posicao posicao : peca.getMovimentosPossiveis(false)) {
+                    if(peca.tipoPromocao == TipoPeca.PEAO && peca.qtdMovimento == 5) peca.promocao=9;
+                    Movimento novoMovimento=null;
+                    if(posicao.duplo){
+                        Peca peca2 =this.tabuleiro.getPeca(posicao.xp,posicao.yp);
+                        novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), new Posicao(posicao.x,posicao.y),peca2,peca2.getPosicaoTabuleiro(),new Posicao(posicao.x2, posicao.y2),0);
+                    }else {
+                        novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                    }
                     boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento,true);
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
@@ -87,8 +97,11 @@ public class IA {
         double alphatemp=alpha;
         double betatemp=beta;
         boolean para=false;
-        if (profundidade <= 0 || this.maquinaDeRegras.chegouFimDeJogo()) {
-            return new Movimento(null, null, null, this.getValorTabuleiro()*Math.random() / 10.0 + 1.0);
+        boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
+        if (profundidade <= 0 ||temp[0]||temp[1]) {
+            if(temp[0])return new Movimento(null, null, null, Integer.MAX_VALUE);
+            if(temp[1])return new Movimento(null, null, null, Integer.MIN_VALUE);
+            return new Movimento(null, null, null, this.getValorTabuleiro());
         }
         Movimento melhorMovimento=new Movimento(null, null, null, Integer.MAX_VALUE);
 
@@ -96,8 +109,15 @@ public class IA {
         ArrayList<Peca> pecas = this.tabuleiro.getPecas(adversarioIA);
         for (Peca peca : pecas) {
             if(!peca.getCapturado()){
-                for (Posicao posicao : peca.getMovimentosPossiveis()) {
-                    Movimento novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                for (Posicao posicao : peca.getMovimentosPossiveis(false)) {
+                    if(peca.tipoPromocao == TipoPeca.PEAO && peca.qtdMovimento == 5) peca.promocao=9;
+                    Movimento novoMovimento=null;
+                    if(posicao.duplo){
+                        Peca peca2 =this.tabuleiro.getPeca(posicao.xp,posicao.yp);
+                        novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), new Posicao(posicao.x,posicao.y),peca2,peca2.getPosicaoTabuleiro(),new Posicao(posicao.x2, posicao.y2),0);
+                    }else {
+                        novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao,0);
+                    }
                     boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento,true);
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "+novoMovimento.getPosicaoAnterior().x+" "+novoMovimento.getPosicaoAnterior().y+" "+novoMovimento.getPosicaoPosterior().x+" "+novoMovimento.getPosicaoPosterior().y);
@@ -123,12 +143,12 @@ public class IA {
 
         int valorPecas = 0;
         for (Peca peca : pecas) {
-            if(!peca.getCapturado())valorPecas += Config.pontuacao.get(peca.getTipoPeca());
+            if(!peca.getCapturado())valorPecas += Config.pontuacao.get(peca.tipoPromocao);
         }
 
         int valorPecasAdversario = 0;
         for (Peca peca : pecasAdversario) {
-            if(!peca.getCapturado())valorPecasAdversario += Config.pontuacao.get(peca.getTipoPeca());
+            if(!peca.getCapturado())valorPecasAdversario += Config.pontuacao.get(peca.tipoPromocao);
         }
 
         return valorPecas - valorPecasAdversario;
