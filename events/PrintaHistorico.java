@@ -6,17 +6,17 @@ import maquinaDeRegras.MaquinaDeRegras;
 import pecas.Peca;
 
 public class PrintaHistorico {
-    
+
     private String nomeCasaPeca = "";
     private MaquinaDeRegras maquinaDeRegras;
     private Peca peca;
-    
+
     public PrintaHistorico(MaquinaDeRegras maquinaDeRegras) {
         this.maquinaDeRegras = maquinaDeRegras;
         this.peca = this.maquinaDeRegras.getHistorico().getUltimoMovimento().getPeca();
     }
 
-    private String nomeCasa(int casaPeca){
+    private String nomeCasa(int casaPeca) {
         switch (casaPeca) {
             case 0:
                 nomeCasaPeca = "A";
@@ -30,16 +30,16 @@ public class PrintaHistorico {
             case 3:
                 nomeCasaPeca = "D";
                 break;
-            case 4 :
+            case 4:
                 nomeCasaPeca = "E";
                 break;
-            case 5: 
+            case 5:
                 nomeCasaPeca = "F";
                 break;
             case 6:
                 nomeCasaPeca = "G";
                 break;
-            case 7 :
+            case 7:
                 nomeCasaPeca = "H";
                 break;
             default:
@@ -48,15 +48,15 @@ public class PrintaHistorico {
         return nomeCasaPeca;
     }
 
-    public void print(JTextArea textArea, String espaco){        
+    public void print(JTextArea textArea, String espaco) {
         textArea.append(espaco);
     }
 
-    public void print(JTextArea textArea){        
-        textArea.append( 
-            peca.getTipoPeca().toString().substring(0, 1) + " -> " +
-            this.nomeCasa(peca.getPosicaoTabuleiro().x) +
-            (8 - peca.getPosicaoTabuleiro().y) + "\n");
+    public void print(JTextArea textArea) {
+        textArea.append(
+                peca.getTipoPeca().toString().substring(0, 1) + " -> " +
+                        this.nomeCasa(peca.getPosicaoTabuleiro().x) +
+                        (8 - peca.getPosicaoTabuleiro().y) + "\n");
     }
 
 }

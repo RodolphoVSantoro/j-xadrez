@@ -25,7 +25,7 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
-    
+
     Tela() {
         super();
 
@@ -33,28 +33,28 @@ class Tela extends JFrame {
 
             public void paint(Graphics graphics) {
                 graphics.setColor(Color.black);
-                if(maquinaDeRegras != null){
+                if (maquinaDeRegras != null) {
                     tabuleiro.desenha(graphics, this);
                     pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
                     pecasPretas.forEach(peca -> peca.desenha(graphics, this));
                 }
-                
+
                 // Highlight
-                if(input.selecionada != null){
+                if (input.selecionada != null) {
                     possiveis = input.selecionada.getMovimentosPossiveis(false);
-                    for(int i = 0; i < possiveis.size(); i++){
+                    for (int i = 0; i < possiveis.size(); i++) {
                         graphics.setColor(new Color(68, 180, 57, 190));
-                        if(possiveis.get(i).duplo){
-                            graphics.fillRect((possiveis.get(i).x2 + 1) * Config.LARGURA_TABULEIRO, 
-                                              (possiveis.get(i).y2 + 1) * Config.LARGURA_TABULEIRO,
-                                               Config.LARGURA_TABULEIRO,
-                                               Config.LARGURA_TABULEIRO);
+                        if (possiveis.get(i).duplo) {
+                            graphics.fillRect((possiveis.get(i).x2 + 1) * Config.LARGURA_TABULEIRO,
+                                    (possiveis.get(i).y2 + 1) * Config.LARGURA_TABULEIRO,
+                                    Config.LARGURA_TABULEIRO,
+                                    Config.LARGURA_TABULEIRO);
                         }
-                        graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO, 
-                                            (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
-                                            Config.LARGURA_TABULEIRO,
-                                            Config.LARGURA_TABULEIRO);
-                        
+                        graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO,
+                                (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
+                                Config.LARGURA_TABULEIRO,
+                                Config.LARGURA_TABULEIRO);
+
                     }
                 }
             }
@@ -84,23 +84,24 @@ class Tela extends JFrame {
     }
 
     private void gameLoop() throws Error, InterruptedException {
-        boolean checkmate=false;
-        while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
-            if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
+        boolean checkmate = false;
+        while (!checkmate && !this.maquinaDeRegras.empatouJogo()) {
+            if (this.maquinaDeRegras.getTurno() == Cor.PRETO) {
                 this.maquinaDeRegras.moveIA();
-                //System.out.println("sua vez");
+                // System.out.println("sua vez");
                 this.repaint();
-                boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
-                this.maquinaDeRegras.checkmate=temp[0]||temp[1];
-                
-            };
-            checkmate=this.maquinaDeRegras.checkmate;
+                boolean[] temp = this.maquinaDeRegras.chegouFimDeJogo();
+                this.maquinaDeRegras.checkmate = temp[0] || temp[1];
+
+            }
+            ;
+            checkmate = this.maquinaDeRegras.checkmate;
             Thread.sleep(200);
         }
-       // System.out.println("vc venceu");
+        // System.out.println("vc venceu");
 
     }
-    
+
     // Main Method
     public static void main(String args[]) throws InterruptedException, Error {
         Config.loadImages();

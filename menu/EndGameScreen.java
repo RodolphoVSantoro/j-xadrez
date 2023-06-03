@@ -26,7 +26,7 @@ public class EndGameScreen extends JFrame {
     private Botao cancela;
     private Menu menu;
     private Boolean resultado;
-    private String win =  "Parabéns! Você ganhou!";
+    private String win = "Parabéns! Você ganhou!";
     private String lose = "Que pena! Você perdeu!";
 
     public EndGameScreen(Menu menu, Boolean resultado) {
@@ -34,7 +34,7 @@ public class EndGameScreen extends JFrame {
         this.resultado = resultado;
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
@@ -53,7 +53,7 @@ public class EndGameScreen extends JFrame {
 
         Fundo.setBackground(new Color(44, 44, 44));
 
-        /* Imagem por macrovector disponível em freepik.com*/
+        /* Imagem por macrovector disponível em freepik.com */
         Imagem.setIcon(new ImageIcon("assets/images/endgame_background.png"));
 
         labelResultado.setFont(new Font("Segoe UI", 1, 32));
@@ -107,75 +107,81 @@ public class EndGameScreen extends JFrame {
         javax.swing.GroupLayout FundoLayout = new javax.swing.GroupLayout(Fundo);
         Fundo.setLayout(FundoLayout);
         FundoLayout.setHorizontalGroup(
-            FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FundoLayout.createSequentialGroup()
-                .addGap(646, 646, 646)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FundoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(confirma, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancela, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
-            .addGroup(FundoLayout.createSequentialGroup()
-                .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FundoLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jogarNovamente))
-                    .addGroup(FundoLayout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(labelResultado)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(FundoLayout.createSequentialGroup()
+                                .addGap(646, 646, 646)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FundoLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(confirma, javax.swing.GroupLayout.PREFERRED_SIZE, 162,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cancela, javax.swing.GroupLayout.PREFERRED_SIZE, 162,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(105, 105, 105))
+                        .addGroup(FundoLayout.createSequentialGroup()
+                                .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(FundoLayout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jogarNovamente))
+                                        .addGroup(FundoLayout.createSequentialGroup()
+                                                .addGap(114, 114, 114)
+                                                .addComponent(labelResultado)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         FundoLayout.setVerticalGroup(
-            FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FundoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jogarNovamente, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(labelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(confirma, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(cancela, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
+                FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(FundoLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jogarNovamente, javax.swing.GroupLayout.PREFERRED_SIZE, 64,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)
+                                .addComponent(labelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64,
+                                        Short.MAX_VALUE)
+                                .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(confirma, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cancela, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(22, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(Fundo, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(Imagem)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(120, Short.MAX_VALUE)
+                                .addComponent(Fundo, javax.swing.GroupLayout.PREFERRED_SIZE, 601,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Imagem)
+                                        .addGap(0, 0, Short.MAX_VALUE))));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(Fundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(Imagem)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(Fundo, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Imagem)
+                                        .addGap(0, 0, Short.MAX_VALUE))));
 
         pack();
         setLocationRelativeTo(null);
     }
 
     private void confirmaActionPerformed(ActionEvent evt) {
-        
+
         this.dispose();
         menu.inputNome.setText("");
         menu.setVisible(true);
-        
+
     }
 
     private void cancelaActionPerformed(ActionEvent evt) {
@@ -183,7 +189,8 @@ public class EndGameScreen extends JFrame {
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0,
+                JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }
