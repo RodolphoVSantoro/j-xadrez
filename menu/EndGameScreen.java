@@ -171,6 +171,13 @@ public class EndGameScreen extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Método 'confirmaActionPerformed' é chamado quando o botão de confirmação é clicado.
+     * Este método fecha a janela atual e redefine o campo de texto do nome do menu de entrada para uma string vazia.
+     * Em seguida, torna o menu visível novamente.
+     *
+     * @param evt O evento de ação que aciona este método.
+     */
     private void confirmaActionPerformed(ActionEvent evt) {
         
         this.dispose();
@@ -179,6 +186,15 @@ public class EndGameScreen extends JFrame {
         
     }
 
+    
+    /**
+     * Método 'cancelaActionPerformed' é chamado quando o botão de cancelamento é clicado.
+     * Este método cria uma nova janela de confirmação perguntando ao usuário se ele realmente deseja cancelar.
+     * Se o usuário clicar em "Sim", o programa será encerrado. Se o usuário clicar em "Não", a janela de confirmação será fechada
+     * e o usuário poderá continuar a interagir com a aplicação.
+     *
+     * @param evt O evento de ação que aciona este método.
+     */
     private void cancelaActionPerformed(ActionEvent evt) {
         JFrame confirmacao = new JFrame("Deseja realmente cancelar?");
         String[] opcao = new String[2];

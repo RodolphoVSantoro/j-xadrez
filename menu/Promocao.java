@@ -32,6 +32,7 @@ public class Promocao extends JDialog {
         super(t, "Promocao", true);
         this.setLocationRelativeTo(null);
         initComponents();
+        //armazem para a caixa de dialogo da promocao persistir o valor selecionado antes de se encerrar
         this.promocao = ArmazemInt.getInstance();
     }
 
