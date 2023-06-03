@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)     # is Windows_NT on XP, 2000, 7, Vista, 10...
-	detected_OS := Windows
+    detected_OS := Windows
 else
-	detected_OS := $(shell uname)  # same as "uname -s"
+    detected_OS := $(shell uname)  # same as "uname -s"
 endif
 
 default:
@@ -22,8 +22,6 @@ clean:
 	del /S config\*.class
 build_tests:
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/maquinaDeRegras/IATest.java
 
 run_tests:
 	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
@@ -36,9 +34,7 @@ clean:
 	rm -rf ./config/*.class
 
 build_tests:
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/maquinaDeRegras/IATest.java
+	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
 
 run_tests:
 	java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
