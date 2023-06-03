@@ -23,7 +23,7 @@ clean:
 build_tests:
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/maquinaDeRegras/IATest.java
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/maquinaDeRegras/IATest.java
 
 run_tests:
 	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
@@ -38,7 +38,7 @@ clean:
 build_tests:
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
-	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/maquinaDeRegras/IATest.java
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/maquinaDeRegras/IATest.java
 
 run_tests:
 	java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
