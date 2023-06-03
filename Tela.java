@@ -90,6 +90,12 @@ public class Tela extends JFrame {
         this.input = input;
     }
 
+    /**
+     * Este é o construtor para a classe 'Tela'. Ele configura a interface do usuário, criando um canvas no qual as peças e o tabuleiro do jogo são desenhadas.
+     * Esse Canvas é configurado para destacar possíveis movimentos de peças quando uma peça é selecionada.
+     * Além disso, este construtor inclui imagens que mostram as peças capturadas e o histórico do jogo.
+     * Configura também o layout da tela, definindo seu tamanho, tornando-a visível, centrando-a e impedindo o redimensionamento.
+     */
     Tela() {
         super();
 

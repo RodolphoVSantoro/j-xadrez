@@ -31,6 +31,14 @@ public class Input extends MouseAdapter{
         this.promocaoGetter = ArmazemInt.getInstance(); 
     }
 
+    /**
+     * Este método sobrescrito é chamado sempre que o mouse é clicado. Ele verifica se uma ação está sendo 
+     * executada e se é a vez do jogador de cor branca (player). Se a condição for satisfeita, 
+     * ele seleciona a peça na posição onde o mouse foi clicado, caso exista e ela não esteja capturada.
+     *
+     * @param e O evento de mouse que aciona este método. 
+     * Contém informações sobre o estado do mouse durante o evento, como a posição do ponteiro do mouse.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
        
@@ -42,25 +50,20 @@ public class Input extends MouseAdapter{
             Peca posicaoPeca = this.maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
             if(posicaoPeca != null &&(!posicaoPeca.getCapturado())){
-                //System.out.println("vc selecinou uma peça valida");
                 this.selecionada = posicaoPeca;
             }
         }
-
-        // if(maquinaDeRegras.getTurno() == Cor.PRETO ){
-        //     // Seleciona posição clicada pelo mouse
-        //     int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
-        //     int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
-        //     Posicao p = new Posicao(col, linha);
-        //     Peca posicaoPeca = maquinaDeRegras.getTabuleiro().getPeca(p);
-        //     // Se houver uma peça onde o mouse clicou, seleciona a peça
-        //     if(posicaoPeca != null && posicaoPeca.getCor()==Cor.PRETO && (!posicaoPeca.getCapturado())){
-        //         //System.out.println("vc selecinou uma peça valida");
-        //         this.selecionada = posicaoPeca;
-        //     }
-        // }
     }
 
+    /**
+     * Método sobrescrito 'mouseReleased' é chamado sempre que o botão do mouse é liberado.
+     * Se houver uma peça selecionada, este método redefine sua posição para o local onde o usuário liberou o clique do mouse.
+     * Este método também verifica se é necessário realizar a promoção de um peão, executa o movimento no tabuleiro e altera
+     * o turno do jogo para o jogador de cor preta. Se o movimento leva ao fim do jogo, ele registra essa informação.
+     * No final, desseleciona a peça e solicita a atualização da interface do usuário.
+     *
+     * @param evt O evento de mouse que aciona este método.
+     */
     @Override
     public void mouseReleased(MouseEvent evt) {
         
