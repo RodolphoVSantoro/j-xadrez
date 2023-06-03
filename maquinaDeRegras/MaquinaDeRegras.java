@@ -1,7 +1,6 @@
 package maquinaDeRegras;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import pecas.Bispo;
 import pecas.Cavalo;
@@ -19,25 +18,16 @@ public class MaquinaDeRegras {
     private Cor turno;
     private Cor jogador;
     private Cor adversario;
-    private boolean partidaComIA;
     private Historico historico;
     private IA IA;
 
     public boolean checkmate=false;
 
-    public MaquinaDeRegras(Cor jogador) {
-        this.turno = Cor.BRANCO;
-        this.jogador = jogador;
-        this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
-        this.partidaComIA = false;
-        this.IA = null;
-    }
 
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
         this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
-        this.partidaComIA = true;
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
         this.IA.setMaquinaDeRegras(this);
     }
@@ -65,12 +55,24 @@ public class MaquinaDeRegras {
     } 
 
     public void jogada() {
-        if (this.partidaComIA && this.turno == this.adversario) {
+        if (this.turno == this.adversario) {
             this.moveIA();
             this.turno = this.jogador;
         }
     }
 
+
+    /**
+     * Este método verifica se o fim de jogo foi alcançado no tabuleiro de xadrez atual.
+     * A condição de término do jogo é quando um rei está em checkmate, ou seja, está sob ataque e não pode fazer um movimento válido sem continuar em cheque.
+     *
+     * O método percorre todas as peças brancas e pretas do tabuleiro e verifica se o rei de cada cor está em cheque e não pode fazer um movimento válido.
+     * 
+     * Se um rei está em cheque e não pode fazer um movimento válido, então o jogo terminou.
+     * 
+     * @return Um array booleano com dois elementos. O primeiro elemento é verdadeiro se as peças brancas estão em cheque mate. O segundo elemento é verdadeiro se as peças pretas estão em cheque mate.
+     * @throws CloneNotSupportedException Se um erro ocorrer durante a clonagem de uma peça.
+     */
     public boolean[] chegouFimDeJogo() {
         ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
         for(Peca peca : this.tabuleiro.getPecas(Cor.BRANCO)){
@@ -101,6 +103,7 @@ public class MaquinaDeRegras {
             };
         }
         
+        //instancia de tabuleiro necessaria para realizar processamento sobre as pecas
         Tabuleiro tabu = new Tabuleiro(pecaBranca, pecaPreto);
         
         
@@ -119,6 +122,17 @@ public class MaquinaDeRegras {
 
     }
 
+    /**
+     * Este método verifica se um empate foi alcançado no tabuleiro de xadrez atual.
+     * O jogo é considerado empatado se um dos seguintes for verdadeiro:
+     * 1. Ambos os reis estão sozinhos no tabuleiro (não há outras peças).
+     * 2. Ambos os lados têm apenas um rei e um bispo.
+     * 3. Ambos os lados têm apenas um rei e um cavalo.
+     * 4. Todas as peças de uma cor estão bloqueadas (não têm movimentos válidos) e seu rei não está em cheque.
+     *
+     * @return Verdadeiro se o jogo estiver empatado, falso caso contrário.
+     * @throws CloneNotSupportedException Se um erro ocorrer durante a clonagem de uma peça.
+     */
     public boolean empatouJogo() {
         ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
         for(Peca peca : this.tabuleiro.getPecas(Cor.BRANCO)){
@@ -183,6 +197,15 @@ public class MaquinaDeRegras {
 
     }
 
+    /**
+     * Este método executa um movimento no tabuleiro de xadrez.
+     * O movimento é considerado válido e será executado se a posição final estiver dentro das posições possíveis para a peça.
+     * Se um movimento válido for realizado, o movimento e a peça potencialmente capturada serão adicionados ao histórico de movimentos.
+     *
+     * @param movimento O movimento a ser realizado.
+     * @param ehIA Um booleano que indica se o movimento é realizado pela Inteligência Artificial.
+     * @return Verdadeiro se o movimento for válido e for executado com sucesso, falso caso contrário.
+     */
     public boolean executaMovimento(Movimento movimento,boolean ehIA) {
         Peca pecaMovimentando = movimento.getPeca();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
@@ -204,6 +227,15 @@ public class MaquinaDeRegras {
         return false;
     }
 
+    /**
+     * Este método desfaz o último movimento realizado no tabuleiro de xadrez.
+     * Se o último movimento foi um movimento duplo (roque), ambos os movimentos são desfeitos.
+     * Caso uma peça tenha sido capturada no último movimento, ela é retornada ao tabuleiro.
+     * Se não houver movimentos no histórico para desfazer, um erro será lançado.
+     *
+     * @param ehIA Um booleano que indica se o movimento a ser desfeito foi realizado pela Inteligência Artificial.
+     * @throws Error Se não existir nenhum movimento no histórico para ser desfeito.
+     */
     public void desfazUltimoMovimento(boolean ehIA) {
         Movimento ultimoMovimento = this.historico.getUltimoMovimento();
         if (ultimoMovimento == null) {
@@ -221,18 +253,23 @@ public class MaquinaDeRegras {
         this.historico.reverteMovimento();
     }
 
+    /**
+     * Este método controla o movimento da Inteligência Artificial (IA) no jogo de xadrez. 
+     * O método busca o movimento que a IA deseja fazer, executa o movimento e em seguida muda o turno para o jogador humano.
+     * Se a IA tentar realizar um movimento inválido, um erro será lançado.
+     *
+     * @throws Error Se a IA tenta executar um movimento inválido.
+     */
     public void moveIA() {
-        if (this.partidaComIA) {
-            Movimento movimento = this.IA.getIAMovimento();
-            if(movimento.getPeca()==null)System.out.println("morri");
-            else{
+        Movimento movimento = this.IA.getIAMovimento();
+        if(movimento.getPeca()==null)System.out.println("IA derrotada");
+        else{
 
-                boolean iaMoveu = this.executaMovimento(movimento,false);
-                if (!iaMoveu) {
-                    throw new Error("IA tentou movimento invalido");
-                }
+            boolean iaMoveu = this.executaMovimento(movimento,false);
+            if (!iaMoveu) {
+                throw new Error("IA tentou movimento invalido");
             }
         }
-        this.turno=Cor.BRANCO;
+    this.turno=Cor.BRANCO;
     }
 }

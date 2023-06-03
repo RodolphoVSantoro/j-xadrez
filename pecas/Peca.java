@@ -100,6 +100,18 @@ public abstract class Peca implements Cloneable{
      */
     public abstract ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste);
 
+    /**
+     * Método para verificar a validade dos movimentos possíveis de uma peça. O método analisa todas
+     * as peças de ambas as cores, verificando se um movimento potencial resultaria em uma situação 
+     * onde o rei da mesma cor que a peça está em cheque. Se isso ocorrer, o movimento é removido 
+     * da lista de movimentos possíveis.
+     *
+     * @param movimentosPossiveis Uma lista de posições possíveis que a peça pode ocupar.
+     * @return Uma lista atualizada de movimentos possíveis, excluindo aqueles que colocariam o rei 
+     * da mesma cor que a peça em cheque.
+     *
+     * @throws CloneNotSupportedException Se o clone de qualquer peça falhar.
+     */
     protected ArrayList<Posicao> checaValidadeMovimento(ArrayList<Posicao> movimentosPossiveis){
         
         ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
