@@ -244,7 +244,7 @@ class Tela extends JFrame {
 
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate=false;
-        while(!checkmate){       
+        while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
                 //System.out.println("sua vez");
