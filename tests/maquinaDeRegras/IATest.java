@@ -33,8 +33,7 @@ public class IATest {
         pecasBrancas = SetupPecas.setup(Cor.BRANCO);
         pecasPretas = SetupPecas.setup(Cor.PRETO);
         tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
-        maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 3, new javax.swing.JTextArea(), 
-        new javax.swing.JTextArea(), new javax.swing.JTextPane(), new Menu());
+        maquinaDeRegras = new MaquinaDeRegras(Cor.BRANCO, 3);
     }
 
     public void testeMovimentoIA(int xJogador, int yJogador, Peca peca, int xEsperado, int yEsperado,

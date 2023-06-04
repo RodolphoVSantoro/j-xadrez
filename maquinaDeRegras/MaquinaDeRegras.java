@@ -30,7 +30,14 @@ public class MaquinaDeRegras {
     private Menu menu;
     public boolean checkmate = false;
 
-
+    //construtor para testes sem relacao com a interface
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+        this.turno = Cor.BRANCO;
+        this.jogador = jogador;
+        this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.IA.setMaquinaDeRegras(this);
+    }
 
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea, JTextPane vez, Menu menu) {
         this.turno = Cor.BRANCO;
