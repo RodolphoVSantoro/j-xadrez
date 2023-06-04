@@ -33,6 +33,7 @@ public class Cavalo extends Peca {
             this.cavaloAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
         }
 
+
         if (!pulaTeste)
             this.checaValidadeMovimento(movimentosPossiveis);
 

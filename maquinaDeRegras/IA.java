@@ -12,12 +12,10 @@ public class IA {
     private Cor cor;
     private Tabuleiro tabuleiro;
     private MaquinaDeRegras maquinaDeRegras;
-    private int profundidadeConfigurada;
     private Movimento melhorMovimento;
 
     public IA(Cor cor, int nivelDificuldadeIA) {
         this.cor = cor;
-        this.profundidadeConfigurada = nivelDificuldadeIA;
         this.melhorMovimento = null;
     }
 
@@ -51,6 +49,7 @@ public class IA {
         if (this.melhorMovimento.getPeca() != null && this.melhorMovimento.getPeca().tipoPromocao == TipoPeca.PEAO
                 && this.melhorMovimento.getPeca().qtdMovimento == 5)
             this.melhorMovimento.getPeca().promocao = 9;
+
         return this.melhorMovimento;
     }
 
@@ -122,6 +121,7 @@ public class IA {
                         novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao, 0);
                     }
                     boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true);
+
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "
                                 + novoMovimento.getPosicaoAnterior().x + " " + novoMovimento.getPosicaoAnterior().y
@@ -224,6 +224,7 @@ public class IA {
         }
         return melhorMovimento;
     }
+
 
     /**
      * Este método avalia o valor do tabuleiro para a IA, calculando a diferença

@@ -10,7 +10,7 @@ import utils.Cor;
 
 public class Peao extends Peca {
 
-    private int promocaoAtual = 0;
+    private int promocaoAtual=0;
 
     private Sprite peao;
 
@@ -23,47 +23,39 @@ public class Peao extends Peca {
     private Sprite cavalo;
 
     public Peao(Posicao posicao, Cor cor) {
-        super(posicao, cor, TipoPeca.PEAO, TipoPeca.PEAO);
+        super(posicao, cor, TipoPeca.PEAO,TipoPeca.PEAO);
         this.dama = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.DAMA), this.getPosicaoTabuleiro());
-        this.peao = this.sprite;
-        this.torre = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.TORRE),
-                this.getPosicaoTabuleiro());
-        this.bispo = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.BISPO),
-                this.getPosicaoTabuleiro());
-        this.cavalo = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.CAVALO),
-                this.getPosicaoTabuleiro());
-        this.dir = this.getCor() == Cor.PRETO ? 1 : -1;
+        this.peao =this.sprite;
+        this.torre = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.TORRE), this.getPosicaoTabuleiro());
+        this.bispo = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.BISPO), this.getPosicaoTabuleiro());
+        this.cavalo = new Sprite(Config.IMAGENS_PECAS.get(this.getCor()).get(TipoPeca.CAVALO), this.getPosicaoTabuleiro());
+        this.dir=this.getCor() == Cor.PRETO?1:-1;
     }
 
     private static final int[][] MOVIMENTOS_POSSIVEIS = {
-            { 2, 1 },
-            { 2, -1 },
-            { -2, -1 },
-            { -2, 1 },
-            { -1, 2 },
-            { 1, 2 },
-            { 1, -2 },
-            { -1, -2 }
+        { 2, 1 },
+        { 2, -1 },
+        { -2, -1 },
+        { -2, 1 },
+        { -1, 2 },
+        { 1, 2 },
+        { 1, -2 },
+        { -1, -2 }
     };
 
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
-        ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
-        if (this.tipoPromocao == TipoPeca.PEAO) {
+        ArrayList<Posicao> movimentosPossiveis =new ArrayList<Posicao>();
+        if(this.tipoPromocao==TipoPeca.PEAO){
             movimentosPossiveis = this.getMovimentosPossiveisPeao();
-        } else {
-            if (this.tipoPromocao == TipoPeca.DAMA)
-                movimentosPossiveis = this.getMovimentosPossiveisDama();
-            if (this.tipoPromocao == TipoPeca.TORRE)
-                movimentosPossiveis = this.getMovimentosPossiveisTorre();
-            if (this.tipoPromocao == TipoPeca.BISPO)
-                movimentosPossiveis = this.getMovimentosPossiveisBispo();
-            if (this.tipoPromocao == TipoPeca.CAVALO)
-                movimentosPossiveis = this.getMovimentosPossiveisCavalo();
+        }else{
+            if(this.tipoPromocao==TipoPeca.DAMA) movimentosPossiveis = this.getMovimentosPossiveisDama();
+            if(this.tipoPromocao==TipoPeca.TORRE) movimentosPossiveis = this.getMovimentosPossiveisTorre();
+            if(this.tipoPromocao==TipoPeca.BISPO) movimentosPossiveis = this.getMovimentosPossiveisBispo();
+            if(this.tipoPromocao==TipoPeca.CAVALO) movimentosPossiveis = this.getMovimentosPossiveisCavalo();
         }
-
-        if (!pulaTeste)
-            this.checaValidadeMovimento(movimentosPossiveis);
+        
+        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
 
         return movimentosPossiveis;
 
@@ -77,10 +69,9 @@ public class Peao extends Peca {
         boolean posicaoValida = this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x, proximaPosicao.y);
         if (peca == null && posicaoValida) {
             movimentosPossiveis.add(proximaPosicao);
-            if ((this.qtdMovimento == 0)) {
-                proximaPosicao = new Posicao(posicaoAtual.x, posicaoAtual.y + this.dir, posicaoAtual.x,
-                        posicaoAtual.y + 2 * this.dir, posicaoAtual.x, posicaoAtual.y);
-                peca = this.tabuleiro.getPeca(proximaPosicao.x2, proximaPosicao.y2);
+            if ((this.qtdMovimento==0)) {
+                proximaPosicao = new Posicao(posicaoAtual.x, posicaoAtual.y + this.dir,posicaoAtual.x,posicaoAtual.y + 2 * this.dir,posicaoAtual.x,posicaoAtual.y);
+                peca = this.tabuleiro.getPeca(proximaPosicao.x2,proximaPosicao.y2);
                 posicaoValida = this.tabuleiro.posicaoDentroTabuleiro(proximaPosicao.x2, proximaPosicao.y2);
                 if (peca == null && posicaoValida) {
                     movimentosPossiveis.add(proximaPosicao);
@@ -95,15 +86,14 @@ public class Peao extends Peca {
         if (this.podeCapturar(posicaoDireita)) {
             movimentosPossiveis.add(posicaoDireita);
         }
-        if (this.historico.getUltimoMovimento() != null) {
-            if (this.historico.getUltimoMovimento().movimentoDuplo) {
+        if(this.historico.getUltimoMovimento()!= null){
+            if(this.historico.getUltimoMovimento().movimentoDuplo){
                 int xtemp = this.historico.getUltimoMovimento().getPosicaoPosterior2().x;
                 int ytemp = this.historico.getUltimoMovimento().getPosicaoPosterior2().y;
-                if (this.historico.getUltimoMovimento().getPeca().tipoPromocao == TipoPeca.PEAO &&
-                        ytemp == posicaoAtual.y &&
-                        (xtemp == posicaoAtual.x + 1 || xtemp == posicaoAtual.x - 1)) {
-                    Posicao passante = new Posicao(xtemp, ytemp, xtemp, ytemp + this.dir, posicaoAtual.x,
-                            posicaoAtual.y);
+                if(this.historico.getUltimoMovimento().getPeca().tipoPromocao==TipoPeca.PEAO && 
+                ytemp == posicaoAtual.y &&
+                (xtemp == posicaoAtual.x+1 || xtemp == posicaoAtual.x-1)){
+                    Posicao passante = new Posicao(xtemp, ytemp, xtemp, ytemp+this.dir, posicaoAtual.x, posicaoAtual.y);
                     movimentosPossiveis.add(passante);
                 }
             }
@@ -111,7 +101,7 @@ public class Peao extends Peca {
 
         return movimentosPossiveis;
     }
-
+    
     private ArrayList<Posicao> getMovimentosPossiveisDama() {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
 
@@ -216,8 +206,7 @@ public class Peao extends Peca {
         }
     }
 
-    private void addMovimentoDiagonal(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual, int direcaoX,
-            int direcaoY) {
+    private void addMovimentoDiagonal(ArrayList<Posicao> movimentosPossiveis, Posicao posicaoAtual, int direcaoX,int direcaoY) {
         boolean podeContinuar = true;
         int i = posicaoAtual.x + direcaoX;
         int j = posicaoAtual.y + direcaoY;
@@ -230,49 +219,51 @@ public class Peao extends Peca {
     }
 
     @Override
-    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro, boolean ehIA) {
+    public void setPosicaoTabuleiro(Posicao posicaoTabuleiro,boolean ehIA) {
         this.posicaoTabuleiro = new Posicao(posicaoTabuleiro.x, posicaoTabuleiro.y);
         int spriteX = posicaoTabuleiro.x * Config.LARGURA_PECA;
         int spriteY = posicaoTabuleiro.y * Config.ALTURA_PECA;
         this.atualizaSprite();
-        if (!ehIA) {
+        if(!ehIA){
             this.sprite.move(spriteX, spriteY);
 
         }
     }
 
     public void atualizaSprite() {
-        if (this.qtdMovimento < 6 && this.promocaoAtual != 0) {
+        if(this.qtdMovimento<6 && this.promocaoAtual!= 0){
             this.peao.move(this.sprite.posicao);
-            this.sprite = this.peao;
-            this.tipoPromocao = TipoPeca.PEAO;
-            this.promocaoAtual = 0;
-            this.promocao = 0;
+            this.sprite=this.peao;
+            this.tipoPromocao=TipoPeca.PEAO;
+            this.promocaoAtual=0;
+            this.promocao=0;
         }
-        if (this.promocao != this.promocaoAtual) {
-            if (this.promocao == 9) {
-                this.dama.move(this.sprite.posicao);
-                this.sprite = this.dama;
-                this.tipoPromocao = TipoPeca.DAMA;
+        if(this.promocao!=this.promocaoAtual){
+                if(this.promocao == 9)  {
+                    this.dama.move(this.sprite.posicao);
+                    this.sprite=this.dama;
+                    this.tipoPromocao=TipoPeca.DAMA;
+                }
+                if(this.promocao == 5)  {
+                    this.torre.move(this.sprite.posicao);
+                    this.sprite=this.torre;
+                    this.tipoPromocao=TipoPeca.TORRE;
+                }
+                if(this.promocao == 4)  {
+                    this.bispo.move(this.sprite.posicao);
+                    this.sprite=this.bispo;
+                    this.tipoPromocao=TipoPeca.BISPO;
+                }
+                if(this.promocao == 3)  {
+                    this.cavalo.move(this.sprite.posicao);
+                    this.sprite=this.cavalo;
+                    this.tipoPromocao=TipoPeca.CAVALO;
+                }
             }
-            if (this.promocao == 5) {
-                this.torre.move(this.sprite.posicao);
-                this.sprite = this.torre;
-                this.tipoPromocao = TipoPeca.TORRE;
-            }
-            if (this.promocao == 4) {
-                this.bispo.move(this.sprite.posicao);
-                this.sprite = this.bispo;
-                this.tipoPromocao = TipoPeca.BISPO;
-            }
-            if (this.promocao == 3) {
-                this.cavalo.move(this.sprite.posicao);
-                this.sprite = this.cavalo;
-                this.tipoPromocao = TipoPeca.CAVALO;
-            }
-        }
-        promocaoAtual = promocao;
+            promocaoAtual=promocao;
 
+        
     }
 
 }
+

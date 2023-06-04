@@ -40,21 +40,20 @@ class Tela extends JFrame {
                 }
 
                 // Highlight
-                if (input.selecionada != null) {
+                if(input.selecionada != null){
                     possiveis = input.selecionada.getMovimentosPossiveis(false);
-                    for (int i = 0; i < possiveis.size(); i++) {
+                    for(int i = 0; i < possiveis.size(); i++){
                         graphics.setColor(new Color(68, 180, 57, 190));
-                        if (possiveis.get(i).duplo) {
-                            graphics.fillRect((possiveis.get(i).x2 + 1) * Config.LARGURA_TABULEIRO,
-                                    (possiveis.get(i).y2 + 1) * Config.LARGURA_TABULEIRO,
-                                    Config.LARGURA_TABULEIRO,
-                                    Config.LARGURA_TABULEIRO);
+                        if(possiveis.get(i).duplo){
+                            graphics.fillRect((possiveis.get(i).x2 + 1) * Config.LARGURA_TABULEIRO, 
+                                              (possiveis.get(i).y2 + 1) * Config.LARGURA_TABULEIRO,
+                                               Config.LARGURA_TABULEIRO,
+                                               Config.LARGURA_TABULEIRO);
                         }
-                        graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO,
-                                (possiveis.get(i).y + 1) * Config.LARGURA_TABULEIRO,
-                                Config.LARGURA_TABULEIRO,
-                                Config.LARGURA_TABULEIRO);
-
+                        graphics.fillRect((possiveis.get(i).x + 1) * Config.LARGURA_TABULEIRO, 
+                                          (possiveis.get(i).y + 1) * Config.ALTURA_TABULEIRO,
+                                           Config.LARGURA_TABULEIRO,
+                                           Config.ALTURA_TABULEIRO);
                     }
                 }
             }
@@ -88,18 +87,14 @@ class Tela extends JFrame {
         while (!checkmate && !this.maquinaDeRegras.empatouJogo()) {
             if (this.maquinaDeRegras.getTurno() == Cor.PRETO) {
                 this.maquinaDeRegras.moveIA();
-                // System.out.println("sua vez");
                 this.repaint();
                 boolean[] temp = this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate = temp[0] || temp[1];
 
-            }
-            ;
+            };
             checkmate = this.maquinaDeRegras.checkmate;
             Thread.sleep(200);
         }
-        // System.out.println("vc venceu");
-
     }
 
     // Main Method
