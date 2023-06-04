@@ -12,12 +12,10 @@ public class IA {
     private Cor cor;
     private Tabuleiro tabuleiro;
     private MaquinaDeRegras maquinaDeRegras;
-    private int profundidadeConfigurada;
     private Movimento melhorMovimento;
 
     public IA(Cor cor, int nivelDificuldadeIA) {
         this.cor = cor;
-        this.profundidadeConfigurada = nivelDificuldadeIA;
         this.melhorMovimento = null;
     }
 

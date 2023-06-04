@@ -9,7 +9,8 @@ import utils.LeitorImagem;
 import utils.Posicao;
 
 public abstract class Config {
-    public static final int LARGURA_TELA = 800;
+
+    public static final int LARGURA_TELA = 1300;
     public static final int ALTURA_TELA = 800;
 
     public static final int ALTURA_MARGEM = 80;
