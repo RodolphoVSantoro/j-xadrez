@@ -297,5 +297,9 @@ public class MaquinaDeRegras {
         this.turno = Cor.BRANCO;
 
     }
+
+
+    public void setIA(maquinaDeRegras.IA ia2) {
+    }
 }
 

@@ -25,7 +25,6 @@ import maquinaDeRegras.Tabuleiro;
 import menu.EndGameScreen;
 import menu.Menu;
 import pecas.Peca;
-import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 
@@ -233,7 +232,7 @@ class Tela extends JFrame {
     }
 
     private void initGame(Menu menu) {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 3, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
