@@ -25,7 +25,6 @@ import maquinaDeRegras.Tabuleiro;
 import menu.EndGameScreen;
 import menu.Menu;
 import pecas.Peca;
-import pecas.TipoPeca;
 import utils.Cor;
 import utils.Posicao;
 
@@ -233,7 +232,7 @@ class Tela extends JFrame {
     }
 
     private void initGame(Menu menu) {
-        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 2, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
+        this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 3, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
@@ -247,7 +246,6 @@ class Tela extends JFrame {
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
-                //System.out.println("sua vez");
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
@@ -275,8 +273,8 @@ class Tela extends JFrame {
                 tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 tela.initGame(menu);
                 tela.gameLoop();
-                Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
-                Boolean resultado = reiDerrotado.getCapturado();
+                boolean[] resultados = tela.maquinaDeRegras.chegouFimDeJogo();
+                boolean resultado = resultados[0] ? false : true;
                 tela.dispose();
                 menu.setInicia(false);
                 EndGameScreen endGame = new EndGameScreen(menu, resultado);

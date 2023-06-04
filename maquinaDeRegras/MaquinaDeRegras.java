@@ -28,10 +28,16 @@ public class MaquinaDeRegras {
     private JTextArea pretasTextArea;
     private JTextPane vez;
     private Menu menu;
+    public boolean checkmate = false;
 
-    public boolean checkmate=false;
-
-
+    //construtor para testes sem relacao com a interface
+    public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
+        this.turno = Cor.BRANCO;
+        this.jogador = jogador;
+        this.adversario = jogador == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO;
+        this.IA = new IA(this.adversario, nivelDificuldadeIA);
+        this.IA.setMaquinaDeRegras(this);
+    }
 
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea, JTextPane vez, Menu menu) {
         this.turno = Cor.BRANCO;
@@ -45,9 +51,6 @@ public class MaquinaDeRegras {
         this.IA.setMaquinaDeRegras(this);
     }
 
-    /**
-     * Usar injeção de dependência
-     */
 
      public Tabuleiro getTabuleiro() {
         return this.tabuleiro;
@@ -301,4 +304,9 @@ public class MaquinaDeRegras {
         this.turno = Cor.BRANCO;
 
     }
+
+
+    public void setIA(maquinaDeRegras.IA ia2) {
+    }
 }
+

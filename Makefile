@@ -21,10 +21,13 @@ clean:
 	del /S utils\*.class
 	del /S config\*.class
 build_tests:
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/TestRunner.java
 	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
+	javac -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" ./tests/maquinaDeRegras/IATest.java
 
-run_tests:
-	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
+run_tests: build_tests
+	java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" tests/TestRunner 
 else
 clean:
 	rm -rf ./gui/*.class
@@ -34,8 +37,11 @@ clean:
 	rm -rf ./config/*.class
 
 build_tests:
+	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/TestRunner.java
 	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/config/SetupPecasTest.java
+	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/config/SetupTabuleiroTest.java
+	javac -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" ./tests/maquinaDeRegras/IATest.java
 
-run_tests:
-	java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" tests/TestRunner.java 
+run_tests: build_tests
+	java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" tests/TestRunner
 endif

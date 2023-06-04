@@ -72,6 +72,5 @@ public class SetupPecasTest {
     public void setupPecasTorre() {
         testeAmbasCores(Torre.class, 2);
     }
-    
-}
 
+}
