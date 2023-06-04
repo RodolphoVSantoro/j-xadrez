@@ -247,7 +247,6 @@ class Tela extends JFrame {
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA();
-                //System.out.println("sua vez");
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
@@ -275,8 +274,8 @@ class Tela extends JFrame {
                 tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 tela.initGame(menu);
                 tela.gameLoop();
-                Peca reiDerrotado = tela.maquinaDeRegras.getTabuleiro().getPecas(Cor.PRETO).stream().filter(p -> p.getTipoPeca() == TipoPeca.REI).findFirst().get();
-                Boolean resultado = reiDerrotado.getCapturado();
+                boolean[] resultados = tela.maquinaDeRegras.chegouFimDeJogo();
+                boolean resultado = resultados[0] ? false : true;
                 tela.dispose();
                 menu.setInicia(false);
                 EndGameScreen endGame = new EndGameScreen(menu, resultado);

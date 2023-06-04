@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Stream;
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
