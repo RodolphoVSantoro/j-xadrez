@@ -206,8 +206,10 @@ public class Menu extends JFrame {
             return;
         }
         
-        // Permite o início do jogo
-        this.setInicia(true);
+        // Abre tela de seleção de dificuldade
+        Dificuldade dificuldade = new Dificuldade(this);
+        dificuldade.setVisible(true);
+        dificuldade.setLocationRelativeTo(null);
 
         // Esconde o Menu
         setVisible(false);
@@ -223,8 +225,10 @@ public class Menu extends JFrame {
             return;
         }
         
-        // Permite o início do jogo
-        this.setInicia(true);
+         // Abre tela de seleção de dificuldade
+        Dificuldade dificuldade = new Dificuldade(this);
+        dificuldade.setVisible(true);
+        dificuldade.setLocationRelativeTo(null);
 
         // Esconde o Menu
         setVisible(false);

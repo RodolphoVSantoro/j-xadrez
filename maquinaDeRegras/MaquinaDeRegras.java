@@ -15,6 +15,8 @@ import utils.Cor;
 import utils.Posicao;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+
+import config.Config;
 import events.PrintaHistorico;
 
 public class MaquinaDeRegras {
