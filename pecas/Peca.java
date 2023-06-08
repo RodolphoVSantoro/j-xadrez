@@ -5,6 +5,9 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 import config.Config;
 import gui.Sprite;
 import maquinaDeRegras.Historico;
@@ -62,9 +65,30 @@ public abstract class Peca implements Cloneable{
         return this.capturada;
     }
 
-    public void captura(boolean ehIA) {
+    public void captura(boolean ehIA, JLabel[] peca) {
         this.capturada = true;
-        if(!ehIA)this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
+        int posicaoPecaVetorCapturadas;
+        if(!ehIA){
+            this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
+
+            if(this.getCor() == Cor.BRANCO){
+                if(this.getTipoPeca() == TipoPeca.REI) posicaoPecaVetorCapturadas = 0;
+                else if(this.getTipoPeca() == TipoPeca.DAMA) posicaoPecaVetorCapturadas = 1;
+                else if(this.getTipoPeca() == TipoPeca.BISPO) posicaoPecaVetorCapturadas = 2;
+                else if(this.getTipoPeca() == TipoPeca.CAVALO) posicaoPecaVetorCapturadas = 3;
+                else if(this.getTipoPeca() == TipoPeca.TORRE) posicaoPecaVetorCapturadas = 4;
+                else posicaoPecaVetorCapturadas = 5;
+            }
+            else{
+                if(this.getTipoPeca() == TipoPeca.REI) posicaoPecaVetorCapturadas = 6;
+                else if(this.getTipoPeca() == TipoPeca.DAMA) posicaoPecaVetorCapturadas = 7;
+                else if(this.getTipoPeca() == TipoPeca.BISPO) posicaoPecaVetorCapturadas = 8;
+                else if(this.getTipoPeca() == TipoPeca.CAVALO) posicaoPecaVetorCapturadas = 9;
+                else if(this.getTipoPeca() == TipoPeca.TORRE) posicaoPecaVetorCapturadas = 10;
+                else posicaoPecaVetorCapturadas = 11;
+            }
+            peca[posicaoPecaVetorCapturadas].setVisible(true);
+        }
     }
 
     public void recupera(boolean ehIA) {

@@ -13,6 +13,8 @@ import pecas.TipoPeca;
 import pecas.Torre;
 import utils.Cor;
 import utils.Posicao;
+
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import events.PrintaHistorico;
@@ -74,9 +76,9 @@ public class MaquinaDeRegras {
         return historico;
     }
 
-    public void jogada() {
+    public void jogada(JLabel[] spriteCapturado) {
         if (this.turno == this.adversario) {
-            this.moveIA();
+            this.moveIA(spriteCapturado);
             this.turno = this.jogador;
         }
     }
@@ -226,7 +228,7 @@ public class MaquinaDeRegras {
      * @param ehIA Um booleano que indica se o movimento é realizado pela Inteligência Artificial.
      * @return Verdadeiro se o movimento for válido e for executado com sucesso, falso caso contrário.
      */
-    public boolean executaMovimento(Movimento movimento,boolean ehIA) {
+    public boolean executaMovimento(Movimento movimento,boolean ehIA, JLabel[] spriteCapturado) {
         Peca pecaMovimentando = movimento.getPeca();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
         ArrayList<Posicao> posicoesValidas = pecaMovimentando.getMovimentosPossiveis(false);
@@ -234,10 +236,10 @@ public class MaquinaDeRegras {
         boolean posicaoValida = posicoesValidas.stream()
                 .anyMatch(p -> p.x == posicaoPosterior.x && p.y == posicaoPosterior.y);
         if (posicaoValida) {
-            Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA);
+            Peca pecaCapturada = this.tabuleiro.movePeca(pecaMovimentando, posicaoPosterior,ehIA, spriteCapturado);
             pecaMovimentando.qtdMovimento+=1;
             if(movimento.movimentoDuplo){
-                this.tabuleiro.movePeca(movimento.getPeca2(), movimento.getPosicaoPosterior2(), ehIA);
+                this.tabuleiro.movePeca(movimento.getPeca2(), movimento.getPosicaoPosterior2(), ehIA, spriteCapturado);
                 if(pecaCapturada==null)movimento.getPeca2().qtdMovimento+=1;
             }
             this.historico.adicionaMovimento(movimento, pecaCapturada);
@@ -266,7 +268,7 @@ public class MaquinaDeRegras {
      * @param ehIA Um booleano que indica se o movimento a ser desfeito foi realizado pela Inteligência Artificial.
      * @throws Error Se não existir nenhum movimento no histórico para ser desfeito.
      */
-    public void desfazUltimoMovimento(boolean ehIA) {
+    public void desfazUltimoMovimento(boolean ehIA, JLabel[] spriteCapturado) {
         Movimento ultimoMovimento = this.historico.getUltimoMovimento();
         if (ultimoMovimento == null) {
             throw new Error("Tentou desfazer sem movimento no historico");
@@ -274,9 +276,9 @@ public class MaquinaDeRegras {
         ultimoMovimento.getPeca().qtdMovimento-=1;
         if(ultimoMovimento.movimentoDuplo){
             if(ultimoMovimento.getPecaCapturada()==null)ultimoMovimento.getPeca2().qtdMovimento-=1;
-            this.tabuleiro.movePeca(ultimoMovimento.getPeca2(), ultimoMovimento.getPosicaoAnterior2(), ehIA);
+            this.tabuleiro.movePeca(ultimoMovimento.getPeca2(), ultimoMovimento.getPosicaoAnterior2(), ehIA, spriteCapturado);
         }
-        this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior(),ehIA);
+        this.tabuleiro.movePeca(ultimoMovimento.getPeca(), ultimoMovimento.getPosicaoAnterior(),ehIA, spriteCapturado);
         if (ultimoMovimento.getPecaCapturada() != null) {
             this.tabuleiro.recuperaPeca(ultimoMovimento.getPecaCapturada(), ultimoMovimento.getPosicaoPosterior(),ehIA);
         }
@@ -290,12 +292,12 @@ public class MaquinaDeRegras {
      *
      * @throws Error Se a IA tenta executar um movimento inválido.
      */
-    public void moveIA() {
-        Movimento movimento = this.IA.getIAMovimento();
+    public void moveIA(JLabel[] spriteCapturado) {
+        Movimento movimento = this.IA.getIAMovimento(spriteCapturado);
         if(movimento.getPeca()==null)System.out.println("IA derrotada");
         else{
 
-            boolean iaMoveu = this.executaMovimento(movimento,false);
+            boolean iaMoveu = this.executaMovimento(movimento,false, spriteCapturado);
             if (!iaMoveu) {
                 throw new Error("IA tentou movimento invalido");
             }

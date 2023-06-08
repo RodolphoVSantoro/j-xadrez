@@ -1,6 +1,7 @@
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -40,6 +42,25 @@ class Tela extends JFrame {
     private JTextArea brancasTextArea = new javax.swing.JTextArea();
     private JTextArea pretasTextArea = new javax.swing.JTextArea();
     private JTextPane vez;
+    private JPanel fundoCapturadas = new JPanel();
+
+    private JLabel reiBranco = new JLabel();
+    private JLabel damaBranca = new JLabel();
+    private JLabel bispoBranco = new JLabel();
+    private JLabel cavaloBranco = new JLabel();
+    private JLabel torreBranca = new JLabel();
+    private JLabel peaoBranco = new JLabel();
+
+    private JLabel reiPreto = new JLabel();
+    private JLabel damaPreta = new JLabel();
+    private JLabel bispoPreto = new JLabel();
+    private JLabel cavaloPreto = new JLabel();
+    private JLabel torrePreta = new JLabel();
+    private JLabel peaoPreto = new JLabel();
+
+    private boolean visivel = false;
+
+    private JLabel[] spritesCapturados = new JLabel[12];
     
     public Canvas getCanvas() {
         return canvas;
@@ -142,7 +163,110 @@ class Tela extends JFrame {
         add(this.vez);
 
         JLabel capturadas = new JLabel();
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        fundoCapturadas.setBackground(new Color(102, 102, 102));
+        fundoCapturadas.setLayout(null);
+
+/* ----- SPRITES PEÇAS BRANCAS CAPTURADAS) ---------------------------------------------------------------------------------------- */
+
+        reiBranco.setIcon(new ImageIcon("assets/images/pecas/branco/rei.png"));
+        fundoCapturadas.add(reiBranco);
+        reiBranco.setBounds(54, 141, 70, 70);
+        reiBranco.setVisible(visivel);
+
+        spritesCapturados[0] = reiBranco;
+
+        damaBranca.setIcon(new ImageIcon("assets/images/pecas/branco/dama.png"));
+        fundoCapturadas.add(damaBranca);
+        damaBranca.setBounds(54, 241, 70, 70);
+        damaBranca.setVisible(visivel);
+
+        spritesCapturados[1] = damaBranca;
+        
+        bispoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/bispo.png"));
+        fundoCapturadas.add(bispoBranco);
+        bispoBranco.setBounds(53, 350, 70, 70);
+        bispoBranco.setVisible(visivel);
+
+        spritesCapturados[2] = bispoBranco;
+
+        cavaloBranco.setIcon(new ImageIcon("assets/images/pecas/branco/cavalo.png"));
+        fundoCapturadas.add(cavaloBranco);
+        cavaloBranco.setBounds(55, 450, 70, 70);
+        cavaloBranco.setVisible(visivel);
+
+        spritesCapturados[3] = cavaloBranco;
+
+        torreBranca.setIcon(new ImageIcon("assets/images/pecas/branco/torre.png"));
+        fundoCapturadas.add(torreBranca);
+        torreBranca.setBounds(54, 548, 70, 70);
+        torreBranca.setVisible(visivel);
+
+        spritesCapturados[4] = torreBranca;
+
+        peaoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/peao.png"));
+        fundoCapturadas.add(peaoBranco);
+        peaoBranco.setBounds(55, 635, 70, 70);
+        peaoBranco.setVisible(visivel);
+
+        spritesCapturados[5] = peaoBranco;
+
+/* ----- SPRITES PEÇAS PRETAS CAPTURADAS) ----------------------------------------------------------------------------------------- */
+
+        reiPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/rei.png"));
+        fundoCapturadas.add(reiPreto);
+        reiPreto.setBounds(166, 142, 70, 70);
+        reiPreto.setVisible(visivel);
+
+        spritesCapturados[6] = reiPreto;
+
+        damaPreta.setIcon(new ImageIcon("assets/images/pecas/Preto/dama.png"));
+        fundoCapturadas.add(damaPreta);
+        damaPreta.setBounds(166, 242, 70, 70);
+        damaPreta.setVisible(visivel);
+        
+        spritesCapturados[7] = damaPreta;
+
+        bispoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/bispo.png"));
+        fundoCapturadas.add(bispoPreto);
+        bispoPreto.setBounds(166, 350, 70, 70);
+        bispoPreto.setVisible(visivel);
+
+        spritesCapturados[8] = bispoPreto;
+
+        cavaloPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/cavalo.png"));
+        fundoCapturadas.add(cavaloPreto);
+        cavaloPreto.setBounds(165, 450, 70, 70);
+        cavaloPreto.setVisible(visivel);
+
+        spritesCapturados[9] = cavaloPreto;
+
+        torrePreta.setIcon(new ImageIcon("assets/images/pecas/Preto/torre.png"));
+        fundoCapturadas.add(torrePreta);
+        torrePreta.setBounds(166, 548, 70, 70);
+        torrePreta.setVisible(visivel);
+
+        spritesCapturados[10] = torrePreta;
+
+        peaoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/peao.png"));
+        fundoCapturadas.add(peaoPreto);
+        peaoPreto.setBounds(165, 635, 70, 70);
+        peaoPreto.setVisible(visivel);
+
+        spritesCapturados[11] = peaoPreto;
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
+
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
+        fundoCapturadas.add(capturadas);
+        capturadas.setBounds(0, 0, 298, 800);
+
+        getContentPane().add(fundoCapturadas);
+        fundoCapturadas.setBounds(0, 0, 300, 800);
+        fundoCapturadas.setPreferredSize(new Dimension(290, 800));
         
         JScrollPane brancasScrollPane = new JScrollPane();
         JScrollPane pretasScrollPane = new JScrollPane();
@@ -210,7 +334,7 @@ class Tela extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(capturadas)
+                .addComponent(fundoCapturadas)
                 .addComponent(canvas)
                 .addComponent(fundoHistorico))
         );
@@ -218,7 +342,7 @@ class Tela extends JFrame {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(capturadas)
+                    .addComponent(fundoCapturadas)
                     .addComponent(canvas)
                     .addComponent(fundoHistorico)))
         );
@@ -237,7 +361,7 @@ class Tela extends JFrame {
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
         this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
-        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas(), this.spritesCapturados));
         this.getCanvas().addMouseListener(this.getInput());
     }
 
@@ -245,7 +369,7 @@ class Tela extends JFrame {
         boolean checkmate=false;
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
-                this.maquinaDeRegras.moveIA();
+                this.maquinaDeRegras.moveIA(this.spritesCapturados);
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
