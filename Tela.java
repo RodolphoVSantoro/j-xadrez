@@ -44,8 +44,6 @@ class Tela extends JFrame {
     private JTextPane vez;
     private JPanel fundoCapturadas = new JPanel();
 
-    private JLabel[] spritesCapturados = new JLabel[12];
-
     private JLabel reiBranco = new JLabel();
     private JLabel damaBranca = new JLabel();
     private JLabel bispoBranco = new JLabel();
@@ -59,6 +57,10 @@ class Tela extends JFrame {
     private JLabel cavaloPreto = new JLabel();
     private JLabel torrePreta = new JLabel();
     private JLabel peaoPreto = new JLabel();
+
+    private boolean visivel = false;
+
+    private JLabel[] spritesCapturados = new JLabel[12];
     
     public Canvas getCanvas() {
         return canvas;
@@ -119,10 +121,8 @@ class Tela extends JFrame {
     Tela(Menu menu) {
         super();
 
-        // Cria canvas que contém tabuleiro e peças
         canvas = new Canvas() {
 
-            // Pinta tabuleiro e posiciona peças
             public void paint(Graphics graphics) {
                 graphics.setColor(Color.black);
                 if(maquinaDeRegras != null){
@@ -151,9 +151,6 @@ class Tela extends JFrame {
             }
         };
         
-
-/* ---- CONFIG INDICAÇÃO DE VEZ --------------------------------------------------------------------------------------------------- */        
-        
         canvas.setBackground(new Color(18, 18, 18));
         this.vez = new JTextPane();
         this.vez.setEditable(false);
@@ -165,8 +162,6 @@ class Tela extends JFrame {
         this.vez.setText("Vez de " + menu.getNome());
         add(this.vez);
 
-/* ---- CONFIG TELA DE CAPTURADAS ------------------------------------------------------------------------------------------------- */        
-
         JLabel capturadas = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -175,6 +170,96 @@ class Tela extends JFrame {
         fundoCapturadas.setBackground(new Color(102, 102, 102));
         fundoCapturadas.setLayout(null);
 
+/* ----- SPRITES PEÇAS BRANCAS CAPTURADAS) ---------------------------------------------------------------------------------------- */
+
+        reiBranco.setIcon(new ImageIcon("assets/images/pecas/branco/rei.png"));
+        fundoCapturadas.add(reiBranco);
+        reiBranco.setBounds(54, 141, 70, 70);
+        reiBranco.setVisible(visivel);
+
+        spritesCapturados[0] = reiBranco;
+
+        damaBranca.setIcon(new ImageIcon("assets/images/pecas/branco/dama.png"));
+        fundoCapturadas.add(damaBranca);
+        damaBranca.setBounds(54, 241, 70, 70);
+        damaBranca.setVisible(visivel);
+
+        spritesCapturados[1] = damaBranca;
+        
+        bispoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/bispo.png"));
+        fundoCapturadas.add(bispoBranco);
+        bispoBranco.setBounds(53, 350, 70, 70);
+        bispoBranco.setVisible(visivel);
+
+        spritesCapturados[2] = bispoBranco;
+
+        cavaloBranco.setIcon(new ImageIcon("assets/images/pecas/branco/cavalo.png"));
+        fundoCapturadas.add(cavaloBranco);
+        cavaloBranco.setBounds(55, 450, 70, 70);
+        cavaloBranco.setVisible(visivel);
+
+        spritesCapturados[3] = cavaloBranco;
+
+        torreBranca.setIcon(new ImageIcon("assets/images/pecas/branco/torre.png"));
+        fundoCapturadas.add(torreBranca);
+        torreBranca.setBounds(54, 548, 70, 70);
+        torreBranca.setVisible(visivel);
+
+        spritesCapturados[4] = torreBranca;
+
+        peaoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/peao.png"));
+        fundoCapturadas.add(peaoBranco);
+        peaoBranco.setBounds(55, 635, 70, 70);
+        peaoBranco.setVisible(visivel);
+
+        spritesCapturados[5] = peaoBranco;
+
+/* ----- SPRITES PEÇAS PRETAS CAPTURADAS) ----------------------------------------------------------------------------------------- */
+
+        reiPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/rei.png"));
+        fundoCapturadas.add(reiPreto);
+        reiPreto.setBounds(166, 142, 70, 70);
+        reiPreto.setVisible(visivel);
+
+        spritesCapturados[6] = reiPreto;
+
+        damaPreta.setIcon(new ImageIcon("assets/images/pecas/Preto/dama.png"));
+        fundoCapturadas.add(damaPreta);
+        damaPreta.setBounds(166, 242, 70, 70);
+        damaPreta.setVisible(visivel);
+        
+        spritesCapturados[7] = damaPreta;
+
+        bispoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/bispo.png"));
+        fundoCapturadas.add(bispoPreto);
+        bispoPreto.setBounds(166, 350, 70, 70);
+        bispoPreto.setVisible(visivel);
+
+        spritesCapturados[8] = bispoPreto;
+
+        cavaloPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/cavalo.png"));
+        fundoCapturadas.add(cavaloPreto);
+        cavaloPreto.setBounds(165, 450, 70, 70);
+        cavaloPreto.setVisible(visivel);
+
+        spritesCapturados[9] = cavaloPreto;
+
+        torrePreta.setIcon(new ImageIcon("assets/images/pecas/Preto/torre.png"));
+        fundoCapturadas.add(torrePreta);
+        torrePreta.setBounds(166, 548, 70, 70);
+        torrePreta.setVisible(visivel);
+
+        spritesCapturados[10] = torrePreta;
+
+        peaoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/peao.png"));
+        fundoCapturadas.add(peaoPreto);
+        peaoPreto.setBounds(165, 635, 70, 70);
+        peaoPreto.setVisible(visivel);
+
+        spritesCapturados[11] = peaoPreto;
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
+
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         fundoCapturadas.add(capturadas);
         capturadas.setBounds(0, 0, 298, 800);
@@ -182,96 +267,6 @@ class Tela extends JFrame {
         getContentPane().add(fundoCapturadas);
         fundoCapturadas.setBounds(0, 0, 300, 800);
         fundoCapturadas.setPreferredSize(new Dimension(290, 800));
-
-/* ---- SPRITES PEÇAS BRANCAS CAPTURADAS) ----------------------------------------------------------------------------------------- */
-
-        reiBranco.setIcon(new ImageIcon("assets/images/pecas/branco/rei.png"));
-        fundoCapturadas.add(reiBranco);
-        reiBranco.setBounds(54, 141, 70, 70);
-        reiBranco.setVisible(false);
-
-        spritesCapturados[0] = reiBranco;
-
-        damaBranca.setIcon(new ImageIcon("assets/images/pecas/branco/dama.png"));
-        fundoCapturadas.add(damaBranca);
-        damaBranca.setBounds(54, 241, 70, 70);
-        damaBranca.setVisible(false);
-
-        spritesCapturados[1] = damaBranca;
-        
-        bispoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/bispo.png"));
-        fundoCapturadas.add(bispoBranco);
-        bispoBranco.setBounds(53, 350, 70, 70);
-        bispoBranco.setVisible(false);
-
-        spritesCapturados[2] = bispoBranco;
-
-        cavaloBranco.setIcon(new ImageIcon("assets/images/pecas/branco/cavalo.png"));
-        fundoCapturadas.add(cavaloBranco);
-        cavaloBranco.setBounds(55, 450, 70, 70);
-        cavaloBranco.setVisible(false);
-
-        spritesCapturados[3] = cavaloBranco;
-
-        torreBranca.setIcon(new ImageIcon("assets/images/pecas/branco/torre.png"));
-        fundoCapturadas.add(torreBranca);
-        torreBranca.setBounds(54, 548, 70, 70);
-        torreBranca.setVisible(false);
-
-        spritesCapturados[4] = torreBranca;
-
-        peaoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/peao.png"));
-        fundoCapturadas.add(peaoBranco);
-        peaoBranco.setBounds(55, 635, 70, 70);
-        peaoBranco.setVisible(false);
-
-        spritesCapturados[5] = peaoBranco;
-
-/* ---- SPRITES PEÇAS PRETAS CAPTURADAS) ------------------------------------------------------------------------------------------ */
-
-        reiPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/rei.png"));
-        fundoCapturadas.add(reiPreto);
-        reiPreto.setBounds(166, 142, 70, 70);
-        reiPreto.setVisible(false);
-
-        spritesCapturados[6] = reiPreto;
-
-        damaPreta.setIcon(new ImageIcon("assets/images/pecas/Preto/dama.png"));
-        fundoCapturadas.add(damaPreta);
-        damaPreta.setBounds(166, 242, 70, 70);
-        damaPreta.setVisible(false);
-        
-        spritesCapturados[7] = damaPreta;
-
-        bispoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/bispo.png"));
-        fundoCapturadas.add(bispoPreto);
-        bispoPreto.setBounds(166, 350, 70, 70);
-        bispoPreto.setVisible(false);
-
-        spritesCapturados[8] = bispoPreto;
-
-        cavaloPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/cavalo.png"));
-        fundoCapturadas.add(cavaloPreto);
-        cavaloPreto.setBounds(165, 450, 70, 70);
-        cavaloPreto.setVisible(false);
-
-        spritesCapturados[9] = cavaloPreto;
-
-        torrePreta.setIcon(new ImageIcon("assets/images/pecas/Preto/torre.png"));
-        fundoCapturadas.add(torrePreta);
-        torrePreta.setBounds(166, 548, 70, 70);
-        torrePreta.setVisible(false);
-
-        spritesCapturados[10] = torrePreta;
-
-        peaoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/peao.png"));
-        fundoCapturadas.add(peaoPreto);
-        peaoPreto.setBounds(165, 635, 70, 70);
-        peaoPreto.setVisible(false);
-
-        spritesCapturados[11] = peaoPreto;
-
-/* ---- CONFIG TELA HISTORICO ----------------------------------------------------------------------------------------------------- */
         
         JScrollPane brancasScrollPane = new JScrollPane();
         JScrollPane pretasScrollPane = new JScrollPane();
@@ -280,12 +275,6 @@ class Tela extends JFrame {
         setPreferredSize(new DimensionUIResource(180, 800));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
-        getContentPane().add(fundoHistorico);
-        fundoHistorico.setBounds(0, 0, 180, 800);
-
-/* ---- CONFIG TELA HISTORICO (PEÇAS BRANCAS) -------------------------------------------------------------------------------------- */     
 
         brancasScrollPane.setBackground(new Color(255, 208, 156));
         brancasScrollPane.setBorder(null);
@@ -310,8 +299,6 @@ class Tela extends JFrame {
 
         getContentPane().add(brancasScrollPane);
         brancasScrollPane.setBounds(1100, 143, 75, 577);
-
-/* ---- CONFIG TELA HISTORICO (PEÇAS PRETAS) --------------------------------------------------------------------------------------- */  
         
         pretasScrollPane.setBackground(new Color(255, 208, 156));
         pretasScrollPane.setBorder(null);
@@ -338,7 +325,9 @@ class Tela extends JFrame {
         getContentPane().add(pretasScrollPane);
         pretasScrollPane.setBounds(1180, 143, 75, 577);
 
-/* ---- CONFIG LAYOUT DA TELA ----------------------------------------------------------------------------------------------------- */  
+        fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
+        getContentPane().add(fundoHistorico);
+        fundoHistorico.setBounds(0, 0, 180, 800);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -366,8 +355,6 @@ class Tela extends JFrame {
         setResizable(false);
     }
 
-
-    // Método que inicializa os parâmetros que são utilizados durante um jogo 
     private void initGame(Menu menu) {
         this.setMaquinaDeRegras(new MaquinaDeRegras(Cor.BRANCO, 3, this.brancasTextArea, this.pretasTextArea, this.vez, menu));
         this.setPecasBrancas(SetupPecas.setup(Cor.BRANCO));
@@ -378,7 +365,6 @@ class Tela extends JFrame {
         this.getCanvas().addMouseListener(this.getInput());
     }
 
-    // Método responsável por atualizar a lógica do jogo e renderizar os gráficos em um loop contínuo.
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate=false;
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
@@ -394,43 +380,28 @@ class Tela extends JFrame {
         }
     } 
 
-    // Método utilizado para atualizar graficamente o tabuleiro e as peças 
     public void repaint() {
         canvas.repaint();
     }    
+
     
-    // Método Principal
+    // Main Method
     public static void main(String args[]) throws InterruptedException, Error {
-        // Carrega imagens do tabuleiro e das peças
         Config.loadImages();
-        // Cria um novo menu
         Menu menu = new Menu();
-        // Mostra o menu
         menu.setVisible(true);
-        // Não permite que o jogo comece enquanto não for autorizado pelo usuário através do menu  
         while(!menu.getInicia()){
-            // Espera um tempo para ver se o usuário realizou alguma ação 
             Thread.sleep(500);
             if(menu.getInicia()){
-                // Mostra a tela de jogo
                 Tela tela = new Tela(menu);
-                // Define que a tela de jogo deverá fechar se o usuário clicar no botão que fecha a janela 
                 tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                // Inicia componentes do jogo 
                 tela.initGame(menu);
-                // Inicia loop do jogo
                 tela.gameLoop();
-                // Verifica o resultado do jogo
                 boolean[] resultados = tela.maquinaDeRegras.chegouFimDeJogo();
                 boolean resultado = resultados[0] ? false : true;
-                // -----------------------------------------------------------
-                // Descarta tela de jogo
                 tela.dispose();
-                // Proíbe que um novo jogo recomece a não ser que o usuário indique o contrário
                 menu.setInicia(false);
-                // Cria tela de fim de jogo
                 EndGameScreen endGame = new EndGameScreen(menu, resultado);
-                // Mostra tela de fim de jogo
                 endGame.setVisible(true);
             }
         }
