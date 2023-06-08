@@ -81,6 +81,7 @@ public class Input extends MouseAdapter{
                     // telaPromocao.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     // telaPromocao.setLocationRelativeTo(null);
                     this.promocaoDialog.setVisible(true);
+                    this.promocaoDialog.setLocationRelativeTo(null);
                     this.selecionada.promocao = this.promocaoGetter.getValue();
                 }
                 Posicao peca = pecaOptinonal.get();
