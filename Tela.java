@@ -263,10 +263,13 @@ class Tela extends JFrame {
         capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
         fundoCapturadas.add(capturadas);
         capturadas.setBounds(0, 0, 298, 800);
+        capturadas.setPreferredSize(new Dimension(297, 800));
 
         getContentPane().add(fundoCapturadas);
-        fundoCapturadas.setBounds(0, 0, 300, 800);
-        fundoCapturadas.setPreferredSize(new Dimension(290, 800));
+        fundoCapturadas.setBounds(0, 0, 298, 800);
+        fundoCapturadas.setPreferredSize(new Dimension(297, 800));
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
         
         JScrollPane brancasScrollPane = new JScrollPane();
         JScrollPane pretasScrollPane = new JScrollPane();
@@ -327,14 +330,14 @@ class Tela extends JFrame {
 
         fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
         getContentPane().add(fundoHistorico);
-        fundoHistorico.setBounds(0, 0, 180, 800);
+        fundoHistorico.setBounds(1065, 0, 220, 800);
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(fundoCapturadas)
+                .addGap(298, 298, 298)
                 .addComponent(canvas)
                 .addComponent(fundoHistorico))
         );
@@ -342,7 +345,6 @@ class Tela extends JFrame {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(fundoCapturadas)
                     .addComponent(canvas)
                     .addComponent(fundoHistorico)))
         );
