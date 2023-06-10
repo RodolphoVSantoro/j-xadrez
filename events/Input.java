@@ -1,12 +1,13 @@
 package events;
 
-import java.awt.Canvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 import java.util.Scanner;
 
 import javax.swing.JLabel;
+
+import javax.swing.JPanel;
 
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
@@ -22,17 +23,18 @@ public class Input extends MouseAdapter {
 
     MaquinaDeRegras maquinaDeRegras;
     public Peca selecionada;
-    public Canvas canvas;
+    public JPanel panel;
     public boolean executando = false;
     private Promocao promocaoDialog;
     private ArmazemInt promocaoGetter;
     private boolean godMod = false;
     private JLabel[] spriteCapturado;
 
-    public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas, JLabel[] spriteCapturado) {
+
+    public Input(MaquinaDeRegras maquinaDeRegras, JPanel panel, JLabel[] spriteCapturado) {
         super();
         this.maquinaDeRegras = maquinaDeRegras;
-        this.canvas = canvas;
+        this.panel = panel;
         this.spriteCapturado = spriteCapturado;
         this.promocaoGetter = ArmazemInt.getInstance(); 
     }
@@ -113,7 +115,7 @@ public class Input extends MouseAdapter {
 
         // Desseleciona a peça
         this.selecionada = null;
-        canvas.repaint();
+        panel.repaint();
     }
 
     public void setPromocaoDialog(Promocao p){

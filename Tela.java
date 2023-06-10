@@ -1,5 +1,4 @@
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -33,7 +32,7 @@ import utils.Posicao;
 
 public class Tela extends JFrame {
 
-    private Canvas canvas;
+    private JPanel panel;
     private MaquinaDeRegras maquinaDeRegras;
     private Tabuleiro tabuleiro;
     private ArrayList<Peca> pecasBrancas;
@@ -64,12 +63,13 @@ public class Tela extends JFrame {
 
     private JLabel[] spritesCapturados = new JLabel[12];
     
-    public Canvas getCanvas() {
-        return canvas;
+  
+    public JPanel getPanel() {
+        return panel;
     }
 
-    public void setCanvas(Canvas canvas) {
-        this.canvas = canvas;
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
     }
 
     public MaquinaDeRegras getMaquinaDeRegras() {
@@ -121,22 +121,28 @@ public class Tela extends JFrame {
     }
 
     /**
-     * Este é o construtor para a classe 'Tela'. Ele configura a interface do usuário, criando um canvas no qual as peças e o tabuleiro do jogo são desenhadas.
-     * Esse Canvas é configurado para destacar possíveis movimentos de peças quando uma peça é selecionada.
+     * Este é o construtor para a classe 'Tela'. Ele configura a interface do usuário, criando um panel no qual as peças e o tabuleiro do jogo são desenhadas.
+     * Esse panel é configurado para destacar possíveis movimentos de peças quando uma peça é selecionada.
      * Além disso, este construtor inclui imagens que mostram as peças capturadas e o histórico do jogo.
      * Configura também o layout da tela, definindo seu tamanho, tornando-a visível, centrando-a e impedindo o redimensionamento.
      */
     Tela(Menu menu) {
         super();
 
-        canvas = new Canvas() {
+        panel = new JPanel() {
 
-            public void paint(Graphics graphics) {
+            protected void paintComponent(Graphics graphics) {
                 graphics.setColor(Color.black);
-                if(maquinaDeRegras != null){
+                if(maquinaDeRegras != null && tabuleiro != null){
+                    super.paintComponent(graphics);
                     tabuleiro.desenha(graphics, this);
                     pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
                     pecasPretas.forEach(peca -> peca.desenha(graphics, this));
+                }
+
+                if (vez != null){
+                    vez.revalidate();
+                    vez.repaint();
                 }
                 
                 // Highlight
@@ -159,16 +165,17 @@ public class Tela extends JFrame {
             }
         };
         
-        canvas.setBackground(new Color(18, 18, 18));
+        panel.setBackground(new Color(18, 18, 18));
         this.vez = new JTextPane();
-        this.vez.setEditable(false);
         this.vez.setBounds(320, 25, 700, 40);
+        this.vez.setEditable(false);
         this.vez.setFont(new Font("Segoe UI Bold", 0, 24)); 
         this.vez.setBackground(new Color(18, 18, 18));
         this.vez.setCaretColor(new Color(18, 18, 18));
         this.vez.setForeground(Color.WHITE);
         this.vez.setText("Vez de " + menu.getNome());
         add(this.vez);
+
 
         JLabel capturadas = new JLabel();
 
@@ -346,14 +353,14 @@ public class Tela extends JFrame {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(298, 298, 298)
-                .addComponent(canvas)
+                .addComponent(panel)
                 .addComponent(fundoHistorico))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(canvas)
+                    .addComponent(panel)
                     .addComponent(fundoHistorico)))
         );
 
@@ -371,9 +378,9 @@ public class Tela extends JFrame {
         this.setPecasPretas(SetupPecas.setup(Cor.PRETO));
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
         this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
-        this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas(), this.spritesCapturados));
+        this.setInput(new Input(this.getMaquinaDeRegras(), this.getPanel(), this.spritesCapturados));
         this.getInput().setPromocaoDialog(new Promocao(this));
-        this.getCanvas().addMouseListener(this.getInput());
+        this.getPanel().addMouseListener(this.getInput());
     }
 
     private void gameLoop() throws Error, InterruptedException {
@@ -395,7 +402,10 @@ public class Tela extends JFrame {
     }
 
     public void repaint() {
-        canvas.repaint();
+        panel.revalidate();
+        panel.repaint();
+        vez.revalidate();
+        vez.repaint();
     }    
 
     

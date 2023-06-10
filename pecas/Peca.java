@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import config.Config;
