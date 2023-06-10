@@ -66,6 +66,7 @@ public class Tela extends JFrame {
   
     public JPanel getPanel() {
         return panel;
+    }
 
     public void setPanel(JPanel panel) {
         this.panel = panel;
@@ -346,8 +347,6 @@ public class Tela extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(capturadas)
-                .addComponent(panel)
                 .addGap(298, 298, 298)
                 .addComponent(panel)
                 .addComponent(fundoHistorico))
@@ -356,7 +355,6 @@ public class Tela extends JFrame {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(capturadas)
                     .addComponent(panel)
                     .addComponent(fundoHistorico)))
         );

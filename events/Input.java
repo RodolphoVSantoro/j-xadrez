@@ -31,7 +31,7 @@ public class Input extends MouseAdapter {
     private JLabel[] spriteCapturado;
 
 
-    public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas, JLabel[] spriteCapturado) {
+    public Input(MaquinaDeRegras maquinaDeRegras, JPanel panel, JLabel[] spriteCapturado) {
         super();
         this.maquinaDeRegras = maquinaDeRegras;
         this.panel = panel;
