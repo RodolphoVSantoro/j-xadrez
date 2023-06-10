@@ -30,7 +30,6 @@ public class MaquinaDeRegras {
     private Menu menu;
     public boolean checkmate = false;
 
-    //construtor para testes sem relacao com a interface
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
@@ -38,6 +37,7 @@ public class MaquinaDeRegras {
         this.IA = new IA(this.adversario, nivelDificuldadeIA);
         this.IA.setMaquinaDeRegras(this);
     }
+
 
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA, JTextArea brancasTextArea, JTextArea pretasTextArea, JTextPane vez, Menu menu) {
         this.turno = Cor.BRANCO;
@@ -67,7 +67,7 @@ public class MaquinaDeRegras {
     } 
 
     public void setTurno(Cor cor){
-         this.turno = cor;
+         this.turno=cor;
     } 
 
     public Historico getHistorico() {
@@ -80,7 +80,6 @@ public class MaquinaDeRegras {
             this.turno = this.jogador;
         }
     }
-
 
     /**
      * Este método verifica se o fim de jogo foi alcançado no tabuleiro de xadrez atual.
@@ -292,7 +291,7 @@ public class MaquinaDeRegras {
      */
     public void moveIA() {
         Movimento movimento = this.IA.getIAMovimento();
-        if(movimento.getPeca()==null)System.out.println("IA derrotada");
+        if(movimento.getPeca()==null)System.out.println("morri");
         else{
 
             boolean iaMoveu = this.executaMovimento(movimento,false);
@@ -301,12 +300,13 @@ public class MaquinaDeRegras {
             }
         }
 
-        this.turno = Cor.BRANCO;
+        this.turno=Cor.BRANCO;
 
     }
-
 
     public void setIA(maquinaDeRegras.IA ia2) {
+        this.IA = ia2;
     }
+
 }
 

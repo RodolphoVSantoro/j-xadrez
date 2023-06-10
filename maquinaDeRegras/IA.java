@@ -49,7 +49,6 @@ public class IA {
         if (this.melhorMovimento.getPeca() != null && this.melhorMovimento.getPeca().tipoPromocao == TipoPeca.PEAO
                 && this.melhorMovimento.getPeca().qtdMovimento == 5)
             this.melhorMovimento.getPeca().promocao = 9;
-
         return this.melhorMovimento;
     }
 
@@ -121,7 +120,6 @@ public class IA {
                         novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao, 0);
                     }
                     boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true);
-
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "
                                 + novoMovimento.getPosicaoAnterior().x + " " + novoMovimento.getPosicaoAnterior().y
@@ -152,6 +150,7 @@ public class IA {
         }
         return melhorMovimento;
     }
+
 
     /**
      * Este método implementa a função MIN do algoritmo MinMax. Este método é
@@ -248,7 +247,7 @@ public class IA {
 
         int valorPecasAdversario = 0;
         for (Peca peca : pecasAdversario) {
-            if (!peca.getCapturado())
+            if(!peca.getCapturado())valorPecasAdversario += Config.pontuacao.get(peca.tipoPromocao);
                 valorPecasAdversario += Config.pontuacao.get(peca.tipoPromocao);
         }
 

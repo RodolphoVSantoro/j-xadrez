@@ -24,11 +24,12 @@ import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Tabuleiro;
 import menu.EndGameScreen;
 import menu.Menu;
+import menu.Promocao;
 import pecas.Peca;
 import utils.Cor;
 import utils.Posicao;
 
-class Tela extends JFrame {
+public class Tela extends JFrame {
 
     private Canvas canvas;
     private MaquinaDeRegras maquinaDeRegras;
@@ -37,6 +38,7 @@ class Tela extends JFrame {
     private ArrayList<Peca> pecasPretas;
     private ArrayList<Posicao> possiveis;
     private Input input;
+    private Promocao promocao;
     private JTextArea brancasTextArea = new javax.swing.JTextArea();
     private JTextArea pretasTextArea = new javax.swing.JTextArea();
     private JTextPane vez;
@@ -97,6 +99,12 @@ class Tela extends JFrame {
         this.input = input;
     }
 
+    /**
+     * Este é o construtor para a classe 'Tela'. Ele configura a interface do usuário, criando um canvas no qual as peças e o tabuleiro do jogo são desenhadas.
+     * Esse Canvas é configurado para destacar possíveis movimentos de peças quando uma peça é selecionada.
+     * Além disso, este construtor inclui imagens que mostram as peças capturadas e o histórico do jogo.
+     * Configura também o layout da tela, definindo seu tamanho, tornando-a visível, centrando-a e impedindo o redimensionamento.
+     */
     Tela(Menu menu) {
         super();
 
@@ -111,7 +119,7 @@ class Tela extends JFrame {
                 }
                 
                 // Highlight
-                if(input.selecionada != null){
+                if(input != null && input.selecionada != null){
                     possiveis = input.selecionada.getMovimentosPossiveis(false);
                     for(int i = 0; i < possiveis.size(); i++){
                         graphics.setColor(new Color(68, 180, 57, 190));
@@ -238,6 +246,7 @@ class Tela extends JFrame {
         this.setTabuleiro(new Tabuleiro(this.getPecasBrancas(), this.getPecasPretas()));
         this.getMaquinaDeRegras().setTabuleiro(this.getTabuleiro());
         this.setInput(new Input(this.getMaquinaDeRegras(), this.getCanvas()));
+        this.getInput().setPromocaoDialog(new Promocao(this));
         this.getCanvas().addMouseListener(this.getInput());
     }
 
@@ -245,16 +254,20 @@ class Tela extends JFrame {
         boolean checkmate=false;
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
+                System.out.println("entrei");
                 this.maquinaDeRegras.moveIA();
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
                 
             };
+            boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
+            this.maquinaDeRegras.checkmate=temp[0]||temp[1];
             checkmate=this.maquinaDeRegras.checkmate;
             Thread.sleep(200);
         }
-    } 
+
+    }
 
     public void repaint() {
         canvas.repaint();
@@ -277,6 +290,7 @@ class Tela extends JFrame {
                 boolean resultado = resultados[0] ? false : true;
                 tela.dispose();
                 menu.setInicia(false);
+                System.out.println(resultado);
                 EndGameScreen endGame = new EndGameScreen(menu, resultado);
                 endGame.setVisible(true);
             }

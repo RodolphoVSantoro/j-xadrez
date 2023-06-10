@@ -25,6 +25,7 @@ public class Dama extends Peca {
         this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, 1);
         this.addMovimentoDiagonal(movimentosPossiveis, this.posicaoTabuleiro, -1, -1);
 
+
         if (!pulaTeste)
             this.checaValidadeMovimento(movimentosPossiveis);
 
