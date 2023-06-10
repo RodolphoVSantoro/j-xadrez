@@ -2,6 +2,8 @@ package maquinaDeRegras;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 import config.Config;
 import pecas.Peca;
 import pecas.TipoPeca;
@@ -39,10 +41,10 @@ public class IA {
      * @return O melhor movimento a ser realizado pela IA.
      * @throws RuntimeException se a IA não conseguir encontrar um movimento válido.
      */
-    public Movimento getIAMovimento() {
+    public Movimento getIAMovimento(JLabel[] spriteCapturado) {
         this.melhorMovimento = null;
         int profundidade = Config.PROFUNDIDADE_IA;
-        this.melhorMovimento = this.minMax(profundidade, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        this.melhorMovimento = this.minMax(profundidade, Integer.MIN_VALUE, Integer.MAX_VALUE, true, spriteCapturado);
         if (this.melhorMovimento == null) {
             throw new RuntimeException("IA falhou ao procurar movimento");
         }
@@ -69,11 +71,11 @@ public class IA {
      *                     verdadeiro para MAX e falso para MIN.
      * @return Retorna o melhor movimento encontrado para o jogador cuja vez é dada.
      */
-    private Movimento minMax(int profundidade, double alpha, double beta, boolean vez) {
+    private Movimento minMax(int profundidade, double alpha, double beta, boolean vez, JLabel[] spriteCapturado) {
         if (vez) {
-            return this.max(profundidade, alpha, beta);
+            return this.max(profundidade, alpha, beta, spriteCapturado);
         } else {
-            return this.min(profundidade, alpha, beta);
+            return this.min(profundidade, alpha, beta, spriteCapturado);
         }
     }
 
@@ -91,7 +93,7 @@ public class IA {
      * @return Retorna o movimento que maximiza a função de avaliação para o jogador
      *         MAX.
      */
-    private Movimento max(int profundidade, double alpha, double beta) {
+    private Movimento max(int profundidade, double alpha, double beta, JLabel[] spriteCapturado) {
         double alphatemp = alpha;
         double betatemp = beta;
         boolean para = false;
@@ -119,7 +121,7 @@ public class IA {
                     } else {
                         novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao, 0);
                     }
-                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true);
+                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true, spriteCapturado);
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "
                                 + novoMovimento.getPosicaoAnterior().x + " " + novoMovimento.getPosicaoAnterior().y
@@ -127,13 +129,13 @@ public class IA {
                                 + novoMovimento.getPosicaoPosterior().y);
                     }
                     ;
-                    novoMovimento.setValor(this.minMax(profundidade - 1, alphatemp, betatemp, false).getValor());
+                    novoMovimento.setValor(this.minMax(profundidade - 1, alphatemp, betatemp, false, spriteCapturado).getValor());
 
                     if (novoMovimento.getValor() > melhorMovimento.getValor()
                             || (novoMovimento.getValor() == melhorMovimento.getValor() && Math.random() > 0.5))
                         melhorMovimento = novoMovimento;
 
-                    this.maquinaDeRegras.desfazUltimoMovimento(true);
+                    this.maquinaDeRegras.desfazUltimoMovimento(true, spriteCapturado);
 
                     if (novoMovimento.getValor() >= alphatemp)
                         alphatemp = novoMovimento.getValor();
@@ -166,7 +168,7 @@ public class IA {
      * @return Retorna o movimento que minimiza a função de avaliação para o jogador
      *         MIN.
      */
-    private Movimento min(int profundidade, double alpha, double beta) {
+    private Movimento min(int profundidade, double alpha, double beta, JLabel[] spriteCapturado) {
         double alphatemp = alpha;
         double betatemp = beta;
         boolean para = false;
@@ -196,7 +198,7 @@ public class IA {
                     } else {
                         novoMovimento = new Movimento(peca, peca.getPosicaoTabuleiro(), posicao, 0);
                     }
-                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true);
+                    boolean movimentou = this.maquinaDeRegras.executaMovimento(novoMovimento, true, spriteCapturado);
                     if (!movimentou) {
                         throw new RuntimeException("Movimento inválido computando minMax "
                                 + novoMovimento.getPosicaoAnterior().x + " " + novoMovimento.getPosicaoAnterior().y
@@ -204,11 +206,11 @@ public class IA {
                                 + novoMovimento.getPosicaoPosterior().y);
                     }
                     ;
-                    novoMovimento.setValor(this.minMax(profundidade - 1, alphatemp, betatemp, true).getValor());
+                    novoMovimento.setValor(this.minMax(profundidade - 1, alphatemp, betatemp, true, spriteCapturado).getValor());
                     if (novoMovimento.getValor() < melhorMovimento.getValor()
                             || (novoMovimento.getValor() == melhorMovimento.getValor() && Math.random() > 0.5))
                         melhorMovimento = novoMovimento;
-                    this.maquinaDeRegras.desfazUltimoMovimento(true);
+                    this.maquinaDeRegras.desfazUltimoMovimento(true, spriteCapturado);
                     if (novoMovimento.getValor() <= betatemp)
                         betatemp = novoMovimento.getValor();
                     if (betatemp <= alphatemp) {

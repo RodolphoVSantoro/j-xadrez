@@ -5,6 +5,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 import java.util.Scanner;
+
+import javax.swing.JLabel;
+
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
@@ -24,11 +27,13 @@ public class Input extends MouseAdapter {
     private Promocao promocaoDialog;
     private ArmazemInt promocaoGetter;
     private boolean godMod = false;
+    private JLabel[] spriteCapturado;
 
-    public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas) {
+    public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas, JLabel[] spriteCapturado) {
         super();
         this.maquinaDeRegras = maquinaDeRegras;
         this.canvas = canvas;
+        this.spriteCapturado = spriteCapturado;
         this.promocaoGetter = ArmazemInt.getInstance(); 
     }
 
@@ -91,13 +96,13 @@ public class Input extends MouseAdapter {
                 if (!peca.duplo) {
                     Movimento movimento = new Movimento(this.selecionada, selecionadaTabuleiro,
                             new Posicao(peca.x, peca.y), 0);
-                    this.maquinaDeRegras.executaMovimento(movimento, false);
+                    this.maquinaDeRegras.executaMovimento(movimento, false, this.spriteCapturado);
                 } else {
                     Peca selecionada2 = this.maquinaDeRegras.getTabuleiro().getPeca(new Posicao(peca.xp, peca.yp));
                     Movimento movimento = new Movimento(this.selecionada, selecionadaTabuleiro,
                             new Posicao(peca.x, peca.y), selecionada2, selecionada2.getPosicaoTabuleiro(),
                             new Posicao(peca.x2, peca.y2), 0);
-                    this.maquinaDeRegras.executaMovimento(movimento, false);
+                    this.maquinaDeRegras.executaMovimento(movimento, false, this.spriteCapturado);
                 }
                 this.maquinaDeRegras.setTurno(Cor.PRETO);
                 boolean[] temp = this.maquinaDeRegras.chegouFimDeJogo();

@@ -5,6 +5,7 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import config.Config;
@@ -108,7 +109,7 @@ public class Tabuleiro extends JPanel{
      *
      * @return Retorna a peça que foi capturada, se houver uma. Caso contrário, retorna null.
      */
-    public Peca movePeca(Peca peca, Posicao posicaoPosterior,boolean ehIA) {
+    public Peca movePeca(Peca peca, Posicao posicaoPosterior,boolean ehIA, JLabel[] spriteCapturado) {
         Posicao posicaoAnterior = peca.getPosicaoTabuleiro();
         peca.setPosicaoTabuleiro(posicaoPosterior,ehIA);
         this.posicoesPecas[posicaoAnterior.x][posicaoAnterior.y] = null;
@@ -116,7 +117,7 @@ public class Tabuleiro extends JPanel{
         if (this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] != null) {
             pecaCapturada = this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y];
             this.pecasCapturadas.get(pecaCapturada.getCor()).add(pecaCapturada);
-            pecaCapturada.captura(ehIA);
+            pecaCapturada.captura(ehIA, spriteCapturado);
         }
         this.posicoesPecas[posicaoPosterior.x][posicaoPosterior.y] = peca;
         return pecaCapturada;
