@@ -19,6 +19,15 @@ public class Tabuleiro extends JPanel{
     private HashMap<Cor, ArrayList<Peca>> pecasCapturadas;
     public Peca[][] posicoesPecas;
 
+    /**
+     * Construtor da classe Tabuleiro.
+     * Este construtor inicializa um novo tabuleiro com as peças brancas e pretas fornecidas.
+     * Cada peça é associada a este tabuleiro e suas posições iniciais são registradas.
+     * O tabuleiro também mantém um registro de peças capturadas por cor.
+     *
+     * @param pecasBrancas Um ArrayList contendo as peças brancas a serem colocadas no tabuleiro.
+     * @param pecasPretas Um ArrayList contendo as peças pretas a serem colocadas no tabuleiro.
+     */
     public Tabuleiro(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {;
         
         this.sprite = new Sprite(Config.IMAGEM_TABULEIRO, 0, 0);
@@ -88,12 +97,16 @@ public class Tabuleiro extends JPanel{
         return this.getPecas(corAdversario);
     }
 
-    /*
-     * Move a peça para a posição posterior
-     * e retorna referência para
-     * a peça capturada, se houver
-     * captura.
-     * Assume que a posição posterior é válida.
+    /**
+     * Método para mover uma peça para uma nova posição no tabuleiro. 
+     * Este método atualiza a posição da peça no tabuleiro, limpa a posição anterior da peça
+     * e, se houver uma peça na nova posição, captura essa peça.
+     *
+     * @param peca A peça a ser movida.
+     * @param posicaoPosterior A nova posição da peça no tabuleiro.
+     * @param ehIA Um booleano indicando se o movimento é controlado pela IA (Inteligência Artificial).
+     *
+     * @return Retorna a peça que foi capturada, se houver uma. Caso contrário, retorna null.
      */
     public Peca movePeca(Peca peca, Posicao posicaoPosterior,boolean ehIA) {
         Posicao posicaoAnterior = peca.getPosicaoTabuleiro();
@@ -109,6 +122,18 @@ public class Tabuleiro extends JPanel{
         return pecaCapturada;
     }
 
+    /**
+     * Método para recuperar uma peça capturada, colocando-a de volta em uma posição no tabuleiro.
+     * Este método verifica se a peça está realmente capturada e se a posição para a qual a peça 
+     * está sendo recuperada está vazia antes de prosseguir.
+     *
+     * @param peca A peça a ser recuperada.
+     * @param posicao A posição no tabuleiro para onde a peça será colocada após a recuperação.
+     * @param ehIA Um booleano indicando se a recuperação é controlada pela IA (Inteligência Artificial).
+     * 
+     * @throws IllegalArgumentException Se a peça não estiver capturada ou se a posição onde se deseja
+     * recolocar a peça não estiver vazia.
+     */
     public void recuperaPeca(Peca peca, Posicao posicao,boolean ehIA) {
         boolean pecaEstaCapturada = this.pecasCapturadas.get(peca.getCor()).stream().anyMatch(p -> p == peca);
         if (!pecaEstaCapturada) {

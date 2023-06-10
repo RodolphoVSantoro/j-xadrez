@@ -21,7 +21,8 @@ public class Torre extends Peca {
         this.addMovimentosCima(movimentosPossiveis, posicaoTabuleiro);
         this.addMovimentosBaixo(movimentosPossiveis, posicaoTabuleiro);
 
-        if(!pulaTeste) this.checaValidadeMovimento(movimentosPossiveis);
+        if (!pulaTeste)
+            this.checaValidadeMovimento(movimentosPossiveis);
 
         return movimentosPossiveis;
     }

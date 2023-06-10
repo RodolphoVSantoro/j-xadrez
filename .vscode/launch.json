@@ -8,6 +8,7 @@
             "type": "java",
             "name": "Tela",
             "request": "launch",
+
             "mainClass": "tela.Tela",
             "projectName": "J-Xadrez_d1b9538c"
         },
