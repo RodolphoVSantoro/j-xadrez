@@ -139,6 +139,11 @@ public class Tela extends JFrame {
                     pecasBrancas.forEach(peca -> peca.desenha(graphics, this));
                     pecasPretas.forEach(peca -> peca.desenha(graphics, this));
                 }
+
+                if (vez != null){
+                    vez.revalidate();
+                    vez.repaint();
+                }
                 
                 // Highlight
                 if(input != null && input.selecionada != null){
@@ -162,8 +167,8 @@ public class Tela extends JFrame {
         
         panel.setBackground(new Color(18, 18, 18));
         this.vez = new JTextPane();
-        this.vez.setEditable(false);
         this.vez.setBounds(320, 25, 700, 40);
+        this.vez.setEditable(false);
         this.vez.setFont(new Font("Segoe UI Bold", 0, 24)); 
         this.vez.setBackground(new Color(18, 18, 18));
         this.vez.setCaretColor(new Color(18, 18, 18));
@@ -399,6 +404,8 @@ public class Tela extends JFrame {
     public void repaint() {
         panel.revalidate();
         panel.repaint();
+        vez.revalidate();
+        vez.repaint();
     }    
 
     
