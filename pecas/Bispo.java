@@ -21,6 +21,7 @@ public class Bispo extends Peca {
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, 1);
         this.addMovimentoDiagonal(movimentosPossiveis, posicaoTabuleiro, -1, -1);
 
+
         if (!pulaTeste)
             this.checaValidadeMovimento(movimentosPossiveis);
 

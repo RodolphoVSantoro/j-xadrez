@@ -13,24 +13,31 @@
         },
         {
             "type": "java",
-            "name": "TelaHistorico",
+            "name": "Tela",
             "request": "launch",
-            "mainClass": "menu.TelaHistorico",
-            "projectName": "j-xadrez_18a0921a"
+            "mainClass": "tela.Tela",
+            "projectName": "J-Xadrez_d1b9538c"
         },
         {
             "type": "java",
-            "name": "Teste",
+            "name": "Tela",
             "request": "launch",
-            "mainClass": "Teste",
-            "projectName": "j-xadrez_18a0921a"
+            "mainClass": "main.Tela",
+            "projectName": "J-Xadrez_d1b9538c"
         },
         {
             "type": "java",
             "name": "Tela",
             "request": "launch",
             "mainClass": "Tela",
-            "projectName": "j-xadrez_16f7c49f"
+            "projectName": "j-xadrez_88aa1578"
+        },
+        {
+            "type": "java",
+            "name": "Promocao",
+            "request": "launch",
+            "mainClass": "menu.Promocao",
+            "projectName": "j-xadrez_18a0921a"
         },
         {
             "type": "java",

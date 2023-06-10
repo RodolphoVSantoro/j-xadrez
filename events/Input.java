@@ -11,8 +11,10 @@ import javax.swing.JLabel;
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
 import maquinaDeRegras.Movimento;
+import menu.Promocao;
 import pecas.Peca;
 import pecas.TipoPeca;
+import utils.ArmazemInt;
 import utils.Cor;
 import utils.Posicao;
 
@@ -22,6 +24,8 @@ public class Input extends MouseAdapter {
     public Peca selecionada;
     public Canvas canvas;
     public boolean executando = false;
+    private Promocao promocaoDialog;
+    private ArmazemInt promocaoGetter;
     private boolean godMod = false;
     private JLabel[] spriteCapturado;
 
@@ -30,11 +34,19 @@ public class Input extends MouseAdapter {
         this.maquinaDeRegras = maquinaDeRegras;
         this.canvas = canvas;
         this.spriteCapturado = spriteCapturado;
+        this.promocaoGetter = ArmazemInt.getInstance(); 
     }
 
+    /**
+     * Este método sobrescrito é chamado sempre que o mouse é clicado. Ele verifica se uma ação está sendo 
+     * executada e se é a vez do jogador de cor branca (player). Se a condição for satisfeita, 
+     * ele seleciona a peça na posição onde o mouse foi clicado, caso exista e ela não esteja capturada.
+     *
+     * @param e O evento de mouse que aciona este método. 
+     * Contém informações sobre o estado do mouse durante o evento, como a posição do ponteiro do mouse.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO || this.godMod)) {
             // Seleciona posição clicada pelo mouse
             int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
@@ -49,6 +61,15 @@ public class Input extends MouseAdapter {
         }
     }
 
+    /**
+     * Método sobrescrito 'mouseReleased' é chamado sempre que o botão do mouse é liberado.
+     * Se houver uma peça selecionada, este método redefine sua posição para o local onde o usuário liberou o clique do mouse.
+     * Este método também verifica se é necessário realizar a promoção de um peão, executa o movimento no tabuleiro e altera
+     * o turno do jogo para o jogador de cor preta. Se o movimento leva ao fim do jogo, ele registra essa informação.
+     * No final, desseleciona a peça e solicita a atualização da interface do usuário.
+     *
+     * @param evt O evento de mouse que aciona este método.
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
 
@@ -67,9 +88,9 @@ public class Input extends MouseAdapter {
                     .findFirst();
             if (pecaOptinonal.isPresent()) {
                 if (this.selecionada.tipoPromocao == TipoPeca.PEAO && this.selecionada.qtdMovimento == 5) {
-                    Scanner s = new Scanner(System.in);
-                    System.out.println("promoção!!!!!");
-                    this.selecionada.promocao = s.nextInt();
+                    this.promocaoDialog.setVisible(true);
+                    this.promocaoDialog.setLocationRelativeTo(null);
+                    this.selecionada.promocao = this.promocaoGetter.getValue();
                 }
                 Posicao peca = pecaOptinonal.get();
                 if (!peca.duplo) {
@@ -88,7 +109,6 @@ public class Input extends MouseAdapter {
                 this.maquinaDeRegras.checkmate = temp[0] || temp[1];
             }
             this.executando = false;
-
         }
 
         // Desseleciona a peça
@@ -96,4 +116,7 @@ public class Input extends MouseAdapter {
         canvas.repaint();
     }
 
+    public void setPromocaoDialog(Promocao p){
+        this.promocaoDialog = p;
+    }
 }
