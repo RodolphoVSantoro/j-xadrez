@@ -5,6 +5,9 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 import config.Config;
 import gui.Sprite;
 import maquinaDeRegras.Historico;
@@ -62,9 +65,30 @@ public abstract class Peca implements Cloneable{
         return this.capturada;
     }
 
-    public void captura(boolean ehIA) {
+    public void captura(boolean ehIA, JLabel[] peca) {
         this.capturada = true;
-        if(!ehIA)this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
+        int posicaoPecaVetorCapturadas;
+        if(!ehIA){
+            this.sprite.move(-800, -800); // todo: melhorar quando exibir historico
+
+            if(this.getCor() == Cor.BRANCO){
+                if(this.getTipoPeca() == TipoPeca.REI) posicaoPecaVetorCapturadas = 0;
+                else if(this.getTipoPeca() == TipoPeca.DAMA) posicaoPecaVetorCapturadas = 1;
+                else if(this.getTipoPeca() == TipoPeca.BISPO) posicaoPecaVetorCapturadas = 2;
+                else if(this.getTipoPeca() == TipoPeca.CAVALO) posicaoPecaVetorCapturadas = 3;
+                else if(this.getTipoPeca() == TipoPeca.TORRE) posicaoPecaVetorCapturadas = 4;
+                else posicaoPecaVetorCapturadas = 5;
+            }
+            else{
+                if(this.getTipoPeca() == TipoPeca.REI) posicaoPecaVetorCapturadas = 6;
+                else if(this.getTipoPeca() == TipoPeca.DAMA) posicaoPecaVetorCapturadas = 7;
+                else if(this.getTipoPeca() == TipoPeca.BISPO) posicaoPecaVetorCapturadas = 8;
+                else if(this.getTipoPeca() == TipoPeca.CAVALO) posicaoPecaVetorCapturadas = 9;
+                else if(this.getTipoPeca() == TipoPeca.TORRE) posicaoPecaVetorCapturadas = 10;
+                else posicaoPecaVetorCapturadas = 11;
+            }
+            peca[posicaoPecaVetorCapturadas].setVisible(true);
+        }
     }
 
     public void recupera(boolean ehIA) {
@@ -76,7 +100,7 @@ public abstract class Peca implements Cloneable{
      * Diz se a peca em determinada posiçao é capturável
      * Sem considerar peças entre ambas
      */
-    protected boolean podeCapturar(Posicao posicaoNova) {
+    public boolean podeCapturar(Posicao posicaoNova) {
         Peca peca = this.tabuleiro.getPeca(posicaoNova.x, posicaoNova.y);
         return peca != null && peca.getCor() != this.getCor();
     }
@@ -100,6 +124,18 @@ public abstract class Peca implements Cloneable{
      */
     public abstract ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste);
 
+    /**
+     * Método para verificar a validade dos movimentos possíveis de uma peça. O método analisa todas
+     * as peças de ambas as cores, verificando se um movimento potencial resultaria em uma situação 
+     * onde o rei da mesma cor que a peça está em cheque. Se isso ocorrer, o movimento é removido 
+     * da lista de movimentos possíveis.
+     *
+     * @param movimentosPossiveis Uma lista de posições possíveis que a peça pode ocupar.
+     * @return Uma lista atualizada de movimentos possíveis, excluindo aqueles que colocariam o rei 
+     * da mesma cor que a peça em cheque.
+     *
+     * @throws CloneNotSupportedException Se o clone de qualquer peça falhar.
+     */
     protected ArrayList<Posicao> checaValidadeMovimento(ArrayList<Posicao> movimentosPossiveis){
         
         ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
