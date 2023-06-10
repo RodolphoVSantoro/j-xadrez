@@ -1,9 +1,10 @@
 package events;
 
-import java.awt.Canvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
+
+import javax.swing.JPanel;
 
 import config.Config;
 import maquinaDeRegras.MaquinaDeRegras;
@@ -19,15 +20,15 @@ public class Input extends MouseAdapter{
 
     MaquinaDeRegras maquinaDeRegras;
     public Peca selecionada;
-    public Canvas canvas;
+    public JPanel panel;
     public boolean executando=false;
     private Promocao promocaoDialog;
     private ArmazemInt promocaoGetter;
 
-    public Input(MaquinaDeRegras maquinaDeRegras, Canvas canvas){
+    public Input(MaquinaDeRegras maquinaDeRegras, JPanel panel){
         super();
         this.maquinaDeRegras = maquinaDeRegras;
-        this.canvas = canvas;
+        this.panel = panel;
         this.promocaoGetter = ArmazemInt.getInstance(); 
     }
 
@@ -42,14 +43,14 @@ public class Input extends MouseAdapter{
     @Override
     public void mouseClicked(MouseEvent e) {
        
-        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO || true)){
+        if(!this.executando && (this.maquinaDeRegras.getTurno() == Cor.BRANCO)){
             // Seleciona posição clicada pelo mouse
             int col = (e.getX() / Config.LARGURA_TABULEIRO) - 1;
             int linha = (e.getY() / Config.ALTURA_TABULEIRO) - 1;
             Posicao p = new Posicao(col, linha);
             Peca posicaoPeca = this.maquinaDeRegras.getTabuleiro().getPeca(p);
             // Se houver uma peça onde o mouse clicou, seleciona a peça
-            if(posicaoPeca != null &&(!posicaoPeca.getCapturado())){
+            if(posicaoPeca != null  && posicaoPeca.getCor()==Cor.BRANCO && (!posicaoPeca.getCapturado())){
                 this.selecionada = posicaoPeca;
             }
         }
@@ -102,7 +103,7 @@ public class Input extends MouseAdapter{
 
         // Desseleciona a peça
         this.selecionada = null;
-        canvas.repaint();
+        panel.repaint();
     }
 
     public void setPromocaoDialog(Promocao p){
