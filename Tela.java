@@ -254,6 +254,7 @@ public class Tela extends JFrame {
         boolean checkmate=false;
         while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
+                System.out.println("entrei");
                 this.maquinaDeRegras.moveIA();
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();

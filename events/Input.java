@@ -83,9 +83,9 @@ public class Input extends MouseAdapter {
                     .findFirst();
             if (pecaOptinonal.isPresent()) {
                 if (this.selecionada.tipoPromocao == TipoPeca.PEAO && this.selecionada.qtdMovimento == 5) {
-                    Scanner s = new Scanner(System.in);
-                    System.out.println("promoção!!!!!");
-                    this.selecionada.promocao = s.nextInt();
+                    this.promocaoDialog.setVisible(true);
+                    this.promocaoDialog.setLocationRelativeTo(null);
+                    this.selecionada.promocao = this.promocaoGetter.getValue();
                 }
                 Posicao peca = pecaOptinonal.get();
                 if (!peca.duplo) {

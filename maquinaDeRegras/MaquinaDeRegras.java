@@ -30,8 +30,6 @@ public class MaquinaDeRegras {
     private Menu menu;
     public boolean checkmate = false;
 
-    public boolean checkmate = false;
-
     public MaquinaDeRegras(Cor jogador, int nivelDificuldadeIA) {
         this.turno = Cor.BRANCO;
         this.jogador = jogador;
@@ -292,22 +290,23 @@ public class MaquinaDeRegras {
      * @throws Error Se a IA tenta executar um movimento inválido.
      */
     public void moveIA() {
-<
-        if (this.partidaComIA) {
-            Movimento movimento = this.IA.getIAMovimento();
-            if(movimento.getPeca()==null)System.out.println("morri");
-            else{
+        Movimento movimento = this.IA.getIAMovimento();
+        if(movimento.getPeca()==null)System.out.println("morri");
+        else{
 
-                boolean iaMoveu = this.executaMovimento(movimento,false);
-                if (!iaMoveu) {
-                    throw new Error("IA tentou movimento invalido");
-                }
+            boolean iaMoveu = this.executaMovimento(movimento,false);
+            if (!iaMoveu) {
+                throw new Error("IA tentou movimento invalido");
             }
         }
+
+        this.turno=Cor.BRANCO;
 
     }
 
     public void setIA(maquinaDeRegras.IA ia2) {
+        this.IA = ia2;
     }
+
 }
 
