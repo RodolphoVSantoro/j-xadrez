@@ -9,7 +9,7 @@ public class Historico {
     private ArrayList<Movimento> movimentos;
     private int ultimoMovimento;
 
-    Historico(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
+    public Historico(ArrayList<Peca> pecasBrancas, ArrayList<Peca> pecasPretas) {
         this.movimentos = new ArrayList<Movimento>();
         pecasBrancas.forEach(p -> p.setHistorico(this));
         pecasPretas.forEach(p -> p.setHistorico(this));
@@ -21,9 +21,10 @@ public class Historico {
         Posicao posicaoAnterior = movimento.getPosicaoAnterior();
         Posicao posicaoPosterior = movimento.getPosicaoPosterior();
         Movimento novoMovimento;
-        if(movimento.movimentoDuplo){
-            novoMovimento = new Movimento(peca, posicaoAnterior, posicaoPosterior, movimento.getPeca2(), movimento.getPosicaoAnterior2(), movimento.getPosicaoPosterior2(), pecaCapturada);
-        }else{
+        if (movimento.movimentoDuplo) {
+            novoMovimento = new Movimento(peca, posicaoAnterior, posicaoPosterior, movimento.getPeca2(),
+                    movimento.getPosicaoAnterior2(), movimento.getPosicaoPosterior2(), pecaCapturada);
+        } else {
             novoMovimento = new Movimento(peca, posicaoAnterior, posicaoPosterior, pecaCapturada);
 
         }
@@ -33,7 +34,8 @@ public class Historico {
 
     public Movimento getUltimoMovimento() {
         try {
-            if(this.ultimoMovimento==-1) return null;
+            if (this.ultimoMovimento == -1)
+                return null;
             Movimento ultimoMovimento = this.movimentos.get(this.ultimoMovimento);
             return ultimoMovimento;
         } catch (Error error) {
