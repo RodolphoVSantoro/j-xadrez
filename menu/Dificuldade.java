@@ -54,6 +54,7 @@ public class Dificuldade extends JFrame {
         botaoFacil.setForeground(new Color(255, 210, 154));
         botaoFacil.setText("Fácil");
         botaoFacil.setBorder(null);
+        botaoFacil.setFocusPainted(false);
         botaoFacil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 facilActionPerformed(evt);
