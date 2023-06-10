@@ -13,15 +13,6 @@ public class Posicao {
         this.x = x;
         this.y = y;
     }
-    public Posicao(int x, int y,int x2,int y2,int xp,int yp) {
-        this.x = x;
-        this.y = y;
-        this.x2 = x2;
-        this.y2 = y2;
-        this.xp = xp;
-        this.yp = yp;
-        this.duplo=true;
-    }
 
     public Posicao(int x, int y, int x2, int y2, int xp, int yp) {
         this.x = x;
