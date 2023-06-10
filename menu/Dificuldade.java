@@ -123,7 +123,7 @@ public class Dificuldade extends JFrame {
     }
 
     private void facilActionPerformed(ActionEvent evt) {
-        Config.PROFUNDIDADE_IA = 1;
+        Config.PROFUNDIDADE_IA = 2;
         menu.setInicia(true);
         this.dispose();
     }
@@ -135,7 +135,7 @@ public class Dificuldade extends JFrame {
     }
 
     private void dificilActionPerformed(ActionEvent evt) {
-        Config.PROFUNDIDADE_IA = 5;
+        Config.PROFUNDIDADE_IA = 4;
         menu.setInicia(true);
         this.dispose();
     }
