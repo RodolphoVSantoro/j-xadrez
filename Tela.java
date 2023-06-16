@@ -385,17 +385,20 @@ public class Tela extends JFrame {
 
     private void gameLoop() throws Error, InterruptedException {
         boolean checkmate=false;
-        while(!checkmate&&!this.maquinaDeRegras.empatouJogo()){       
+        boolean empate = false;
+        while(!checkmate&&!empate){       
             if(this.maquinaDeRegras.getTurno()==Cor.PRETO){
                 this.maquinaDeRegras.moveIA(this.spritesCapturados);
                 this.repaint();
                 boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
                 this.maquinaDeRegras.checkmate=temp[0]||temp[1];
+                empate = this.maquinaDeRegras.empatouJogo();
                 
             };
             boolean[] temp=this.maquinaDeRegras.chegouFimDeJogo();
             this.maquinaDeRegras.checkmate=temp[0]||temp[1];
             checkmate=this.maquinaDeRegras.checkmate;
+            empate = this.maquinaDeRegras.empatouJogo();
             Thread.sleep(200);
         }
 
@@ -422,11 +425,12 @@ public class Tela extends JFrame {
                 tela.initGame(menu);
                 tela.gameLoop();
                 boolean[] resultados = tela.maquinaDeRegras.chegouFimDeJogo();
+                boolean empate = tela.maquinaDeRegras.empatouJogo();
                 boolean resultado = resultados[0] ? false : true;
                 tela.dispose();
                 menu.setInicia(false);
                 System.out.println(resultado);
-                EndGameScreen endGame = new EndGameScreen(menu, resultado);
+                EndGameScreen endGame = new EndGameScreen(menu, resultado, empate);
                 endGame.setVisible(true);
             }
         }
