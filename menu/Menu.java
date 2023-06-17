@@ -239,7 +239,7 @@ public class Menu extends JFrame {
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
+        int escolha = JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Xadrez", 0, JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
         }

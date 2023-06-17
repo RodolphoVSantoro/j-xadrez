@@ -145,7 +145,6 @@ public class IA {
                     }
                     ;
                 }
-
             }
             if (para)
                 break;

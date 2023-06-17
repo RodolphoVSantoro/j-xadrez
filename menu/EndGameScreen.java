@@ -24,12 +24,15 @@ public class EndGameScreen extends JFrame {
     private Botao cancela;
     private Menu menu;
     private Boolean resultado;
+    private Boolean empate;
     private String win = "Parabéns! Você ganhou!";
     private String lose = "Que pena! Você perdeu!";
+    private String tie = "Wow! O jogo empatou!";
 
-    public EndGameScreen(Menu menu, Boolean resultado) {
+    public EndGameScreen(Menu menu, Boolean resultado, Boolean empate) {
         this.menu = menu;
         this.resultado = resultado;
+        this.empate = empate;
         initComponents();
     }
 
@@ -99,6 +102,7 @@ public class EndGameScreen extends JFrame {
         jogarNovamente.setFont(new Font("Segoe UI", 1, 48));
         jogarNovamente.setForeground(new Color(255, 255, 255));
         jogarNovamente.setText(resultado ? win : lose);
+        if (this.empate) jogarNovamente.setText(tie);
         jogarNovamente.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         jogarNovamente.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -207,7 +211,7 @@ public class EndGameScreen extends JFrame {
         String[] opcao = new String[2];
         opcao[0] = "Sim";
         opcao[1] = "Não";
-        var escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0,
+        int escolha = JOptionPane.showOptionDialog(null, "Deseja realmente cancelar?", "Xadrez", 0,
                 JOptionPane.INFORMATION_MESSAGE, null, opcao, null);
         if (escolha == 0) {
             System.exit(0);
