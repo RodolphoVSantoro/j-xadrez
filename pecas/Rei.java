@@ -26,107 +26,144 @@ public class Rei extends Peca {
 
     /**
      * Este método é usado para calcular todos os movimentos possíveis para o Rei,
-     * incluindo a lógica de roque, se aplicável. Além disso, ele verifica a segurança
+     * incluindo a lógica de roque, se aplicável. Além disso, ele verifica a
+     * segurança
      * desses movimentos para não colocar o próprio rei em xeque.
      *
      * @param pulaTeste Um booleano que se for verdadeiro irá pular a verificação de
      *                  segurança do movimento (para não colocar o rei em xeque).
-     * @return Uma lista de todas as posições possíveis para onde o Rei pode se mover.
+     * @return Uma lista de todas as posições possíveis para onde o Rei pode se
+     *         mover.
      *         Esta lista pode ser vazia se a peça não tiver movimentos válidos.
      */
     @Override
     public ArrayList<Posicao> getMovimentosPossiveis(boolean pulaTeste) {
         ArrayList<Posicao> movimentosPossiveis = new ArrayList<Posicao>();
         Posicao posicaoAtual = this.getPosicaoTabuleiro();
-        
-        ArrayList<Posicao> movimentoEstatico = new ArrayList<Posicao>();
+
         for (int[] movimento : MOVIMENTOS_POSSIVEIS) {
-            movimentoEstatico.add(new Posicao(movimento[0], movimento[1]));
             Posicao proximaPosicao = new Posicao(posicaoAtual.x + movimento[0], posicaoAtual.y + movimento[1]);
             this.reiAdicionaMovimentoPossivel(movimentosPossiveis, proximaPosicao);
         }
-        if(this.qtdMovimento==0){
-            Peca torre1 = this.tabuleiro.getPeca(0,0);
-            Peca torre2 = this.tabuleiro.getPeca(0,7);
-            Peca torre3 = this.tabuleiro.getPeca(7,0);
-            Peca torre4 = this.tabuleiro.getPeca(7,7);
+        if (this.qtdMovimento == 0) {
+            Peca torre1 = this.tabuleiro.getPeca(0, 0);
+            Peca torre2 = this.tabuleiro.getPeca(0, 7);
+            Peca torre3 = this.tabuleiro.getPeca(7, 0);
+            Peca torre4 = this.tabuleiro.getPeca(7, 7);
 
-            if(torre1 != null && torre1.getCor()==this.getCor() && torre1.qtdMovimento==0){
-                if(this.tabuleiro.getPeca(1, 0) == null && this.tabuleiro.getPeca(2, 0)==null && this.tabuleiro.getPeca(3, 0)==null){
-                    movimentosPossiveis.add(new Posicao(posicaoAtual.x-2, posicaoAtual.y, posicaoAtual.x-1, posicaoAtual.y, 0, 0));
+            if (torre1 != null && torre1.getCor() == this.getCor() && torre1.qtdMovimento == 0) {
+                if (this.tabuleiro.getPeca(1, 0) == null && this.tabuleiro.getPeca(2, 0) == null
+                        && this.tabuleiro.getPeca(3, 0) == null) {
+                    movimentosPossiveis.add(
+                            new Posicao(posicaoAtual.x - 2, posicaoAtual.y, posicaoAtual.x - 1, posicaoAtual.y, 0, 0));
                 }
             }
-            if(torre2 != null && torre2.getCor()==this.getCor() && torre2.qtdMovimento==0){
-                if(this.tabuleiro.getPeca(1, 7)==null && this.tabuleiro.getPeca(2, 7)==null && this.tabuleiro.getPeca(3, 7)==null){
-                    movimentosPossiveis.add(new Posicao(posicaoAtual.x-2, posicaoAtual.y, posicaoAtual.x-1, posicaoAtual.y, 0, 7));
+            if (torre2 != null && torre2.getCor() == this.getCor() && torre2.qtdMovimento == 0) {
+                if (this.tabuleiro.getPeca(1, 7) == null && this.tabuleiro.getPeca(2, 7) == null
+                        && this.tabuleiro.getPeca(3, 7) == null) {
+                    movimentosPossiveis.add(
+                            new Posicao(posicaoAtual.x - 2, posicaoAtual.y, posicaoAtual.x - 1, posicaoAtual.y, 0, 7));
                 }
             }
-            if(torre3 != null && torre3.getCor()==this.getCor() && torre3.qtdMovimento==0){
-                if(this.tabuleiro.getPeca(5, 0)==null && this.tabuleiro.getPeca(6, 0)==null){
-                    movimentosPossiveis.add(new Posicao(posicaoAtual.x+2, posicaoAtual.y, posicaoAtual.x+1, posicaoAtual.y, 7, 0));
+            if (torre3 != null && torre3.getCor() == this.getCor() && torre3.qtdMovimento == 0) {
+                if (this.tabuleiro.getPeca(5, 0) == null && this.tabuleiro.getPeca(6, 0) == null) {
+                    movimentosPossiveis.add(
+                            new Posicao(posicaoAtual.x + 2, posicaoAtual.y, posicaoAtual.x + 1, posicaoAtual.y, 7, 0));
                 }
             }
-            if(torre4 != null && torre4.getCor()==this.getCor() && torre4.qtdMovimento==0){
-                if(this.tabuleiro.getPeca(5, 7)==null && this.tabuleiro.getPeca(6, 7)==null){
-                    movimentosPossiveis.add(new Posicao(posicaoAtual.x+2, posicaoAtual.y, posicaoAtual.x+1, posicaoAtual.y, 7, 7));
+            if (torre4 != null && torre4.getCor() == this.getCor() && torre4.qtdMovimento == 0) {
+                if (this.tabuleiro.getPeca(5, 7) == null && this.tabuleiro.getPeca(6, 7) == null) {
+                    movimentosPossiveis.add(
+                            new Posicao(posicaoAtual.x + 2, posicaoAtual.y, posicaoAtual.x + 1, posicaoAtual.y, 7, 7));
                 }
             }
         }
 
-        if(!pulaTeste){
+        if (!pulaTeste) {
             ArrayList<Peca> pecaBranca = new ArrayList<Peca>();
-            for(Peca peca : this.tabuleiro.getPecas(Cor.BRANCO)){
+            for (Peca peca : this.tabuleiro.getPecas(Cor.BRANCO)) {
                 try {
-                    if(peca.getTipoPeca()==TipoPeca.PEAO)pecaBranca.add((Peao) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.CAVALO)pecaBranca.add((Cavalo) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.BISPO)pecaBranca.add((Bispo) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.TORRE)pecaBranca.add((Torre) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.DAMA)pecaBranca.add((Dama) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.REI)pecaBranca.add((Rei) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.PEAO)
+                        pecaBranca.add((Peao) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.CAVALO)
+                        pecaBranca.add((Cavalo) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.BISPO)
+                        pecaBranca.add((Bispo) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.TORRE)
+                        pecaBranca.add((Torre) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.DAMA)
+                        pecaBranca.add((Dama) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.REI)
+                        pecaBranca.add((Rei) peca.clone());
                 } catch (CloneNotSupportedException e) {
-                    
+
                     e.printStackTrace();
-                };
+                }
+                ;
             }
             ArrayList<Peca> pecaPreto = new ArrayList<Peca>();
-            for(Peca peca : this.tabuleiro.getPecas(Cor.PRETO)){
+            for (Peca peca : this.tabuleiro.getPecas(Cor.PRETO)) {
                 try {
-                    if(peca.getTipoPeca()==TipoPeca.PEAO)pecaPreto.add((Peao) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.CAVALO)pecaPreto.add((Cavalo) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.BISPO)pecaPreto.add((Bispo) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.TORRE)pecaPreto.add((Torre) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.DAMA)pecaPreto.add((Dama) peca.clone());
-                    if(peca.getTipoPeca()==TipoPeca.REI)pecaPreto.add((Rei) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.PEAO)
+                        pecaPreto.add((Peao) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.CAVALO)
+                        pecaPreto.add((Cavalo) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.BISPO)
+                        pecaPreto.add((Bispo) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.TORRE)
+                        pecaPreto.add((Torre) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.DAMA)
+                        pecaPreto.add((Dama) peca.clone());
+                    if (peca.getTipoPeca() == TipoPeca.REI)
+                        pecaPreto.add((Rei) peca.clone());
                 } catch (CloneNotSupportedException e) {
-                    
+
                     e.printStackTrace();
-                };
+                }
+                ;
             }
-            
+
             Tabuleiro tabu = new Tabuleiro(pecaBranca, pecaPreto);
-            
+
             ArrayList<Posicao> tiraMovimento = new ArrayList<Posicao>();
 
-            int xMeu =this.getPosicaoTabuleiro().x;
-            int yMeu =this.getPosicaoTabuleiro().y;
-        
-            tabu.posicoesPecas[xMeu][yMeu]=null;
-    
-            for (Posicao movimento : movimentosPossiveis){
-                Peca pecaCapturada=tabu.posicoesPecas[movimento.x][movimento.y];
-                if(pecaCapturada==null){
-                    if(tabu.getPecas( this.getCor()==Cor.BRANCO?Cor.PRETO:Cor.BRANCO ).stream().anyMatch(p->p.tipoPromocao!=TipoPeca.PEAO && p.capturada==false && p.getMovimentosPossiveis(true).stream().anyMatch(m->m.x==movimento.x && m.y==movimento.y))) tiraMovimento.add(movimento);
-                    else if(tabu.getPecas( this.getCor()==Cor.BRANCO?Cor.PRETO:Cor.BRANCO ).stream().anyMatch(p->p.tipoPromocao==TipoPeca.PEAO && p.capturada==false && (p.getPosicaoTabuleiro().x+1==movimento.x || p.getPosicaoTabuleiro().x-1==movimento.x)&& p.getPosicaoTabuleiro().y+p.dir==movimento.y)) tiraMovimento.add(movimento);
+            int xMeu = this.getPosicaoTabuleiro().x;
+            int yMeu = this.getPosicaoTabuleiro().y;
 
-                }
-                else{
-                    tabu.posicoesPecas[movimento.x][movimento.y]=null;
-                    if(tabu.getPecas( this.getCor()==Cor.BRANCO?Cor.PRETO:Cor.BRANCO ).stream().anyMatch(p->p!=pecaCapturada && p.tipoPromocao!=TipoPeca.PEAO && p.capturada==false && p.getMovimentosPossiveis(true).stream().anyMatch(m->m.x==movimento.x && m.y==movimento.y))) tiraMovimento.add(movimento);
-                    else if(tabu.getPecas( this.getCor()==Cor.BRANCO?Cor.PRETO:Cor.BRANCO ).stream().anyMatch(p->p!=pecaCapturada && p.tipoPromocao==TipoPeca.PEAO && p.capturada==false && (p.getPosicaoTabuleiro().x+1==movimento.x || p.getPosicaoTabuleiro().x-1==movimento.x)&& p.getPosicaoTabuleiro().y+p.dir==movimento.y)) tiraMovimento.add(movimento);
-                    tabu.posicoesPecas[movimento.x][movimento.y]=pecaCapturada;
+            tabu.posicoesPecas[xMeu][yMeu] = null;
+
+            for (Posicao movimento : movimentosPossiveis) {
+                Peca pecaCapturada = tabu.posicoesPecas[movimento.x][movimento.y];
+                if (pecaCapturada == null) {
+                    if (tabu.getPecas(this.getCor() == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO).stream()
+                            .anyMatch(p -> p.tipoPromocao != TipoPeca.PEAO && p.capturada == false
+                                    && p.getMovimentosPossiveis(true).stream()
+                                            .anyMatch(m -> m.x == movimento.x && m.y == movimento.y)))
+                        tiraMovimento.add(movimento);
+                    else if (tabu.getPecas(this.getCor() == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO).stream()
+                            .anyMatch(p -> p.tipoPromocao == TipoPeca.PEAO && p.capturada == false
+                                    && (p.getPosicaoTabuleiro().x + 1 == movimento.x
+                                            || p.getPosicaoTabuleiro().x - 1 == movimento.x)
+                                    && p.getPosicaoTabuleiro().y + p.dir == movimento.y))
+                        tiraMovimento.add(movimento);
+
+                } else {
+                    tabu.posicoesPecas[movimento.x][movimento.y] = null;
+                    if (tabu.getPecas(this.getCor() == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO).stream()
+                            .anyMatch(p -> p != pecaCapturada && p.tipoPromocao != TipoPeca.PEAO && p.capturada == false
+                                    && p.getMovimentosPossiveis(true).stream()
+                                            .anyMatch(m -> m.x == movimento.x && m.y == movimento.y)))
+                        tiraMovimento.add(movimento);
+                    else if (tabu.getPecas(this.getCor() == Cor.BRANCO ? Cor.PRETO : Cor.BRANCO).stream()
+                            .anyMatch(p -> p != pecaCapturada && p.tipoPromocao == TipoPeca.PEAO && p.capturada == false
+                                    && (p.getPosicaoTabuleiro().x + 1 == movimento.x
+                                            || p.getPosicaoTabuleiro().x - 1 == movimento.x)
+                                    && p.getPosicaoTabuleiro().y + p.dir == movimento.y))
+                        tiraMovimento.add(movimento);
+                    tabu.posicoesPecas[movimento.x][movimento.y] = pecaCapturada;
                 }
             }
-            for (Posicao movimento : tiraMovimento){
+            for (Posicao movimento : tiraMovimento) {
                 movimentosPossiveis.remove(movimento);
             }
 
@@ -144,4 +181,3 @@ public class Rei extends Peca {
         }
     }
 }
-
