@@ -82,15 +82,17 @@ public class ReiTest {
         when(pecaMock4.getCor()).thenReturn(Cor.BRANCO);
 
         Torre torre = new Torre(new Posicao(5, 0), Cor.PRETO);
+        Torre torre2 = new Torre(new Posicao(3, 6), Cor.PRETO);
         Dama dama = new Dama(new Posicao(4, 1), Cor.PRETO);
         Peao peao = new Peao(new Posicao(4, 6), Cor.PRETO);
-        Peao peao2 = new Peao(new Posicao(3, 5), Cor.PRETO);
+        Peao peao2 = new Peao(new Posicao(2, 5), Cor.PRETO);
         Bispo bispo = new Bispo(new Posicao(7, 1), Cor.PRETO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 1), Cor.PRETO);
 
         ArrayList<Peca> vetorMock = new ArrayList<Peca>();
         ArrayList<Peca> vetorMock2 = new ArrayList<Peca>();
         vetorMock.add(torre);
+        vetorMock.add(torre2);
         vetorMock.add(dama);
         vetorMock.add(cavalo);
         vetorMock.add(bispo);
@@ -104,7 +106,7 @@ public class ReiTest {
         ArrayList<Posicao> movimentosPossiveis = rei.getMovimentosPossiveis(false);
 
         // Verificar se a lista de movimentos possíveis está correta
-        assertEquals(3, movimentosPossiveis.size());
+        assertEquals(2, movimentosPossiveis.size());
 
     }
 
@@ -150,15 +152,17 @@ public class ReiTest {
         when(pecaMock4.getCor()).thenReturn(Cor.BRANCO);
 
         Torre torre = new Torre(new Posicao(5, 7), Cor.BRANCO);
+        Torre torre2 = new Torre(new Posicao(3, 1), Cor.BRANCO);
         Dama dama = new Dama(new Posicao(4, 7), Cor.BRANCO);
         Peao peao = new Peao(new Posicao(4, 1), Cor.BRANCO);
-        Peao peao2 = new Peao(new Posicao(3, 5), Cor.BRANCO);
+        Peao peao2 = new Peao(new Posicao(2, 2), Cor.BRANCO);
         Bispo bispo = new Bispo(new Posicao(7, 6), Cor.BRANCO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 6), Cor.BRANCO);
 
         ArrayList<Peca> vetorMock = new ArrayList<Peca>();
         ArrayList<Peca> vetorMock2 = new ArrayList<Peca>();
         vetorMock.add(torre);
+        vetorMock.add(torre2);
         vetorMock.add(dama);
         vetorMock.add(cavalo);
         vetorMock.add(bispo);
@@ -172,7 +176,7 @@ public class ReiTest {
         ArrayList<Posicao> movimentosPossiveis = reiP.getMovimentosPossiveis(false);
 
         // Verificar se a lista de movimentos possíveis está correta
-        assertEquals(3, movimentosPossiveis.size());
+        assertEquals(2, movimentosPossiveis.size());
 
     }
 }

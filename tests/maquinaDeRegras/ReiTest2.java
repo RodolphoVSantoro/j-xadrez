@@ -48,11 +48,12 @@ public class ReiTest2 {
         Peao peao = new Peao(new Posicao(4, 6), Cor.PRETO);
         Bispo bispo = new Bispo(new Posicao(7, 1), Cor.PRETO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 1), Cor.PRETO);
-        Peao peao2 = new Peao(new Posicao(3, 5), Cor.PRETO);
+        Peao peao2 = new Peao(new Posicao(2, 5), Cor.PRETO);
         Torre torre1 = new Torre(new Posicao(0, 0), Cor.PRETO);
         Torre torre2 = new Torre(new Posicao(0, 7), Cor.BRANCO);
         Torre torre3 = new Torre(new Posicao(7, 0), Cor.PRETO);
         Torre torre4 = new Torre(new Posicao(7, 7), Cor.BRANCO);
+        Torre torre5 = new Torre(new Posicao(3, 6), Cor.PRETO);
 
         ArrayList<Peca> pecasBrancas = new ArrayList<Peca>();
         pecasBrancas.add(rei);
@@ -69,6 +70,7 @@ public class ReiTest2 {
         pecasPretas.add(torre);
         pecasPretas.add(torre1);
         pecasPretas.add(torre3);
+        pecasPretas.add(torre5);
 
         this.tabuleiro = new Tabuleiro(pecasBrancas, pecasPretas);
 
@@ -84,7 +86,7 @@ public class ReiTest2 {
         ArrayList<Posicao> movimentosPossiveis = rei.getMovimentosPossiveis(false);
 
         // Verificar se a lista de movimentos possíveis está correta
-        assertEquals(3, movimentosPossiveis.size());
+        assertEquals(2, movimentosPossiveis.size());
 
     }
 
@@ -94,7 +96,7 @@ public class ReiTest2 {
         Torre torre = new Torre(new Posicao(5, 7), Cor.BRANCO);
         Dama dama = new Dama(new Posicao(4, 7), Cor.BRANCO);
         Peao peao = new Peao(new Posicao(4, 1), Cor.BRANCO);
-        Peao peao2 = new Peao(new Posicao(3, 5), Cor.BRANCO);
+        Peao peao2 = new Peao(new Posicao(2, 2), Cor.BRANCO);
 
         Bispo bispo = new Bispo(new Posicao(7, 6), Cor.BRANCO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 6), Cor.BRANCO);
@@ -103,6 +105,7 @@ public class ReiTest2 {
         Torre torre2 = new Torre(new Posicao(0, 7), Cor.BRANCO);
         Torre torre3 = new Torre(new Posicao(7, 0), Cor.PRETO);
         Torre torre4 = new Torre(new Posicao(7, 7), Cor.BRANCO);
+        Torre torre5 = new Torre(new Posicao(3, 1), Cor.BRANCO);
 
         ArrayList<Peca> pecasBrancas = new ArrayList<Peca>();
         pecasBrancas.add(rei);
@@ -114,6 +117,7 @@ public class ReiTest2 {
         pecasBrancas.add(peao);
         pecasBrancas.add(peao2);
         pecasBrancas.add(torre);
+        pecasBrancas.add(torre5);
 
         ArrayList<Peca> pecasPretas = new ArrayList<Peca>();
         pecasPretas.add(reiP);
@@ -134,7 +138,7 @@ public class ReiTest2 {
         ArrayList<Posicao> movimentosPossiveis = reiP.getMovimentosPossiveis(false);
 
         // Verificar se a lista de movimentos possíveis está correta
-        assertEquals(3, movimentosPossiveis.size());
+        assertEquals(2, movimentosPossiveis.size());
 
     }
 
