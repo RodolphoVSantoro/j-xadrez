@@ -48,7 +48,7 @@ public class ReiTest2 {
         Peao peao = new Peao(new Posicao(4, 6), Cor.PRETO);
         Bispo bispo = new Bispo(new Posicao(7, 1), Cor.PRETO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 1), Cor.PRETO);
-
+        Peao peao2 = new Peao(new Posicao(3, 5), Cor.PRETO);
         Torre torre1 = new Torre(new Posicao(0, 0), Cor.PRETO);
         Torre torre2 = new Torre(new Posicao(0, 7), Cor.BRANCO);
         Torre torre3 = new Torre(new Posicao(7, 0), Cor.PRETO);
@@ -65,6 +65,7 @@ public class ReiTest2 {
         pecasPretas.add(bispo);
         pecasPretas.add(cavalo);
         pecasPretas.add(peao);
+        pecasPretas.add(peao2);
         pecasPretas.add(torre);
         pecasPretas.add(torre1);
         pecasPretas.add(torre3);
@@ -78,6 +79,7 @@ public class ReiTest2 {
         cavalo.setTabuleiro(tabuleiro);
         dama.setTabuleiro(tabuleiro);
         peao.setTabuleiro(tabuleiro);
+        peao2.setTabuleiro(tabuleiro);
 
         ArrayList<Posicao> movimentosPossiveis = rei.getMovimentosPossiveis(false);
 
@@ -92,6 +94,8 @@ public class ReiTest2 {
         Torre torre = new Torre(new Posicao(5, 7), Cor.BRANCO);
         Dama dama = new Dama(new Posicao(4, 7), Cor.BRANCO);
         Peao peao = new Peao(new Posicao(4, 1), Cor.BRANCO);
+        Peao peao2 = new Peao(new Posicao(3, 5), Cor.BRANCO);
+
         Bispo bispo = new Bispo(new Posicao(7, 6), Cor.BRANCO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 6), Cor.BRANCO);
 
@@ -108,6 +112,7 @@ public class ReiTest2 {
         pecasBrancas.add(bispo);
         pecasBrancas.add(cavalo);
         pecasBrancas.add(peao);
+        pecasBrancas.add(peao2);
         pecasBrancas.add(torre);
 
         ArrayList<Peca> pecasPretas = new ArrayList<Peca>();
@@ -124,6 +129,7 @@ public class ReiTest2 {
         cavalo.setTabuleiro(tabuleiro);
         dama.setTabuleiro(tabuleiro);
         peao.setTabuleiro(tabuleiro);
+        peao2.setTabuleiro(tabuleiro);
 
         ArrayList<Posicao> movimentosPossiveis = reiP.getMovimentosPossiveis(false);
 

@@ -84,6 +84,7 @@ public class ReiTest {
         Torre torre = new Torre(new Posicao(5, 0), Cor.PRETO);
         Dama dama = new Dama(new Posicao(4, 1), Cor.PRETO);
         Peao peao = new Peao(new Posicao(4, 6), Cor.PRETO);
+        Peao peao2 = new Peao(new Posicao(3, 5), Cor.PRETO);
         Bispo bispo = new Bispo(new Posicao(7, 1), Cor.PRETO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 1), Cor.PRETO);
 
@@ -95,6 +96,7 @@ public class ReiTest {
         vetorMock.add(bispo);
         vetorMock.add(peao);
         vetorMock.add(reiP);
+        vetorMock.add(peao2);
 
         when(tabuleiroMock.getPecas(Cor.PRETO)).thenReturn(vetorMock);
         when(tabuleiroMock.getPecas(Cor.BRANCO)).thenReturn(vetorMock2);
@@ -150,6 +152,7 @@ public class ReiTest {
         Torre torre = new Torre(new Posicao(5, 7), Cor.BRANCO);
         Dama dama = new Dama(new Posicao(4, 7), Cor.BRANCO);
         Peao peao = new Peao(new Posicao(4, 1), Cor.BRANCO);
+        Peao peao2 = new Peao(new Posicao(3, 5), Cor.BRANCO);
         Bispo bispo = new Bispo(new Posicao(7, 6), Cor.BRANCO);
         Cavalo cavalo = new Cavalo(new Posicao(1, 6), Cor.BRANCO);
 
@@ -161,6 +164,7 @@ public class ReiTest {
         vetorMock.add(bispo);
         vetorMock.add(peao);
         vetorMock.add(rei);
+        vetorMock.add(peao2);
 
         when(tabuleiroMock.getPecas(Cor.PRETO)).thenReturn(vetorMock2);
         when(tabuleiroMock.getPecas(Cor.BRANCO)).thenReturn(vetorMock);
