@@ -3,7 +3,11 @@ package menu;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -67,10 +71,27 @@ public class Promocao extends JDialog {
 
         jPanel1.setBackground(new Color(242, 207, 159));
 
-        jLabel1.setIcon(new ImageIcon("assets/images/promocao.png"));
+        InputStream stream = getClass().getResourceAsStream("/assets/images/promocao.png");
+        BufferedImage image;
+        try {
+            image = ImageIO.read(stream);
+            ImageIcon icon = new ImageIcon(image);
+            jLabel1.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         jButton4.setBackground(new Color(242, 207, 159));
-        jButton4.setIcon(new ImageIcon("assets/images/pecas/branco_center/dama.png"));
+        InputStream stream2 = getClass().getResourceAsStream("/assets/images/pecas/branco_center/dama.png");
+        BufferedImage image2;
+        try {
+            image2 = ImageIO.read(stream2);
+            ImageIcon icon = new ImageIcon(image2);
+            jButton4.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         jButton4.setBorder(null);
         jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -79,7 +100,15 @@ public class Promocao extends JDialog {
         });
 
         cavalo.setBackground(new Color(242, 207, 159));
-        cavalo.setIcon(new ImageIcon("assets/images/pecas/branco_center/cavalo.png"));
+        InputStream stream3 = getClass().getResourceAsStream("/assets/images/pecas/branco_center/cavalo.png");
+        BufferedImage image3;
+        try {
+            image3 = ImageIO.read(stream3);
+            ImageIcon icon = new ImageIcon(image3);
+            cavalo.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         cavalo.setBorder(null);
         cavalo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -88,7 +117,15 @@ public class Promocao extends JDialog {
         });
 
         torre.setBackground(new Color(242, 207, 159));
-        torre.setIcon(new ImageIcon("assets/images/pecas/branco_center/torre.png"));
+        InputStream stream4 = getClass().getResourceAsStream("/assets/images/pecas/branco_center/torre.png");
+        BufferedImage image4;
+        try {
+            image4 = ImageIO.read(stream4);
+            ImageIcon icon = new ImageIcon(image4);
+            torre.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         torre.setBorder(null);
         torre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -97,7 +134,15 @@ public class Promocao extends JDialog {
         });
 
         bispo.setBackground(new Color(242, 207, 159));
-        bispo.setIcon(new ImageIcon("assets/images/pecas/branco_center/bispo.png"));
+        InputStream stream5 = getClass().getResourceAsStream("/assets/images/pecas/branco_center/bispo.png");
+        BufferedImage image5;
+        try {
+            image5 = ImageIO.read(stream5);
+            ImageIcon icon = new ImageIcon(image5);
+            bispo.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         bispo.setBorder(null);
         bispo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {

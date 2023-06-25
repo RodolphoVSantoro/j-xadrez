@@ -3,8 +3,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -187,42 +191,42 @@ public class Tela extends JFrame {
 
 /* ----- SPRITES PEÇAS BRANCAS CAPTURADAS) ---------------------------------------------------------------------------------------- */
 
-        reiBranco.setIcon(new ImageIcon("assets/images/pecas/branco/rei.png"));
+        reiBranco.setIcon(createImageIcon("/assets/images/pecas/branco/rei.png"));
         fundoCapturadas.add(reiBranco);
         reiBranco.setBounds(54, 141, 70, 70);
         reiBranco.setVisible(visivel);
 
         spritesCapturados[0] = reiBranco;
 
-        damaBranca.setIcon(new ImageIcon("assets/images/pecas/branco/dama.png"));
+        damaBranca.setIcon(createImageIcon("/assets/images/pecas/branco/dama.png"));
         fundoCapturadas.add(damaBranca);
         damaBranca.setBounds(54, 241, 70, 70);
         damaBranca.setVisible(visivel);
 
         spritesCapturados[1] = damaBranca;
         
-        bispoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/bispo.png"));
+        bispoBranco.setIcon(createImageIcon("/assets/images/pecas/branco/bispo.png"));
         fundoCapturadas.add(bispoBranco);
         bispoBranco.setBounds(53, 350, 70, 70);
         bispoBranco.setVisible(visivel);
 
         spritesCapturados[2] = bispoBranco;
 
-        cavaloBranco.setIcon(new ImageIcon("assets/images/pecas/branco/cavalo.png"));
+        cavaloBranco.setIcon(createImageIcon("/assets/images/pecas/branco/cavalo.png"));
         fundoCapturadas.add(cavaloBranco);
         cavaloBranco.setBounds(55, 450, 70, 70);
         cavaloBranco.setVisible(visivel);
 
         spritesCapturados[3] = cavaloBranco;
 
-        torreBranca.setIcon(new ImageIcon("assets/images/pecas/branco/torre.png"));
+        torreBranca.setIcon(createImageIcon("/assets/images/pecas/branco/torre.png"));
         fundoCapturadas.add(torreBranca);
         torreBranca.setBounds(54, 548, 70, 70);
         torreBranca.setVisible(visivel);
 
         spritesCapturados[4] = torreBranca;
 
-        peaoBranco.setIcon(new ImageIcon("assets/images/pecas/branco/peao.png"));
+        peaoBranco.setIcon(createImageIcon("/assets/images/pecas/branco/peao.png"));
         fundoCapturadas.add(peaoBranco);
         peaoBranco.setBounds(55, 635, 70, 70);
         peaoBranco.setVisible(visivel);
@@ -231,42 +235,42 @@ public class Tela extends JFrame {
 
 /* ----- SPRITES PEÇAS PRETAS CAPTURADAS) ----------------------------------------------------------------------------------------- */
 
-        reiPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/rei.png"));
+        reiPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/rei.png"));
         fundoCapturadas.add(reiPreto);
         reiPreto.setBounds(166, 142, 70, 70);
         reiPreto.setVisible(visivel);
 
         spritesCapturados[6] = reiPreto;
 
-        damaPreta.setIcon(new ImageIcon("assets/images/pecas/Preto/dama.png"));
+        damaPreta.setIcon(createImageIcon("/assets/images/pecas/Preto/dama.png"));
         fundoCapturadas.add(damaPreta);
         damaPreta.setBounds(166, 242, 70, 70);
         damaPreta.setVisible(visivel);
         
         spritesCapturados[7] = damaPreta;
 
-        bispoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/bispo.png"));
+        bispoPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/bispo.png"));
         fundoCapturadas.add(bispoPreto);
         bispoPreto.setBounds(166, 350, 70, 70);
         bispoPreto.setVisible(visivel);
 
         spritesCapturados[8] = bispoPreto;
 
-        cavaloPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/cavalo.png"));
+        cavaloPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/cavalo.png"));
         fundoCapturadas.add(cavaloPreto);
         cavaloPreto.setBounds(165, 450, 70, 70);
         cavaloPreto.setVisible(visivel);
 
         spritesCapturados[9] = cavaloPreto;
 
-        torrePreta.setIcon(new ImageIcon("assets/images/pecas/Preto/torre.png"));
+        torrePreta.setIcon(createImageIcon("/assets/images/pecas/Preto/torre.png"));
         fundoCapturadas.add(torrePreta);
         torrePreta.setBounds(166, 548, 70, 70);
         torrePreta.setVisible(visivel);
 
         spritesCapturados[10] = torrePreta;
 
-        peaoPreto.setIcon(new ImageIcon("assets/images/pecas/Preto/peao.png"));
+        peaoPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/peao.png"));
         fundoCapturadas.add(peaoPreto);
         peaoPreto.setBounds(165, 635, 70, 70);
         peaoPreto.setVisible(visivel);
@@ -275,7 +279,7 @@ public class Tela extends JFrame {
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
-        capturadas.setIcon(new ImageIcon("assets/images/capturadas.png"));
+        capturadas.setIcon(createImageIcon("/assets/images/capturadas.png"));
         fundoCapturadas.add(capturadas);
         capturadas.setBounds(0, 0, 298, 800);
         capturadas.setPreferredSize(new Dimension(297, 800));
@@ -343,7 +347,7 @@ public class Tela extends JFrame {
         getContentPane().add(pretasScrollPane);
         pretasScrollPane.setBounds(1180, 143, 75, 577);
 
-        fundoHistorico.setIcon(new ImageIcon("assets/images/historico2.png"));
+        fundoHistorico.setIcon(createImageIcon("/assets/images/historico2.png"));
         getContentPane().add(fundoHistorico);
         fundoHistorico.setBounds(1065, 0, 220, 800);
         
@@ -409,7 +413,17 @@ public class Tela extends JFrame {
         panel.repaint();
         vez.revalidate();
         vez.repaint();
-    }    
+    }
+    
+    private ImageIcon createImageIcon(String path) {
+    try {
+        InputStream stream = getClass().getResourceAsStream(path);
+        BufferedImage image = ImageIO.read(stream);
+        return new ImageIcon(image);
+    } catch (IOException e) {
+        throw new RuntimeException("Erro ao ler imagem: " + path, e);
+    }
+    }
 
     
     // Main Method

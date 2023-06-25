@@ -5,7 +5,11 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -54,8 +58,15 @@ public class EndGameScreen extends JFrame {
 
         Fundo.setBackground(new Color(44, 44, 44));
 
-        /* Imagem por macrovector disponível em freepik.com */
-        Imagem.setIcon(new ImageIcon("assets/images/endgame_background.png"));
+        InputStream stream = getClass().getResourceAsStream("/assets/images/endgame_background.png");
+        BufferedImage image;
+        try {
+            image = ImageIO.read(stream);
+            ImageIcon icon = new ImageIcon(image);
+            Imagem.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         labelResultado.setFont(new Font("Segoe UI", 1, 32));
         labelResultado.setForeground(new Color(255, 255, 255));
@@ -151,7 +162,16 @@ public class EndGameScreen extends JFrame {
                                 .addContainerGap(22, Short.MAX_VALUE)));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new javax.swing.ImageIcon("assets/images/endgame_background.png"));
+
+        InputStream stream2 = getClass().getResourceAsStream("/assets/images/endgame_background.png");
+        BufferedImage image2;
+        try {
+            image2 = ImageIO.read(stream2);
+            ImageIcon icon2 = new ImageIcon(image2);
+            Imagem.setIcon(icon2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

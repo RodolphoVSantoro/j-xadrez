@@ -2,6 +2,7 @@ package utils;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +23,8 @@ public abstract class LeitorImagem {
             return new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
         try {
-            return ImageIO.read(new java.io.File(path));
+            InputStream stream = LeitorImagem.class.getResourceAsStream("/"+path);
+            return ImageIO.read(stream);
         } catch (java.io.IOException e) {
             System.err.println("Erro ao ler imagem: " + path);
             throw new RuntimeException(e);

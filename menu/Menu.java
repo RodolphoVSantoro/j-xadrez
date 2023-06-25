@@ -8,7 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -71,7 +75,15 @@ public class Menu extends JFrame {
         Fundo.setBackground(new Color(51, 51, 51));
 
         /* Imagem por macrovector disponível em freepik.com*/
-        Imagem.setIcon(new ImageIcon("assets/images/background.jpg"));
+        InputStream stream = getClass().getResourceAsStream("/assets/images/background.jpg");
+        BufferedImage image;
+        try {
+            image = ImageIO.read(stream);
+            ImageIcon icon = new ImageIcon(image);
+            Imagem.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Imagem.setText("jLabel2");
 
         labelNome.setFont(new Font("Segoe UI", 1, 32));

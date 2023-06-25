@@ -5,7 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -45,7 +49,15 @@ public class Dificuldade extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        telaDificuldade.setIcon(new ImageIcon("assets/images/Dificuldade.png"));
+        InputStream stream = getClass().getResourceAsStream("/assets/images/Dificuldade.png");
+        BufferedImage image;
+        try {
+            image = ImageIO.read(stream);
+            ImageIcon icon = new ImageIcon(image);
+            telaDificuldade.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         fundo.setPreferredSize(new DimensionUIResource(400, 400));
 
