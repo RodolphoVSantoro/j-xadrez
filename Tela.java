@@ -235,42 +235,42 @@ public class Tela extends JFrame {
 
 /* ----- SPRITES PEÇAS PRETAS CAPTURADAS) ----------------------------------------------------------------------------------------- */
 
-        reiPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/rei.png"));
+        reiPreto.setIcon(createImageIcon("/assets/images/pecas/preto/rei.png"));
         fundoCapturadas.add(reiPreto);
         reiPreto.setBounds(166, 142, 70, 70);
         reiPreto.setVisible(visivel);
 
         spritesCapturados[6] = reiPreto;
 
-        damaPreta.setIcon(createImageIcon("/assets/images/pecas/Preto/dama.png"));
+        damaPreta.setIcon(createImageIcon("/assets/images/pecas/preto/dama.png"));
         fundoCapturadas.add(damaPreta);
         damaPreta.setBounds(166, 242, 70, 70);
         damaPreta.setVisible(visivel);
         
         spritesCapturados[7] = damaPreta;
 
-        bispoPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/bispo.png"));
+        bispoPreto.setIcon(createImageIcon("/assets/images/pecas/preto/bispo.png"));
         fundoCapturadas.add(bispoPreto);
         bispoPreto.setBounds(166, 350, 70, 70);
         bispoPreto.setVisible(visivel);
 
         spritesCapturados[8] = bispoPreto;
 
-        cavaloPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/cavalo.png"));
+        cavaloPreto.setIcon(createImageIcon("/assets/images/pecas/preto/cavalo.png"));
         fundoCapturadas.add(cavaloPreto);
         cavaloPreto.setBounds(165, 450, 70, 70);
         cavaloPreto.setVisible(visivel);
 
         spritesCapturados[9] = cavaloPreto;
 
-        torrePreta.setIcon(createImageIcon("/assets/images/pecas/Preto/torre.png"));
+        torrePreta.setIcon(createImageIcon("/assets/images/pecas/preto/torre.png"));
         fundoCapturadas.add(torrePreta);
         torrePreta.setBounds(166, 548, 70, 70);
         torrePreta.setVisible(visivel);
 
         spritesCapturados[10] = torrePreta;
 
-        peaoPreto.setIcon(createImageIcon("/assets/images/pecas/Preto/peao.png"));
+        peaoPreto.setIcon(createImageIcon("/assets/images/pecas/preto/peao.png"));
         fundoCapturadas.add(peaoPreto);
         peaoPreto.setBounds(165, 635, 70, 70);
         peaoPreto.setVisible(visivel);
